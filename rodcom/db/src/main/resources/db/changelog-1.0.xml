@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<databaseChangeLog   xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+  <changeSet id="drop db structure" author="ace">
+    <sql>
+       drop table if exists RC_SCHOOL;
+       drop table if exists RC_GROUP;
+       drop table if exists RC_MEMBER;
+       drop table if exists RC_ROLE;
+       drop table if exists RC_GROUP_MEMBER;
+       drop table if exists RC_MESSAGE;
+
+       drop sequence if exists RC_SCHOOL_SEQ;
+       drop sequence if exists RC_GROUP_SEQ;
+       drop sequence if exists RC_MEMBER_SEQ;
+       drop sequence if exists RC_ROLE_SEQ;
+       drop sequence if exists RC_GROUP_MEMBER_SEQ;
+       drop sequence if exists RC_MESSAGE_SEQ;
+    </sql>
+  </changeSet> 
+  <changeSet id="create db structure" author="ace">
+    <sql>
+      create table RC_SCHOOL
+      (
+        SCHOOL_ID     int primary key,
+        SCHOOL_NAME   varchar(255)
+      );
+      create sequence RC_SCHOOL_SEQ;
+
+      create table RC_GROUP
+      (
+        GROUP_ID    int primary key,
+        SCHOOL_ID   int not null,
+        GROUP_TYPE  varchar(50),
+        GROUP_NAME  varchar(100),
+        GROUP_DESC  varchar(8000),
+        IS_ENABLED  boolean
+      );
+      create sequence RC_GROUP_SEQ;
+
+      create table RC_MEMBER
+      (
+        MEMBER_ID   int primary key,
+        ANNOTATION  varchar(400),
+        ACTUAL_DATE date,
+        FIRST_NAME  varchar(100),
+        MIDDLE_NAME varchar(100),
+        LAST_NAME   varchar(100),
+        PHONE       varchar(50),
+        PHONE2      varchar(50),
+        ADDRESS     varchar(255),
+        EMAIL       varchar(100),
+        SKYPE       varchar(50),
+        VK          varchar(50),
+        OK          varchar(50),
+        TWIT        varchar(100)
+      );
+      create sequence RC_MEMBER_SEQ;
+
+      create table RC_ROLE
+      (
+        ROLE_ID     int primary key,
+        ROLE_NAME   varchar(100)
+      );
+      create sequence RC_ROLE_SEQ;
+
+      create table RC_GROUP_MEMBER
+      (
+        GROUP_ID    int,
+        MEMBER_ID   int,
+        ROLE_ID     int,
+        IS_ENABLED  boolean,
+        IS_NOTIFY   boolean
+      );
+      create sequence RC_GROUP_MEMBER_SEQ;
+
+      create table RC_MESSAGE
+      (
+        MESSAGE_ID      int primary key,
+        FROM_MEMBER_ID  int,
+        TO_MEMBER_ID    int,
+        TO_GROUP_ID     int,
+        MESSAGE_TYPE    varchar(100),
+        MESSAGE         varchar(8000),
+        MESSAGE_TIME    timestamp default current_timestamp,
+        MESSAGE_STATUS  varchar(20)
+      );
+      create sequence RC_MESSAGE_SEQ;
+    </sql>
+  </changeSet> 
+</databaseChangeLog>
