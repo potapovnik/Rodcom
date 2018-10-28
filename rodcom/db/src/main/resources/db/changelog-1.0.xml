@@ -96,8 +96,8 @@
     <sql>
       drop table if exists RC_EVENT;
       drop table if exists RC_EVENT_MEMBER;
-      drop sequence if exists RC_EVENT;
-      drop sequence if exists RC_EVENT_MEMBER;
+      drop sequence if exists RC_EVENT_SEQ;;
+      drop sequence if exists RC_EVENT_MEMBER_SEQ;;
     </sql>
   </changeSet>
   <changeSet id="create db structure additions" author="nikita">
