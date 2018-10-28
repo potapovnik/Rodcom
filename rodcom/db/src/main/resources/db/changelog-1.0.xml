@@ -90,5 +90,40 @@
       );
       create sequence RC_MESSAGE_SEQ;
     </sql>
-  </changeSet> 
+  </changeSet>
+  <changeSet id="drop additions" author="nikita">
+    <sql>
+      drop table if exists RC_EVENT;
+      drop table if exists RC_EVENT_MEMBER;
+      drop sequence if exists RC_EVENT;
+      drop sequence if exists RC_EVENT_MEMBER;
+    </sql>
+  </changeSet>
+  <changeSet id="create db structure additions" author="nikita">
+  <sql>
+    CREATE TABLE RC_EVENT
+    (
+    event_id int PRIMARY KEY,
+    group_id int,
+    school_id int,
+    event_type varchar(100),
+    event_name varchar(100),
+    event_desc varchar(8000),
+    event_time timestamp,
+    event_status varchar(20)
+    );
+    create sequence RC_EVENT_SEQ;
+
+    CREATE TABLE RC_EVENT_MEMBER
+    (
+    event_id int,
+    member_id int,
+    role_id int,
+    is_enabled boolean,
+    is_notify boolean,
+    choice varchar(100)
+    );
+    create sequence RC_EVENT_MEMBER_SEQ;
+  </sql>
+  </changeSet>
 </databaseChangeLog>
