@@ -10,6 +10,8 @@ import ru.relex.itschool.core.model.Rc_group_member;
 import ru.relex.itschool.core.model.Rc_member;
 import ru.relex.itschool.core.model.Rc_school;
 import ru.relex.itschool.core.model.Rc_message;
+import ru.relex.itschool.core.model.Rc_group;
+import ru.relex.itschool.core.model.Rc_role;
 
 
 /**
@@ -50,6 +52,20 @@ public class App
 
         Rc_group_member group_member = new Rc_group_member(new Long(1), new Long(1), new Long(1), true, true);
         em.persist(group_member);
+
+        Rc_group group = new Rc_group();
+        group.setGroupId(2);
+        group.setSchoolId(1);
+        group.setGroupType("group type");
+        group.setGroupName("group name");
+        group.setGroupDesc("group description");
+        group.setEnabled(true);
+        em.persist(group);
+
+        Rc_role role = new Rc_role();
+        role.setRoleId(1);
+        role.setRoleName("role");
+        em.persist(role);
 
         // Perform finds, execute queries,
         // update entities, etc.
