@@ -4,6 +4,9 @@
 	version="2.0">
 	<persistence-unit name="RODCOM" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>ru.relex.itschool.core.model.Rc_group</class>
+		<class>ru.relex.itschool.core.model.RcSchoolEntity</class>
+		<class>ru.relex.itschool.core.model.Rc_role</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
@@ -12,7 +15,9 @@
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres" />
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
-			
+			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/postgres"/>
+			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+
 		</properties>
 
 	</persistence-unit>
