@@ -69,11 +69,12 @@
 
       create table RC_GROUP_MEMBER
       (
-        GROUP_ID    int,
-        MEMBER_ID   int,
-        ROLE_ID     int,
-        IS_ENABLED  boolean,
-        IS_NOTIFY   boolean
+        GROUP_MEMBER_ID int primary key,
+        GROUP_ID        int,
+        MEMBER_ID       int,
+        ROLE_ID         int,
+        IS_ENABLED      boolean,
+        IS_NOTIFY       boolean
       );
       create sequence RC_GROUP_MEMBER_SEQ;
 
