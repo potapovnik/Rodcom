@@ -14,7 +14,6 @@
 	<artifactId>core</artifactId>
 	<name>core</name>
 	<url>http://maven.apache.org</url>
-	<packaging>pom</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

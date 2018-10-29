@@ -4,7 +4,7 @@
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
-  <changeSet id="drop db structure" author="ace">
+    <changeSet id="drop db structure" author="ace">
     <sql>
        drop table if exists RC_SCHOOL;
        drop table if exists RC_GROUP;
@@ -21,7 +21,7 @@
        drop sequence if exists RC_MESSAGE_SEQ;
     </sql>
   </changeSet> 
-  <changeSet id="create db structure" author="ace">
+    <changeSet id="create db structure" author="ace">
     <sql>
       create table RC_SCHOOL
       (
@@ -92,7 +92,7 @@
       create sequence RC_MESSAGE_SEQ;
     </sql>
   </changeSet>
-  <changeSet id="drop additions" author="nikita">
+    <changeSet id="drop additions" author="nikita">
     <sql>
       drop table if exists RC_EVENT;
       drop table if exists RC_EVENT_MEMBER;
@@ -100,7 +100,7 @@
       drop sequence if exists RC_EVENT_MEMBER_SEQ;
     </sql>
   </changeSet>
-  <changeSet id="create db structure additions" author="nikita">
+    <changeSet id="create db structure additions" author="nikita">
   <sql>
     CREATE TABLE RC_EVENT
     (
@@ -127,4 +127,72 @@
     create sequence RC_EVENT_MEMBER_SEQ;
   </sql>
   </changeSet>
+    <changeSet id="add constraints" author="Trokhin">
+        <sql>
+            ALTER TABLE RC_GROUP
+            ADD CONSTRAINT fk_group_school
+            FOREIGN KEY(SCHOOL_ID) REFERENCES RC_SCHOOL;
+
+            ALTER TABLE RC_GROUP_MEMBER
+            ADD CONSTRAINT fk_group_member_group
+            FOREIGN KEY(GROUP_ID) REFERENCES RC_GROUP;
+
+            ALTER TABLE RC_GROUP_MEMBER
+            ADD CONSTRAINT fk_group_member_member
+            FOREIGN KEY(MEMBER_ID) REFERENCES RC_MEMBER;
+
+            ALTER TABLE RC_GROUP_MEMBER
+            ADD CONSTRAINT fk_group_member_role
+            FOREIGN KEY(ROLE_ID) REFERENCES RC_ROLE;
+
+            ALTER TABLE RC_EVENT
+            ADD CONSTRAINT fk_event_group
+            FOREIGN KEY(GROUP_ID) REFERENCES RC_GROUP;
+
+            ALTER TABLE RC_EVENT
+            ADD CONSTRAINT fk_event_school
+            FOREIGN KEY(SCHOOL_ID) REFERENCES RC_SCHOOL;
+
+            ALTER TABLE RC_EVENT_MEMBER
+            ADD CONSTRAINT fk_event_member_event
+            FOREIGN KEY(EVENT_ID) REFERENCES RC_EVENT;
+
+            ALTER TABLE RC_EVENT_MEMBER
+            ADD CONSTRAINT fk_event_member_member
+            FOREIGN KEY(MEMBER_ID) REFERENCES RC_MEMBER;
+
+            ALTER TABLE RC_EVENT_MEMBER
+            ADD CONSTRAINT fk_event_member_role
+            FOREIGN KEY(ROLE_ID) REFERENCES RC_ROLE;
+        </sql>
+        <rollback>
+            ALTER TABLE RC_GROUP
+            DROP CONSTRAINT fk_group_school;
+
+            ALTER TABLE RC_GROUP_MEMBER
+            DROP CONSTRAINT fk_group_member_group;
+
+            ALTER TABLE RC_GROUP_MEMBER
+            DROP CONSTRAINT fk_group_member_member;
+
+            ALTER TABLE RC_GROUP_MEMBER
+            DROP CONSTRAINT fk_group_member_role;
+
+            ALTER TABLE RC_EVENT
+            DROP CONSTRAINT fk_event_group;
+
+            ALTER TABLE RC_EVENT
+            DROP CONSTRAINT fk_event_school;
+
+            ALTER TABLE RC_EVENT_MEMBER
+            DROP CONSTRAINT fk_event_member_event;
+
+            ALTER TABLE RC_EVENT_MEMBER
+            DROP CONSTRAINT fk_event_member_member;
+
+            ALTER TABLE RC_EVENT_MEMBER
+            DROP CONSTRAINT fk_event_member_role;
+        </rollback>
+    </changeSet>
+
 </databaseChangeLog>
