@@ -6,22 +6,12 @@
 
     <changeSet id="drop db structure" author="ace">
     <sql>
-       ALTER TABLE RC_GROUP        DROP CONSTRAINT IF EXISTS fk_group_school;
-       ALTER TABLE RC_GROUP_MEMBER DROP CONSTRAINT IF EXISTS fk_group_member_group;
-       ALTER TABLE RC_GROUP_MEMBER DROP CONSTRAINT IF EXISTS fk_group_member_member;
-       ALTER TABLE RC_GROUP_MEMBER DROP CONSTRAINT IF EXISTS fk_group_member_role;
-       ALTER TABLE RC_EVENT        DROP CONSTRAINT IF EXISTS fk_event_group;
-       ALTER TABLE RC_EVENT        DROP CONSTRAINT IF EXISTS fk_event_school;
-       ALTER TABLE RC_EVENT_MEMBER DROP CONSTRAINT IF EXISTS fk_event_member_event;
-       ALTER TABLE RC_EVENT_MEMBER DROP CONSTRAINT IF EXISTS fk_event_member_member;
-       ALTER TABLE RC_EVENT_MEMBER DROP CONSTRAINT IF EXISTS fk_event_member_role;
-
-       drop table if exists RC_SCHOOL;
+       drop table if exists RC_MESSAGE;
+       drop table if exists RC_GROUP_MEMBER;
        drop table if exists RC_GROUP;
        drop table if exists RC_MEMBER;
        drop table if exists RC_ROLE;
-       drop table if exists RC_GROUP_MEMBER;
-       drop table if exists RC_MESSAGE;
+       drop table if exists RC_SCHOOL;
 
        drop sequence if exists RC_SCHOOL_SEQ;
        drop sequence if exists RC_GROUP_SEQ;
