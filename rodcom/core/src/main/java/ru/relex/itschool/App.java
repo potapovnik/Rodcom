@@ -47,14 +47,14 @@ public class App
         		                         "г. Воронеж, ул. Бахметьева, д. 2б", "ivanov@relex.ru", "ivanovii", "vk_ivanov", "ok_ivanov", "twit_ivanov");
         em.persist(member);
 
-        Rc_message message = new Rc_message(new Long(1), new Long(1), new Long(1), "test message", "text for test message", new Date(), "urgent");
-        em.persist(message);
-
-        Rc_group_member group_member = new Rc_group_member(new Long(1), new Long(1), new Long(1), true, true);
-        em.persist(group_member);
+        Rc_role role = new Rc_role();
+        role.setRoleName("role");
+        em.persist(role);
+        
+        em.getTransaction().commit();
+        em.getTransaction().begin();
 
         Rc_group group = new Rc_group();
-        group.setGroupId(2);
         group.setSchoolId(1);
         group.setGroupType("group type");
         group.setGroupName("group name");
@@ -62,10 +62,11 @@ public class App
         group.setEnabled(true);
         em.persist(group);
 
-        Rc_role role = new Rc_role();
-        role.setRoleId(1);
-        role.setRoleName("role");
-        em.persist(role);
+        Rc_message message = new Rc_message(1, 1, 1, "test message", "text for test message", new Date(), "urgent");
+        em.persist(message);
+
+        Rc_group_member group_member = new Rc_group_member(1, 1, 1, true, true);
+        em.persist(group_member);
 
         // Perform finds, execute queries,
         // update entities, etc.

@@ -12,10 +12,10 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Rc_message {
 
-    private Long   message_id;
-    private Long   from_member_id;
-    private Long   to_member_id;
-    private Long   to_group_id;
+    private int   message_id;
+    private int   from_member_id;
+    private int   to_member_id;
+    private int   to_group_id;
     private String message_type;
     private String message;
     private Date   message_time;
@@ -24,7 +24,7 @@ public class Rc_message {
     public Rc_message() {
     }
 
-    public Rc_message(Long from_member_id, Long to_member_id, Long to_group_id, String message_type,
+    public Rc_message(int from_member_id, int to_member_id, int to_group_id, String message_type,
                      String message, Date message_time, String message_status) {
         super();
         this.from_member_id = from_member_id;
@@ -39,35 +39,35 @@ public class Rc_message {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_message_seq_gen")
     @SequenceGenerator(name="rc_message_seq_gen", sequenceName="RC_MESSAGE_SEQ", allocationSize = 1)
-    public Long getMessage_id() {
+    public int getMessage_id() {
         return message_id;
     }
 
-    public void setMessage_id(Long id) {
+    public void setMessage_id(int id) {
         this.message_id = id;
     }
 
-    public Long getFrom_member_id() {
+    public int getFrom_member_id() {
         return from_member_id;
     }
 
-    public void setFrom_member_id(Long id) {
+    public void setFrom_member_id(int id) {
         this.from_member_id = id;
     }
 
-    public Long getTo_member_id() {
+    public int getTo_member_id() {
         return to_member_id;
     }
 
-    public void setTo_member_id(Long id) {
+    public void setTo_member_id(int id) {
         this.to_member_id = id;
     }
 
-    public Long getTo_group_id() {
+    public int getTo_group_id() {
         return to_group_id;
     }
 
-    public void setTo_group_id(Long id) {
+    public void setTo_group_id(int id) {
         this.to_group_id = id;
     }
 

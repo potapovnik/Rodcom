@@ -13,7 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Rc_member {
 	
-	private Long   member_id;
+	private int    member_id;
 	private String annotation;
 	private Date   actual_date;
 	private String first_name;
@@ -55,11 +55,11 @@ public class Rc_member {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_member_seq_gen")
 	@SequenceGenerator(name="rc_member_seq_gen", sequenceName="RC_MEMBER_SEQ", allocationSize = 1)
-	public Long getMember_Id() {
+	public int getMember_id() {
 		return member_id;
 	}
 	
-	public void setMember_Id(Long id) {
+	public void setMember_id(int id) {
 		this.member_id = id;
 	}
 	

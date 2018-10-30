@@ -5,10 +5,12 @@ import javax.persistence.*;
 @Entity
 @Table(name = "rc_role", schema = "public", catalog = "postgres")
 public class Rc_role {
-    private int roleId;
+    private int    roleId;
     private String roleName;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_role_seq_gen")
+    @SequenceGenerator(name="rc_role_seq_gen", sequenceName="RC_ROLE_SEQ", allocationSize = 1)
     @Column(name = "role_id")
     public int getRoleId() {
         return roleId;

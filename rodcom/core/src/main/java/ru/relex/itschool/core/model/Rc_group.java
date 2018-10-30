@@ -5,14 +5,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "rc_group", schema = "public", catalog = "postgres")
 public class Rc_group {
-    private int groupId;
-    private int schoolId;
+    private int    groupId;
+    private int    schoolId;
     private String groupType;
     private String groupName;
     private String groupDesc;
     private Boolean isEnabled;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_group_seq_gen")
+    @SequenceGenerator(name="rc_group_seq_gen", sequenceName="RC_GROUP_SEQ", allocationSize = 1)
     @Column(name = "group_id")
     public int getGroupId() {
         return groupId;

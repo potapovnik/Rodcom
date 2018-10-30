@@ -7,7 +7,7 @@ import java.util.Date;
 @Entity
 public class Rc_event {
 
-    private long event_id;
+    private int event_id;
     private int group_id;
     private int school_id;
     private String event_type;
@@ -18,7 +18,7 @@ public class Rc_event {
 
     public Rc_event(){}
 
-    public Rc_event(long event_id,int group_id,int school_id,
+    public Rc_event(int event_id,int group_id,int school_id,
                     String event_type,String event_name,
                     String event_desc,Date event_time,
                     String event_status){
@@ -36,8 +36,8 @@ public class Rc_event {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="rc_event_seq_gen")
     @SequenceGenerator(name="rc_event_seq_gen", sequenceName="RC_event_SEQ", allocationSize = 1)
-    public long getEvent_id(){return event_id;}
-    public void setEvent_id(Long id){this.event_id=id;}
+    public int getEvent_id(){return event_id;}
+    public void setEvent_id(int id){this.event_id=id;}
 
     public int getGroup_id(){return group_id;}
     public void setGroup_id(int group_id){this.group_id=group_id;}
