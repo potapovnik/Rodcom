@@ -2,6 +2,9 @@ package ru.relex.itschool.core.model;
 
 import javax.persistence.*;
 
+import java.util.Set;
+import java.util.HashSet;
+
 @Entity
 @Table(name = "rc_group", schema = "public", catalog = "postgres")
 public class Rc_group {
@@ -10,6 +13,8 @@ public class Rc_group {
     private String groupName;
     private String groupDesc;
     private Boolean isEnabled;
+    private Rc_school school;
+    private Set<Rc_message> messages = new HashSet<Rc_message>();
 
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_group_seq_gen")
@@ -63,8 +68,6 @@ public class Rc_group {
         isEnabled = enabled;
     }
 
-    private Rc_school school;
- 
     @ManyToOne
     @JoinColumn(name = "school_id")
     public Rc_school getSchool() {
@@ -73,6 +76,24 @@ public class Rc_group {
  
     public void setSchool(Rc_school school) {
         this.school = school;
+    }
+
+    @OneToMany(mappedBy = "to_group")
+    public Set<Rc_message> getMessages() {
+        return this.messages;
+    }
+
+    public void setMessages(Set<Rc_message> m) {
+        this.messages = m;
+    }
+
+    public void addMessage(Rc_message m) {
+       m.setTo_group(this);
+       getMessages().add(m);
+    }
+
+    public void removeMessage(Rc_message m) {
+       getMessages().remove(m);
     }
 
     @Override

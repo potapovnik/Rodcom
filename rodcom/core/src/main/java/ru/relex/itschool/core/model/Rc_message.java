@@ -1,35 +1,28 @@
 package ru.relex.itschool.core.model;
 
 import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Rc_message {
 
     private int   message_id;
-    private int   from_member_id;
-    private int   to_member_id;
-    private int   to_group_id;
     private String message_type;
     private String message;
     private Date   message_time;
     private String message_status;
+    private Rc_member from_member;
+    private Rc_member to_member;
+    private Rc_group to_group;
+    
 
     public Rc_message() {
     }
 
-    public Rc_message(int from_member_id, int to_member_id, int to_group_id, String message_type,
+    public Rc_message(String message_type,
                      String message, Date message_time, String message_status) {
         super();
-        this.from_member_id = from_member_id;
-        this.to_member_id = to_member_id;
-        this.to_group_id = to_group_id;
         this.message_type = message_type;
         this.message = message;
         this.message_time = message_time;
@@ -45,30 +38,6 @@ public class Rc_message {
 
     public void setMessage_id(int id) {
         this.message_id = id;
-    }
-
-    public int getFrom_member_id() {
-        return from_member_id;
-    }
-
-    public void setFrom_member_id(int id) {
-        this.from_member_id = id;
-    }
-
-    public int getTo_member_id() {
-        return to_member_id;
-    }
-
-    public void setTo_member_id(int id) {
-        this.to_member_id = id;
-    }
-
-    public int getTo_group_id() {
-        return to_group_id;
-    }
-
-    public void setTo_group_id(int id) {
-        this.to_group_id = id;
     }
 
     public void setMessage_type(String s) {
@@ -103,4 +72,33 @@ public class Rc_message {
         this.message_status = s;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "to_group_id")
+    public Rc_group getTo_group() {
+        return this.to_group;
+    }
+ 
+    public void setTo_group(Rc_group g) {
+        this.to_group = g;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "to_member_id")
+    public Rc_member getTo_member() {
+        return this.to_member;
+    }
+ 
+    public void setTo_member(Rc_member m) {
+        this.to_member = m;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "from_member_id")
+    public Rc_member getFrom_member() {
+        return this.from_member;
+    }
+ 
+    public void setFrom_member(Rc_member m) {
+        this.from_member = m;
+    }
 }

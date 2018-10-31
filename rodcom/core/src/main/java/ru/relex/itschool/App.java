@@ -59,8 +59,10 @@ public class App
         group.setEnabled(true);
         em.persist(group);
 
-        Rc_message message = new Rc_message(member.getMember_id(), member.getMember_id(), group.getGroupId(), 
-        		                            "test message", "text for test message", new Date(), "urgent");
+        Rc_message message = new Rc_message("test message", "text for test message", new Date(), "urgent");
+        message.setTo_member(member);
+        message.setFrom_member(member);
+        message.setTo_group(group);
         em.persist(message);
 
         Rc_group_member group_member = new Rc_group_member(group.getGroupId(), member.getMember_id(), role.getRoleId(), true, true);

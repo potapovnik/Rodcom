@@ -15,6 +15,7 @@ public class Rc_school {
 	
 	private int    school_id;
 	private String school_name;
+	private Set<Rc_group> groups = new HashSet<Rc_group>();
 
 	public Rc_school() {
 	}
@@ -44,8 +45,6 @@ public class Rc_school {
 	public void setSchool_name(String s) {
 		this.school_name = s;
 	}
-
-	private Set<Rc_group> groups = new HashSet<Rc_group>();
 
         @OneToMany(mappedBy = "school")
         public Set<Rc_group> getGroups() {

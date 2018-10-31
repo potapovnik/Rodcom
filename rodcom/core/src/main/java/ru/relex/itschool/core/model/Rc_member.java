@@ -1,14 +1,12 @@
 package ru.relex.itschool.core.model;
 
 import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.Set;
+import java.util.HashSet;
 
 @Entity
 public class Rc_member {
@@ -27,6 +25,8 @@ public class Rc_member {
 	private String vk;
 	private String ok;
 	private String twit;
+        private Set<Rc_message> to_messages = new HashSet<Rc_message>();
+        private Set<Rc_message> from_messages = new HashSet<Rc_message>();
 
 	public Rc_member() {
 	}
@@ -165,6 +165,42 @@ public class Rc_member {
 	public String getTwit() {
 		return twit;
 	}
+
+        @OneToMany(mappedBy = "to_member")
+        public Set<Rc_message> getTo_messages() {
+            return this.to_messages;
+        }
+
+        public void setTo_messages(Set<Rc_message> m) {
+            this.to_messages = m;
+        }
+
+        public void addTo_message(Rc_message m) {
+           m.setTo_member(this);
+           getTo_messages().add(m);
+        }
+
+        public void removeTo_message(Rc_message m) {
+           getTo_messages().remove(m);
+        }
+
+        @OneToMany(mappedBy = "from_member")
+        public Set<Rc_message> getFrom_messages() {
+            return this.from_messages;
+        }
+
+        public void setFrom_messages(Set<Rc_message> m) {
+            this.from_messages = m;
+        }
+
+        public void addFrom_message(Rc_message m) {
+           m.setFrom_member(this);
+           getFrom_messages().add(m);
+        }
+
+        public void removeFrom_message(Rc_message m) {
+           getFrom_messages().remove(m);
+        }
 
         @Override
         public boolean equals(Object o) {
