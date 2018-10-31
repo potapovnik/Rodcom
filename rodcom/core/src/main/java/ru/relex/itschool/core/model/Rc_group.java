@@ -6,7 +6,6 @@ import javax.persistence.*;
 @Table(name = "rc_group", schema = "public", catalog = "postgres")
 public class Rc_group {
     private int    groupId;
-    private int    schoolId;
     private String groupType;
     private String groupName;
     private String groupDesc;
@@ -22,16 +21,6 @@ public class Rc_group {
 
     public void setGroupId(int groupId) {
         this.groupId = groupId;
-    }
-
-    @Basic
-    @Column(name = "school_id")
-    public int getSchoolId() {
-        return schoolId;
-    }
-
-    public void setSchoolId(int schoolId) {
-        this.schoolId = schoolId;
     }
 
     @Basic
@@ -74,6 +63,18 @@ public class Rc_group {
         isEnabled = enabled;
     }
 
+    private Rc_school school;
+ 
+    @ManyToOne
+    @JoinColumn(name = "school_id")
+    public Rc_school getSchool() {
+        return this.school;
+    }
+ 
+    public void setSchool(Rc_school school) {
+        this.school = school;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,7 +83,6 @@ public class Rc_group {
         Rc_group that = (Rc_group) o;
 
         if (groupId != that.groupId) return false;
-        if (schoolId != that.schoolId) return false;
         if (groupType != null ? !groupType.equals(that.groupType) : that.groupType != null) return false;
         if (groupName != null ? !groupName.equals(that.groupName) : that.groupName != null) return false;
         if (groupDesc != null ? !groupDesc.equals(that.groupDesc) : that.groupDesc != null) return false;
@@ -94,7 +94,6 @@ public class Rc_group {
     @Override
     public int hashCode() {
         int result = groupId;
-        result = 31 * result + schoolId;
         result = 31 * result + (groupType != null ? groupType.hashCode() : 0);
         result = 31 * result + (groupName != null ? groupName.hashCode() : 0);
         result = 31 * result + (groupDesc != null ? groupDesc.hashCode() : 0);

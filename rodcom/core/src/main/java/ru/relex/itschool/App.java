@@ -51,21 +51,19 @@ public class App
         role.setRoleName("role");
         em.persist(role);
         
-        em.getTransaction().commit();
-        em.getTransaction().begin();
-
         Rc_group group = new Rc_group();
-        group.setSchoolId(1);
+        group.setSchool(school);
         group.setGroupType("group type");
         group.setGroupName("group name");
         group.setGroupDesc("group description");
         group.setEnabled(true);
         em.persist(group);
 
-        Rc_message message = new Rc_message(1, 1, 1, "test message", "text for test message", new Date(), "urgent");
+        Rc_message message = new Rc_message(member.getMember_id(), member.getMember_id(), group.getGroupId(), 
+        		                            "test message", "text for test message", new Date(), "urgent");
         em.persist(message);
 
-        Rc_group_member group_member = new Rc_group_member(1, 1, 1, true, true);
+        Rc_group_member group_member = new Rc_group_member(group.getGroupId(), member.getMember_id(), role.getRoleId(), true, true);
         em.persist(group_member);
 
         // Perform finds, execute queries,

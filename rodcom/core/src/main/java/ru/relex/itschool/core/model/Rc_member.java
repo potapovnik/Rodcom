@@ -166,4 +166,61 @@ public class Rc_member {
 		return twit;
 	}
 
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Rc_member member = (Rc_member) o;
+
+            if (member_id != member.member_id) 
+                return false;
+            if (annotation != null ? !annotation.equals(member.annotation) : member.annotation != null) 
+                return false;
+            if (actual_date != null ? !actual_date.equals(member.actual_date) : member.actual_date != null) 
+                return false;
+            if (first_name != null ? !first_name.equals(member.first_name) : member.first_name != null) 
+                return false;
+            if (middle_name != null ? !middle_name.equals(member.middle_name) : member.middle_name != null) 
+                return false;
+            if (last_name != null ? !last_name.equals(member.last_name) : member.last_name != null) 
+                return false;
+            if (phone != null ? !phone.equals(member.phone) : member.phone != null) 
+                return false;
+            if (phone2 != null ? !phone2.equals(member.phone2) : member.phone2 != null) 
+                return false;
+            if (address != null ? !address.equals(member.address) : member.address != null) 
+                return false;
+            if (email != null ? !email.equals(member.email) : member.email != null) 
+                return false;
+            if (skype != null ? !skype.equals(member.skype) : member.skype != null) 
+                return false;
+            if (vk != null ? !vk.equals(member.vk) : member.vk != null) 
+                return false;
+            if (ok != null ? !ok.equals(member.ok) : member.ok != null) 
+                return false;
+            if (twit != null ? !twit.equals(member.twit) : member.twit != null) 
+                return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = member_id;
+            result = 31 * result + (annotation != null ? annotation.hashCode() : 0);
+            result = 31 * result + (actual_date != null ? actual_date.hashCode() : 0);
+            result = 31 * result + (first_name != null ? first_name.hashCode() : 0);
+            result = 31 * result + (middle_name != null ? middle_name.hashCode() : 0);
+            result = 31 * result + (last_name != null ? last_name.hashCode() : 0);
+            result = 31 * result + (phone != null ? phone.hashCode() : 0);
+            result = 31 * result + (phone2 != null ? phone2.hashCode() : 0);
+            result = 31 * result + (address != null ? address.hashCode() : 0);
+            result = 31 * result + (email != null ? email.hashCode() : 0);
+            result = 31 * result + (skype != null ? skype.hashCode() : 0);
+            result = 31 * result + (vk != null ? vk.hashCode() : 0);
+            result = 31 * result + (ok != null ? ok.hashCode() : 0);
+            result = 31 * result + (twit != null ? twit.hashCode() : 0);
+            return result;
+        }
 }

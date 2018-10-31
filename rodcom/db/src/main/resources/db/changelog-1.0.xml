@@ -6,12 +6,14 @@
 
     <changeSet id="drop db structure" author="ace">
     <sql>
-       drop table if exists RC_MESSAGE;
-       drop table if exists RC_GROUP_MEMBER;
-       drop table if exists RC_GROUP;
-       drop table if exists RC_MEMBER;
-       drop table if exists RC_ROLE;
-       drop table if exists RC_SCHOOL;
+       drop table if exists RC_EVENT_MEMBER cascade;
+       drop table if exists RC_EVENT cascade;
+       drop table if exists RC_MESSAGE cascade;
+       drop table if exists RC_GROUP_MEMBER cascade;
+       drop table if exists RC_GROUP cascade;
+       drop table if exists RC_MEMBER cascade;
+       drop table if exists RC_ROLE cascade;
+       drop table if exists RC_SCHOOL cascade;
 
        drop sequence if exists RC_SCHOOL_SEQ;
        drop sequence if exists RC_GROUP_SEQ;
@@ -19,8 +21,10 @@
        drop sequence if exists RC_ROLE_SEQ;
        drop sequence if exists RC_GROUP_MEMBER_SEQ;
        drop sequence if exists RC_MESSAGE_SEQ;
+       drop sequence if exists RC_EVENT_SEQ;
+       drop sequence if exists RC_EVENT_MEMBER_SEQ;
     </sql>
-  </changeSet> 
+    </changeSet> 
     <changeSet id="create db structure" author="ace">
     <sql>
       create table RC_SCHOOL
@@ -90,16 +94,8 @@
         MESSAGE_STATUS  varchar(20)
       );
       create sequence RC_MESSAGE_SEQ;
-    </sql>
-  </changeSet>
-    <changeSet id="drop additions" author="nikita">
-    <sql>
-      drop table if exists RC_EVENT;
-      drop table if exists RC_EVENT_MEMBER;
-      drop sequence if exists RC_EVENT_SEQ;
-      drop sequence if exists RC_EVENT_MEMBER_SEQ;
-    </sql>
-  </changeSet>
+    </sql>      
+    </changeSet>
     <changeSet id="create db structure additions" author="nikita">
   <sql>
     CREATE TABLE RC_EVENT
