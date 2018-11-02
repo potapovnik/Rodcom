@@ -1,4 +1,4 @@
-package ru.relex.itschool.core.model;
+package ru.relex.itschool.core.entity;
 
 import java.util.Date;
 import javax.persistence.*;

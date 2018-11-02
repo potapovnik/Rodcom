@@ -1,4 +1,4 @@
-package ru.relex.itschool.core.model;
+package ru.relex.itschool.core.entity;
 
 public class Rc_event_member {
     private int event_id;

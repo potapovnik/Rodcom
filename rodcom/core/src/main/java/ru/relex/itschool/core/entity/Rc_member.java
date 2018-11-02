@@ -1,9 +1,7 @@
-package ru.relex.itschool.core.model;
+package ru.relex.itschool.core.entity;
 
 import java.util.Date;
 import javax.persistence.*;
-
-import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Set;
 import java.util.HashSet;
