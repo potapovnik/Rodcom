@@ -16,6 +16,17 @@ public class Rc_group {
     private Rc_school school;
     private Set<Rc_message> messages = new HashSet<Rc_message>();
 
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
+    public Set<Rc_group_member> getMembers() {
+        return members;
+    }
+
+    public void setMembers(Set<Rc_group_member> members) {
+        this.members = members;
+    }
+
+    private Set<Rc_group_member> members = new HashSet<>();
+
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_group_seq_gen")
     @SequenceGenerator(name="rc_group_seq_gen", sequenceName="RC_GROUP_SEQ", allocationSize = 1)

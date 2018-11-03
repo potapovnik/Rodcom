@@ -1,12 +1,25 @@
 package ru.relex.itschool.core.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "rc_role", schema = "public", catalog = "postgres")
 public class Rc_role {
     private int    roleId;
     private String roleName;
+
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
+    public Set<Rc_group_member> getRoleMembers() {
+        return roleMembers;
+    }
+
+    public void setRoleMembers(Set<Rc_group_member> roleMembers) {
+        this.roleMembers = roleMembers;
+    }
+
+    private Set<Rc_group_member> roleMembers = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_role_seq_gen")

@@ -27,6 +27,16 @@ public class Rc_member {
 	private String twit;
         private Set<Rc_message> to_messages = new HashSet<Rc_message>();
         private Set<Rc_message> from_messages = new HashSet<Rc_message>();
+        private Set<Rc_group_member> group_memberSet = new HashSet<>();
+
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+	public Set<Rc_group_member> getGroup_memberSet() {
+		return group_memberSet;
+	}
+
+	public void setGroup_memberSet(Set<Rc_group_member> group_memberSet) {
+		this.group_memberSet = group_memberSet;
+	}
 
 	public Rc_member() {
 	}

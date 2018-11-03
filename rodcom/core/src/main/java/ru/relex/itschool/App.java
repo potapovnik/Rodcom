@@ -65,8 +65,9 @@ public class App
         message.setTo_group(group);
         em.persist(message);
 
-        Rc_group_member group_member = new Rc_group_member(group.getGroupId(), member.getMember_id(), role.getRoleId(), true, true);
+        Rc_group_member group_member = new Rc_group_member(group, member, role, true, true);
         em.persist(group_member);
+
 
         // Perform finds, execute queries,
         // update entities, etc.
