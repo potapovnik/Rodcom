@@ -12,76 +12,89 @@ import java.util.HashSet;
 
 @Entity
 public class Rc_school {
-	
-	private int    school_id;
-	private String school_name;
-	private Set<Rc_group> groups = new HashSet<Rc_group>();
 
-	public Rc_school() {
-	}
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rc_school_seq_gen")
+    @SequenceGenerator(name = "rc_school_seq_gen", sequenceName = "RC_SCHOOL_SEQ", allocationSize = 1)
+    private int school_id;
+    private String school_name;
 
-	public Rc_school(String school_name) {
-		super();
-		this.school_name = school_name;
-	}
+    @OneToMany(mappedBy = "school")
+    private Set<Rc_group> groups = new HashSet<Rc_group>();
+
+    @OneToMany(mappedBy = "school")
+    private Set<RcNotice> notices = new HashSet<RcNotice>();
+
+    public Rc_school() {
+    }
 
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_school_seq_gen")
-	@SequenceGenerator(name="rc_school_seq_gen", sequenceName="RC_SCHOOL_SEQ", allocationSize = 1)
-	public int getSchool_id() {
-		return school_id;
-	}
+    public Rc_school(String school_name) {
+        super();
+        this.school_name = school_name;
+    }
 
-	public void setSchool_id(int id) {
-		this.school_id = id;
-	}
 
-	public String getSchool_name() {
-		return school_name;
-	}
+    public int getSchool_id() {
+        return school_id;
+    }
 
-	public void setSchool_name(String s) {
-		this.school_name = s;
-	}
+    public void setSchool_id(int id) {
+        this.school_id = id;
+    }
 
-        @OneToMany(mappedBy = "school")
-        public Set<Rc_group> getGroups() {
-            return this.groups;
-        }
+    public String getSchool_name() {
+        return school_name;
+    }
 
-        public void setGroups(Set<Rc_group> s) {
-            this.groups = s;
-        }
+    public void setSchool_name(String s) {
+        this.school_name = s;
+    }
 
-        public void addGroup(Rc_group g) {
-           g.setSchool(this);
-           getGroups().add(g);
-        }
+    public Set<Rc_group> getGroups() {
+        return this.groups;
+    }
 
-        public void removeGroup(Rc_group g) {
-           getGroups().remove(g);
-        }
+    public void setGroups(Set<Rc_group> s) {
+        this.groups = s;
+    }
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+    public void addGroup(Rc_group g) {
+        g.setSchool(this);
+        getGroups().add(g);
+    }
 
-            Rc_school school = (Rc_school) o;
+    public void removeGroup(Rc_group g) {
+        getGroups().remove(g);
+    }
 
-            if (school_id != school.school_id) 
-                return false;
-            if (school_name != null ? !school_name.equals(school.school_name) : school.school_name != null) 
-                return false;
-            return true;
-        }
 
-        @Override
-        public int hashCode() {
-            int result = school_id;
-            result = 31 * result + (school_name != null ? school_name.hashCode() : 0);
-            return result;
-        }
+    public Set<RcNotice> getNotices() {
+        return notices;
+    }
+
+    public void setNotices(Set<RcNotice> notices) {
+        this.notices = notices;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Rc_school school = (Rc_school) o;
+
+        if (school_id != school.school_id)
+            return false;
+        if (school_name != null ? !school_name.equals(school.school_name) : school.school_name != null)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = school_id;
+        result = 31 * result + (school_name != null ? school_name.hashCode() : 0);
+        return result;
+    }
 }
