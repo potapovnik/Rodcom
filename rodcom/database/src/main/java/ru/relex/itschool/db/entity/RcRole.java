@@ -4,14 +4,24 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "rc_role", schema = "public", catalog = "postgres")
-public class Rc_role {
-    private int    roleId;
-    private String roleName;
-
+public class RcRole {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_role_seq_gen")
     @SequenceGenerator(name="rc_role_seq_gen", sequenceName="RC_ROLE_SEQ", allocationSize = 1)
     @Column(name = "role_id")
+    private int    roleId;
+
+    @Basic
+    @Column(name = "role_name")
+    private String roleName;
+
+    public RcRole() {
+    }
+
+    public RcRole(String name) {
+        this.roleName = name;
+    }
+
     public int getRoleId() {
         return roleId;
     }
@@ -20,8 +30,6 @@ public class Rc_role {
         this.roleId = roleId;
     }
 
-    @Basic
-    @Column(name = "role_name")
     public String getRoleName() {
         return roleName;
     }
@@ -35,7 +43,7 @@ public class Rc_role {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Rc_role rcRole = (Rc_role) o;
+        RcRole rcRole = (RcRole) o;
 
         if (roleId != rcRole.roleId) return false;
         if (roleName != null ? !roleName.equals(rcRole.roleName) : rcRole.roleName != null) return false;

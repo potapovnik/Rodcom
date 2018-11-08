@@ -5,22 +5,35 @@ import javax.persistence.*;
 
 
 @Entity
-public class Rc_message {
+@Table(name = "rc_message", schema = "public", catalog = "postgres")
+public class RcMessage {
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_message_seq_gen")
+    @SequenceGenerator(name="rc_message_seq_gen", sequenceName="RC_MESSAGE_SEQ", allocationSize = 1)
     private int   message_id;
     private String message_type;
     private String message;
     private Date   message_time;
     private String message_status;
-    private Rc_member from_member;
-    private Rc_member to_member;
-    private Rc_group to_group;
+
+    @ManyToOne
+    @JoinColumn(name = "from_member_id")
+    private RcMember from_member;
+
+    @ManyToOne
+    @JoinColumn(name = "to_member_id")
+    private RcMember to_member;
+
+    @ManyToOne
+    @JoinColumn(name = "to_group_id")
+    private RcGroup to_group;
     
 
-    public Rc_message() {
+    public RcMessage() {
     }
 
-    public Rc_message(String message_type,
+    public RcMessage(String message_type,
                      String message, Date message_time, String message_status) {
         super();
         this.message_type = message_type;
@@ -29,9 +42,6 @@ public class Rc_message {
         this.message_status = message_status;
     }
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_message_seq_gen")
-    @SequenceGenerator(name="rc_message_seq_gen", sequenceName="RC_MESSAGE_SEQ", allocationSize = 1)
     public int getMessage_id() {
         return message_id;
     }
@@ -72,33 +82,27 @@ public class Rc_message {
         this.message_status = s;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "to_group_id")
-    public Rc_group getTo_group() {
+    public RcGroup getTo_group() {
         return this.to_group;
     }
  
-    public void setTo_group(Rc_group g) {
+    public void setTo_group(RcGroup g) {
         this.to_group = g;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "to_member_id")
-    public Rc_member getTo_member() {
+    public RcMember getTo_member() {
         return this.to_member;
     }
  
-    public void setTo_member(Rc_member m) {
+    public void setTo_member(RcMember m) {
         this.to_member = m;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "from_member_id")
-    public Rc_member getFrom_member() {
+    public RcMember getFrom_member() {
         return this.from_member;
     }
  
-    public void setFrom_member(Rc_member m) {
+    public void setFrom_member(RcMember m) {
         this.from_member = m;
     }
 }

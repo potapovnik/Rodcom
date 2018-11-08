@@ -1,16 +1,24 @@
 package ru.relex.itschool.db.entity;
 
-public class Rc_event_member {
+import javax.persistence.*;
+
+@Entity
+@Table(name = "rc_event_member", schema = "public", catalog = "postgres")
+public class RcEventMember {
+    @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_event_member_seq_gen")
+    @SequenceGenerator(name="rc_event_member_seq_gen", sequenceName="RC_EVENT_MEMBER_SEQ", allocationSize = 1)
     private int event_id;
+
     private int member_id;
     private int role_id;
     private boolean is_enabled;
     private boolean is_notify;
     private String choice;
 
-    public Rc_event_member(){}
+    public RcEventMember(){}
 
-    public Rc_event_member(int event_id,int member_id, int role_id,boolean is_enabled,boolean is_notify,String choice){
+    public RcEventMember(int event_id,int member_id, int role_id,boolean is_enabled,boolean is_notify,String choice){
         super();
         this.event_id=event_id;
         this.member_id=member_id;

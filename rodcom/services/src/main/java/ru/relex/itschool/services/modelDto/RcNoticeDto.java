@@ -1,7 +1,7 @@
 package ru.relex.itschool.services.modelDto;
 
 import ru.relex.itschool.db.entity.RcNoticeType;
-import ru.relex.itschool.db.entity.Rc_school;
+import ru.relex.itschool.db.entity.RcSchool;
 
 
 import java.util.Calendar;
@@ -13,7 +13,7 @@ public class RcNoticeDto {
     private Integer id;
 
 
-    private Rc_school school;
+    private RcSchool school;
 
 
     private RcNoticeType type;
@@ -27,7 +27,7 @@ public class RcNoticeDto {
     public RcNoticeDto() {
     }
 
-    public RcNoticeDto(Rc_school school, RcNoticeType type, Calendar date, String text, String agenda) {
+    public RcNoticeDto(RcSchool school, RcNoticeType type, Calendar date, String text, String agenda) {
         this.school = school;
         this.type = type;
         this.date = date;
@@ -43,11 +43,11 @@ public class RcNoticeDto {
         this.id = id;
     }
 
-    public Rc_school getSchool() {
+    public RcSchool getSchool() {
         return school;
     }
 
-    public void setSchool(Rc_school school) {
+    public void setSchool(RcSchool school) {
         this.school = school;
     }
 

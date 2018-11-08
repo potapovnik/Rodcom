@@ -25,7 +25,7 @@ public class RcNotice {
 
     @ManyToOne
     @JoinColumn(name = "school_id", referencedColumnName = "school_id")
-    private Rc_school school;
+    private RcSchool school;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "type_id", referencedColumnName = "id")
@@ -40,7 +40,7 @@ public class RcNotice {
     public RcNotice() {
     }
 
-    public RcNotice(Rc_school school, RcNoticeType type, Calendar date, String text, String agenda) {
+    public RcNotice(RcSchool school, RcNoticeType type, Calendar date, String text, String agenda) {
         this.school = school;
         this.type = type;
         this.date = date;
@@ -56,11 +56,11 @@ public class RcNotice {
         this.id = id;
     }
 
-    public Rc_school getSchool() {
+    public RcSchool getSchool() {
         return school;
     }
 
-    public void setSchool(Rc_school school) {
+    public void setSchool(RcSchool school) {
         this.school = school;
     }
 

@@ -1,16 +1,16 @@
 package ru.relex.itschool.db.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-public class Rc_group_member {
+@Table(name = "rc_group_member", schema = "public", catalog = "postgres")
+public class RcGroupMember {
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_group_member_seq_gen")
+    @SequenceGenerator(name="rc_group_member_seq_gen", sequenceName="RC_GROUP_MEMBER_SEQ", allocationSize = 1)
     private int group_member_id;
     private int group_id;
     private int member_id;
@@ -18,11 +18,11 @@ public class Rc_group_member {
     private boolean is_enabled;
     private boolean is_notify;
 
-    public Rc_group_member() {
+    public RcGroupMember() {
     }
 
-    public Rc_group_member(int group_id, int member_id, int role_id,
-                           boolean is_enabled, boolean is_notify) {
+    public RcGroupMember(int group_id, int member_id, int role_id,
+                         boolean is_enabled, boolean is_notify) {
         super();
         this.group_id = group_id;
         this.member_id = member_id;
@@ -31,9 +31,6 @@ public class Rc_group_member {
         this.is_notify = is_notify;
     }
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_group_member_seq_gen")
-    @SequenceGenerator(name="rc_group_member_seq_gen", sequenceName="RC_GROUP_MEMBER_SEQ", allocationSize = 1)
     public int getGroup_member_id() {
         return group_member_id;
     }

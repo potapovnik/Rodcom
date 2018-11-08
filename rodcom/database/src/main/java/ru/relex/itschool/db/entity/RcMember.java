@@ -1,15 +1,17 @@
 package ru.relex.itschool.db.entity;
 
-import java.util.Date;
+import java.util.*;
 import javax.persistence.*;
 
-import java.util.Set;
-import java.util.HashSet;
-
 @Entity
-public class Rc_member {
+@Table(name = "rc_member", schema = "public", catalog = "postgres")
+public class RcMember {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_member_seq_gen")
+	@SequenceGenerator(name="rc_member_seq_gen", sequenceName="RC_MEMBER_SEQ", allocationSize = 1)
 	private int    member_id;
+
 	private String annotation;
 	private Date   actual_date;
 	private String first_name;
@@ -23,16 +25,20 @@ public class Rc_member {
 	private String vk;
 	private String ok;
 	private String twit;
-        private Set<Rc_message> to_messages = new HashSet<Rc_message>();
-        private Set<Rc_message> from_messages = new HashSet<Rc_message>();
 
-	public Rc_member() {
+        @OneToMany(mappedBy = "to_member")
+        private Set<RcMessage> to_messages = new HashSet<RcMessage>();
+
+        @OneToMany(mappedBy = "from_member")
+        private Set<RcMessage> from_messages = new HashSet<RcMessage>();
+
+	public RcMember() {
 	}
 	
 	
-	public Rc_member(String annotation, Date actual_date, String first_name, String middle_name, 
-	                 String last_name, String phone, String phone2, String address, String email, 
-	                 String skype, String vk, String ok, String twit) {
+	public RcMember(String annotation, Date actual_date, String first_name, String middle_name, 
+	                String last_name, String phone, String phone2, String address, String email, 
+	                String skype, String vk, String ok, String twit) {
 		super();
 		this.annotation = annotation;
 		this.actual_date = actual_date;
@@ -50,9 +56,6 @@ public class Rc_member {
 	}
 	
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_member_seq_gen")
-	@SequenceGenerator(name="rc_member_seq_gen", sequenceName="RC_MEMBER_SEQ", allocationSize = 1)
 	public int getMember_id() {
 		return member_id;
 	}
@@ -164,39 +167,37 @@ public class Rc_member {
 		return twit;
 	}
 
-        @OneToMany(mappedBy = "to_member")
-        public Set<Rc_message> getTo_messages() {
+        public Set<RcMessage> getTo_messages() {
             return this.to_messages;
         }
 
-        public void setTo_messages(Set<Rc_message> m) {
+        public void setTo_messages(Set<RcMessage> m) {
             this.to_messages = m;
         }
 
-        public void addTo_message(Rc_message m) {
+        public void addTo_message(RcMessage m) {
            m.setTo_member(this);
            getTo_messages().add(m);
         }
 
-        public void removeTo_message(Rc_message m) {
+        public void removeTo_message(RcMessage m) {
            getTo_messages().remove(m);
         }
 
-        @OneToMany(mappedBy = "from_member")
-        public Set<Rc_message> getFrom_messages() {
+        public Set<RcMessage> getFrom_messages() {
             return this.from_messages;
         }
 
-        public void setFrom_messages(Set<Rc_message> m) {
+        public void setFrom_messages(Set<RcMessage> m) {
             this.from_messages = m;
         }
 
-        public void addFrom_message(Rc_message m) {
+        public void addFrom_message(RcMessage m) {
            m.setFrom_member(this);
            getFrom_messages().add(m);
         }
 
-        public void removeFrom_message(Rc_message m) {
+        public void removeFrom_message(RcMessage m) {
            getFrom_messages().remove(m);
         }
 
@@ -205,7 +206,7 @@ public class Rc_member {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
-            Rc_member member = (Rc_member) o;
+            RcMember member = (RcMember)o;
 
             if (member_id != member.member_id) 
                 return false;

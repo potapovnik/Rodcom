@@ -1,12 +1,15 @@
 package ru.relex.itschool.db.entity;
 
-
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Rc_event {
+@Table(name = "rc_event", schema = "public", catalog = "postgres")
+public class RcEvent {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="rc_event_seq_gen")
+    @SequenceGenerator(name="rc_event_seq_gen", sequenceName="RC_event_SEQ", allocationSize = 1)
     private int event_id;
     private int group_id;
     private int school_id;
@@ -16,12 +19,12 @@ public class Rc_event {
     private Date event_time;
     private String event_status;
 
-    public Rc_event(){}
+    public RcEvent(){}
 
-    public Rc_event(int event_id,int group_id,int school_id,
-                    String event_type,String event_name,
-                    String event_desc,Date event_time,
-                    String event_status){
+    public RcEvent(int event_id,int group_id,int school_id,
+                   String event_type,String event_name,
+                   String event_desc,Date event_time,
+                   String event_status){
         super();
         this.event_id=event_id;
         this.group_id=group_id;
@@ -33,9 +36,6 @@ public class Rc_event {
         this.event_status=event_status;
     }
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="rc_event_seq_gen")
-    @SequenceGenerator(name="rc_event_seq_gen", sequenceName="RC_event_SEQ", allocationSize = 1)
     public int getEvent_id(){return event_id;}
     public void setEvent_id(int id){this.event_id=id;}
 

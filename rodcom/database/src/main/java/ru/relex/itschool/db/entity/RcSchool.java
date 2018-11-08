@@ -1,17 +1,11 @@
 package ru.relex.itschool.db.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-
-import java.util.Set;
-import java.util.HashSet;
+import javax.persistence.*;
+import java.util.*;
 
 @Entity
-public class Rc_school {
+@Table(name = "rc_school", schema = "public", catalog = "postgres")
+public class RcSchool {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rc_school_seq_gen")
@@ -20,16 +14,16 @@ public class Rc_school {
     private String school_name;
 
     @OneToMany(mappedBy = "school")
-    private Set<Rc_group> groups = new HashSet<Rc_group>();
+    private Set<RcGroup> groups = new HashSet<RcGroup>();
 
     @OneToMany(mappedBy = "school")
     private Set<RcNotice> notices = new HashSet<RcNotice>();
 
-    public Rc_school() {
+    public RcSchool() {
     }
 
 
-    public Rc_school(String school_name) {
+    public RcSchool(String school_name) {
         super();
         this.school_name = school_name;
     }
@@ -51,20 +45,20 @@ public class Rc_school {
         this.school_name = s;
     }
 
-    public Set<Rc_group> getGroups() {
+    public Set<RcGroup> getGroups() {
         return this.groups;
     }
 
-    public void setGroups(Set<Rc_group> s) {
+    public void setGroups(Set<RcGroup> s) {
         this.groups = s;
     }
 
-    public void addGroup(Rc_group g) {
+    public void addGroup(RcGroup g) {
         g.setSchool(this);
         getGroups().add(g);
     }
 
-    public void removeGroup(Rc_group g) {
+    public void removeGroup(RcGroup g) {
         getGroups().remove(g);
     }
 
@@ -82,7 +76,7 @@ public class Rc_school {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Rc_school school = (Rc_school) o;
+        RcSchool school = (RcSchool) o;
 
         if (school_id != school.school_id)
             return false;
