@@ -19,11 +19,11 @@ public class InsertToDbInitImpl implements IInsertToDbInit {
                 "г. Воронеж, ул. Бахметьева, д. 2б", "ivanov@relex.ru", "ivanovii", "vk_ivanov", "ok_ivanov", "twit_ivanov");
 
 
-        Rc_role role = new Rc_role();
+        RcRole role = new RcRole();
         role.setRoleName("role");
 
 
-        Rc_group group = new Rc_group();
+        RcGroup group = new RcGroup();
         group.setSchool(school);
         group.setGroupType("group type");
         group.setGroupName("group name");

@@ -20,7 +20,7 @@ public class Rc_school {
     private String school_name;
 
     @OneToMany(mappedBy = "school")
-    private Set<Rc_group> groups = new HashSet<Rc_group>();
+    private Set<RcGroup> groups = new HashSet<RcGroup>();
 
     @OneToMany(mappedBy = "school")
     private Set<RcNotice> notices = new HashSet<RcNotice>();
@@ -51,20 +51,20 @@ public class Rc_school {
         this.school_name = s;
     }
 
-    public Set<Rc_group> getGroups() {
+    public Set<RcGroup> getGroups() {
         return this.groups;
     }
 
-    public void setGroups(Set<Rc_group> s) {
+    public void setGroups(Set<RcGroup> s) {
         this.groups = s;
     }
 
-    public void addGroup(Rc_group g) {
+    public void addGroup(RcGroup g) {
         g.setSchool(this);
         getGroups().add(g);
     }
 
-    public void removeGroup(Rc_group g) {
+    public void removeGroup(RcGroup g) {
         getGroups().remove(g);
     }
 

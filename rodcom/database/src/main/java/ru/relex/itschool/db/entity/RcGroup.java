@@ -7,101 +7,108 @@ import java.util.HashSet;
 
 @Entity
 @Table(name = "rc_group", schema = "public", catalog = "postgres")
-public class Rc_group {
-    private int    groupId;
-    private String groupType;
-    private String groupName;
-    private String groupDesc;
-    private Boolean isEnabled;
-    private Rc_school school;
-    private Set<Rc_message> messages = new HashSet<Rc_message>();
+public class RcGroup {
 
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_group_seq_gen")
     @SequenceGenerator(name="rc_group_seq_gen", sequenceName="RC_GROUP_SEQ", allocationSize = 1)
     @Column(name = "group_id")
+    private int    groupId;
+
+    @Basic
+    @Column(name = "group_type")
+    private String groupType;
+
+    @Basic
+    @Column(name = "group_name")
+    private String groupName;
+
+    @Basic
+    @Column(name = "group_desc")
+    private String groupDesc;
+
+    @Basic
+    @Column(name = "is_enabled")
+    private Boolean isEnabled;
+
+    @ManyToOne
+    @JoinColumn(name = "school_id")
+    private Rc_school school;
+
+    @OneToMany(mappedBy = "to_group")
+    private Set<Rc_message> messages = new HashSet<Rc_message>();
+
+
+    //groupId
     public int getGroupId() {
         return groupId;
     }
-
     public void setGroupId(int groupId) {
         this.groupId = groupId;
     }
 
-    @Basic
-    @Column(name = "group_type")
+    //groupType
     public String getGroupType() {
         return groupType;
     }
-
     public void setGroupType(String groupType) {
         this.groupType = groupType;
     }
 
-    @Basic
-    @Column(name = "group_name")
+    //groupName
     public String getGroupName() {
         return groupName;
     }
-
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
 
-    @Basic
-    @Column(name = "group_desc")
+    //groupDesc
     public String getGroupDesc() {
         return groupDesc;
     }
-
     public void setGroupDesc(String groupDesc) {
         this.groupDesc = groupDesc;
     }
 
-    @Basic
-    @Column(name = "is_enabled")
+    //enabled
     public Boolean getEnabled() {
         return isEnabled;
     }
-
     public void setEnabled(Boolean enabled) {
         isEnabled = enabled;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "school_id")
+    //school
     public Rc_school getSchool() {
         return this.school;
     }
- 
     public void setSchool(Rc_school school) {
         this.school = school;
     }
 
-    @OneToMany(mappedBy = "to_group")
+    //messages
     public Set<Rc_message> getMessages() {
         return this.messages;
     }
-
     public void setMessages(Set<Rc_message> m) {
         this.messages = m;
     }
-
     public void addMessage(Rc_message m) {
        m.setTo_group(this);
        getMessages().add(m);
     }
-
     public void removeMessage(Rc_message m) {
        getMessages().remove(m);
     }
 
+    //IDE generated methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Rc_group that = (Rc_group) o;
+        RcGroup that = (RcGroup) o;
 
         if (groupId != that.groupId) return false;
         if (groupType != null ? !groupType.equals(that.groupType) : that.groupType != null) return false;
@@ -111,7 +118,6 @@ public class Rc_group {
 
         return true;
     }
-
     @Override
     public int hashCode() {
         int result = groupId;

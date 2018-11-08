@@ -14,7 +14,7 @@ public class Rc_message {
     private String message_status;
     private Rc_member from_member;
     private Rc_member to_member;
-    private Rc_group to_group;
+    private RcGroup to_group;
     
 
     public Rc_message() {
@@ -74,11 +74,11 @@ public class Rc_message {
 
     @ManyToOne
     @JoinColumn(name = "to_group_id")
-    public Rc_group getTo_group() {
+    public RcGroup getTo_group() {
         return this.to_group;
     }
  
-    public void setTo_group(Rc_group g) {
+    public void setTo_group(RcGroup g) {
         this.to_group = g;
     }
 
