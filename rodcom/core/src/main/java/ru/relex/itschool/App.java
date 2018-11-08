@@ -4,14 +4,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import java.util.Calendar;
 import java.util.Date;
 
-import ru.relex.itschool.core.model.Rc_group_member;
-import ru.relex.itschool.core.model.Rc_member;
-import ru.relex.itschool.core.model.Rc_school;
-import ru.relex.itschool.core.model.Rc_message;
-import ru.relex.itschool.core.model.Rc_group;
-import ru.relex.itschool.core.model.Rc_role;
+import ru.relex.itschool.core.model.*;
 
 
 /**
@@ -65,8 +61,16 @@ public class App
         message.setTo_group(group);
         em.persist(message);
 
-        Rc_group_member group_member = new Rc_group_member(group, member, role, true, true);
+        Rc_group_member group_member = new Rc_group_member(group.getGroupId(), member.getMember_id(), role.getRoleId(), true, true);
         em.persist(group_member);
+
+        RcNoticeType noticeType = new RcNoticeType(1, "информация");
+        em.persist(noticeType);
+
+
+        Calendar calendar = Calendar.getInstance();
+        RcNotice notice = new RcNotice(school, noticeType, calendar, "Внимание!", "");
+        em.persist(notice);
 
 
         // Perform finds, execute queries,

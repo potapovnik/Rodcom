@@ -1,128 +1,151 @@
-<?xml version="1.0" encoding="UTF-8"?> 
-<databaseChangeLog   xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
     <changeSet id="drop db structure" author="ace">
-    <sql>
-       drop table if exists RC_EVENT_MEMBER cascade;
-       drop table if exists RC_EVENT cascade;
-       drop table if exists RC_MESSAGE cascade;
-       drop table if exists RC_GROUP_MEMBER cascade;
-       drop table if exists RC_GROUP cascade;
-       drop table if exists RC_MEMBER cascade;
-       drop table if exists RC_ROLE cascade;
-       drop table if exists RC_SCHOOL cascade;
+        <sql>
+            drop table if exists RC_EVENT_MEMBER cascade;
+            drop table if exists RC_EVENT cascade;
+            drop table if exists RC_MESSAGE cascade;
+            drop table if exists RC_GROUP_MEMBER cascade;
+            drop table if exists RC_GROUP cascade;
+            drop table if exists RC_MEMBER cascade;
+            drop table if exists RC_ROLE cascade;
+            drop table if exists RC_SCHOOL cascade;
+            drop table if exists RC_NOTICE cascade;    <!-- Объявления -->
+            drop table if exists RC_NOTICE_TYPE;       <!-- Тип объявления -->
 
-       drop sequence if exists RC_SCHOOL_SEQ;
-       drop sequence if exists RC_GROUP_SEQ;
-       drop sequence if exists RC_MEMBER_SEQ;
-       drop sequence if exists RC_ROLE_SEQ;
-       drop sequence if exists RC_GROUP_MEMBER_SEQ;
-       drop sequence if exists RC_MESSAGE_SEQ;
-       drop sequence if exists RC_EVENT_SEQ;
-       drop sequence if exists RC_EVENT_MEMBER_SEQ;
-    </sql>
-    </changeSet> 
+            drop sequence if exists RC_SCHOOL_SEQ;
+            drop sequence if exists RC_GROUP_SEQ;
+            drop sequence if exists RC_MEMBER_SEQ;
+            drop sequence if exists RC_ROLE_SEQ;
+            drop sequence if exists RC_GROUP_MEMBER_SEQ;
+            drop sequence if exists RC_MESSAGE_SEQ;
+            drop sequence if exists RC_EVENT_SEQ;
+            drop sequence if exists RC_EVENT_MEMBER_SEQ;
+            drop sequence if exists RC_NOTICE_SEQ;
+        </sql>
+    </changeSet>
     <changeSet id="create db structure" author="ace">
-    <sql>
-      create table RC_SCHOOL
-      (
-        SCHOOL_ID     int primary key,
-        SCHOOL_NAME   varchar(255)
-      );
-      create sequence RC_SCHOOL_SEQ;
+        <sql>
+            create table RC_SCHOOL
+            (
+            SCHOOL_ID int primary key,
+            SCHOOL_NAME varchar(255)
+            );
+            create sequence RC_SCHOOL_SEQ;
 
-      create table RC_GROUP
-      (
-        GROUP_ID    int primary key,
-        SCHOOL_ID   int not null,
-        GROUP_TYPE  varchar(50),
-        GROUP_NAME  varchar(100),
-        GROUP_DESC  varchar(8000),
-        IS_ENABLED  boolean
-      );
-      create sequence RC_GROUP_SEQ;
+            create table RC_GROUP
+            (
+            GROUP_ID int primary key,
+            SCHOOL_ID int not null,
+            GROUP_TYPE varchar(50),
+            GROUP_NAME varchar(100),
+            GROUP_DESC varchar(8000),
+            IS_ENABLED boolean
+            );
+            create sequence RC_GROUP_SEQ;
 
-      create table RC_MEMBER
-      (
-        MEMBER_ID   int primary key,
-        ANNOTATION  varchar(400),
-        ACTUAL_DATE date,
-        FIRST_NAME  varchar(100),
-        MIDDLE_NAME varchar(100),
-        LAST_NAME   varchar(100),
-        PHONE       varchar(50),
-        PHONE2      varchar(50),
-        ADDRESS     varchar(255),
-        EMAIL       varchar(100),
-        SKYPE       varchar(50),
-        VK          varchar(50),
-        OK          varchar(50),
-        TWIT        varchar(100)
-      );
-      create sequence RC_MEMBER_SEQ;
+            create table RC_MEMBER
+            (
+            MEMBER_ID int primary key,
+            ANNOTATION varchar(400),
+            ACTUAL_DATE date,
+            FIRST_NAME varchar(100),
+            MIDDLE_NAME varchar(100),
+            LAST_NAME varchar(100),
+            PHONE varchar(50),
+            PHONE2 varchar(50),
+            ADDRESS varchar(255),
+            EMAIL varchar(100),
+            SKYPE varchar(50),
+            VK varchar(50),
+            OK varchar(50),
+            TWIT varchar(100)
+            );
+            create sequence RC_MEMBER_SEQ;
 
-      create table RC_ROLE
-      (
-        ROLE_ID     int primary key,
-        ROLE_NAME   varchar(100)
-      );
-      create sequence RC_ROLE_SEQ;
+            create table RC_ROLE
+            (
+            ROLE_ID int primary key,
+            ROLE_NAME varchar(100)
+            );
+            create sequence RC_ROLE_SEQ;
 
-      create table RC_GROUP_MEMBER
-      (
-        GROUP_MEMBER_ID int primary key,
-        GROUP_ID        int,
-        MEMBER_ID       int,
-        ROLE_ID         int,
-        IS_ENABLED      boolean,
-        IS_NOTIFY       boolean
-      );
-      create sequence RC_GROUP_MEMBER_SEQ;
+            create table RC_GROUP_MEMBER
+            (
+            GROUP_MEMBER_ID int primary key,
+            GROUP_ID int,
+            MEMBER_ID int,
+            ROLE_ID int,
+            IS_ENABLED boolean,
+            IS_NOTIFY boolean
+            );
+            create sequence RC_GROUP_MEMBER_SEQ;
 
-      create table RC_MESSAGE
-      (
-        MESSAGE_ID      int primary key,
-        FROM_MEMBER_ID  int,
-        TO_MEMBER_ID    int,
-        TO_GROUP_ID     int,
-        MESSAGE_TYPE    varchar(100),
-        MESSAGE         varchar(8000),
-        MESSAGE_TIME    timestamp default current_timestamp,
-        MESSAGE_STATUS  varchar(20)
-      );
-      create sequence RC_MESSAGE_SEQ;
-    </sql>      
+            create table RC_MESSAGE
+            (
+            MESSAGE_ID int primary key,
+            FROM_MEMBER_ID int,
+            TO_MEMBER_ID int,
+            TO_GROUP_ID int,
+            MESSAGE_TYPE varchar(100),
+            MESSAGE varchar(8000),
+            MESSAGE_TIME timestamp default current_timestamp,
+            MESSAGE_STATUS varchar(20)
+            );
+            create sequence RC_MESSAGE_SEQ;
+        </sql>
     </changeSet>
     <changeSet id="create db structure additions" author="nikita">
-  <sql>
-    CREATE TABLE RC_EVENT
-    (
-    event_id int PRIMARY KEY,
-    group_id int,
-    school_id int,
-    event_type varchar(100),
-    event_name varchar(100),
-    event_desc varchar(8000),
-    event_time timestamp,
-    event_status varchar(20)
-    );
-    create sequence RC_EVENT_SEQ;
+        <sql>
+            CREATE TABLE RC_EVENT
+            (
+            event_id int PRIMARY KEY,
+            group_id int,
+            school_id int,
+            event_type varchar(100),
+            event_name varchar(100),
+            event_desc varchar(8000),
+            event_time timestamp,
+            event_status varchar(20)
+            );
+            create sequence RC_EVENT_SEQ;
 
-    CREATE TABLE RC_EVENT_MEMBER
-    (
-    event_id int,
-    member_id int,
-    role_id int,
-    is_enabled boolean,
-    is_notify boolean,
-    choice varchar(100)
-    );
-    create sequence RC_EVENT_MEMBER_SEQ;
-  </sql>
-  </changeSet>
+            CREATE TABLE RC_EVENT_MEMBER
+            (
+            event_id int,
+            member_id int,
+            role_id int,
+            is_enabled boolean,
+            is_notify boolean,
+            choice varchar(100)
+            );
+            create sequence RC_EVENT_MEMBER_SEQ;
+        </sql>
+    </changeSet>
+    <changeSet id="create db structure adding tables for notice" author="Alexandra">
+        <sql>
+            CREATE TABLE RC_NOTICE_TYPE
+            (
+            id int primary key,
+            name varchar(100)
+            );
+
+            CREATE TABLE RC_NOTICE
+            (
+            id int primary key,
+            school_id int,
+            type_id int,
+            date timestamp,
+            text varchar(8000),
+            agenda varchar(8000)
+            );
+            create sequence RC_NOTICE_SEQ
+        </sql>
+    </changeSet>
     <changeSet id="add constraints" author="Trokhin">
         <sql>
             ALTER TABLE RC_GROUP
@@ -160,6 +183,14 @@
             ALTER TABLE RC_EVENT_MEMBER
             ADD CONSTRAINT fk_event_member_role
             FOREIGN KEY(ROLE_ID) REFERENCES RC_ROLE;
+
+            ALTER TABLE RC_NOTICE
+            ADD CONSTRAINT fk_notice_school
+            FOREIGN KEY(SCHOOL_ID) REFERENCES RC_SCHOOL;
+
+            ALTER TABLE RC_NOTICE
+            ADD CONSTRAINT fk_notice_type
+            FOREIGN KEY(ID) REFERENCES RC_NOTICE_TYPE;
         </sql>
     </changeSet>
 
