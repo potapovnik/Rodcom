@@ -112,12 +112,12 @@ public class RcMember {
 		this.phone = s;
 	}
 
-	public void setPhone2(String s) {
-		this.phone2 = s;
-	}
-
 	public String getPhone2() {
 		return phone2;
+	}
+
+	public void setPhone2(String s) {
+		this.phone2 = s;
 	}
 
 	public String getAddress() {
@@ -163,6 +163,7 @@ public class RcMember {
 	public void setTwit(String s) {
 		this.twit = s;
 	}
+
 	public String getTwit() {
 		return twit;
 	}

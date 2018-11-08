@@ -34,8 +34,7 @@ public class RcSchoolServiceImpl implements IRcSchoolService {
 
     @Override
     public RcSchoolDto createSchool(RcSchoolDto schoolDto) {
-        RcSchool school = new RcSchool();
-        school.setSchool_name(schoolDto.getSchool_name());
+        RcSchool school = new RcSchool(schoolDto.getSchool_name());
         school = repository.save(school);
         schoolDto.setSchool_id(school.getSchool_id());
         return schoolDto;
