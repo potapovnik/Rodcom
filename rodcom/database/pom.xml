@@ -46,7 +46,7 @@
                 <version>3.6.2</version>
 
                 <configuration>
-                    <propertyFile>db.properties</propertyFile>
+                    <propertyFile>src/main/resources/db.properties</propertyFile>
                 </configuration>
 
                 <dependencies>
