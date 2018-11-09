@@ -8,8 +8,9 @@ public class RcEventMember {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_event_member_seq_gen")
     @SequenceGenerator(name="rc_event_member_seq_gen", sequenceName="RC_EVENT_MEMBER_SEQ", allocationSize = 1)
-    private int event_id;
+    private int event_member_id;
 
+    private int event_id;
     private int member_id;
     private int role_id;
     private boolean is_enabled;
@@ -31,7 +32,7 @@ public class RcEventMember {
     public int getEvent_id(){return event_id;}
     public void setEvent_id(int event_id){this.event_id=event_id;}
 
-    public int getMember_id(){return event_id;}
+    public int getMember_id(){return member_id;}
     public void setMember_id(int member_id){this.member_id=member_id;}
 
     public int getRole_id(){return role_id;}
@@ -45,4 +46,12 @@ public class RcEventMember {
 
     public String getChoice(){return choice;}
     public void setChoice(String choice){this.choice=choice;}
+
+    public int getEvent_member_id() {
+        return event_member_id;
+    }
+
+    public void setEvent_member_id(int event_member_id) {
+        this.event_member_id = event_member_id;
+    }
 }

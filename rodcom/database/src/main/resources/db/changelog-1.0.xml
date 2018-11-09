@@ -116,6 +116,7 @@
 
             CREATE TABLE RC_EVENT_MEMBER
             (
+            event_member_id int primary key,
             event_id int,
             member_id int,
             role_id int,
