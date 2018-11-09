@@ -5,6 +5,11 @@ import javax.persistence.*;
 import java.util.Set;
 import java.util.HashSet;
 
+/**
+ * @author Anton
+ *
+ */
+
 @Entity
 @Table(name = "rc_group", schema = "public", catalog = "postgres")
 public class RcGroup {
@@ -31,12 +36,12 @@ public class RcGroup {
     @Column(name = "is_enabled")
     private Boolean isEnabled;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id")
-    private Rc_school school;
+    private RcSchool school;
 
     @OneToMany(mappedBy = "to_group")
-    private Set<Rc_message> messages = new HashSet<Rc_message>();
+    private Set<RcMessage> messages = new HashSet<RcMessage>();
 
 
     //groupId
@@ -80,25 +85,25 @@ public class RcGroup {
     }
 
     //school
-    public Rc_school getSchool() {
+    public RcSchool getSchool() {
         return this.school;
     }
-    public void setSchool(Rc_school school) {
+    public void setSchool(RcSchool school) {
         this.school = school;
     }
 
     //messages
-    public Set<Rc_message> getMessages() {
+    public Set<RcMessage> getMessages() {
         return this.messages;
     }
-    public void setMessages(Set<Rc_message> m) {
+    public void setMessages(Set<RcMessage> m) {
         this.messages = m;
     }
-    public void addMessage(Rc_message m) {
+    public void addMessage(RcMessage m) {
        m.setTo_group(this);
        getMessages().add(m);
     }
-    public void removeMessage(Rc_message m) {
+    public void removeMessage(RcMessage m) {
        getMessages().remove(m);
     }
 

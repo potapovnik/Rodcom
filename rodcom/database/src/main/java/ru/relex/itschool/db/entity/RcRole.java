@@ -2,6 +2,11 @@ package ru.relex.itschool.db.entity;
 
 import javax.persistence.*;
 
+/**
+ * @author Anton
+ *
+ */
+
 @Entity
 @Table(name = "rc_role", schema = "public", catalog = "postgres")
 public class RcRole {

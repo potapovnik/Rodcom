@@ -13,7 +13,7 @@ public class RcSchool {
     private int school_id;
     private String school_name;
 
-    @OneToMany(mappedBy = "school")
+    @OneToMany(mappedBy = "school", fetch =  FetchType.LAZY)
     private Set<RcGroup> groups = new HashSet<RcGroup>();
 
     @OneToMany(mappedBy = "school")
