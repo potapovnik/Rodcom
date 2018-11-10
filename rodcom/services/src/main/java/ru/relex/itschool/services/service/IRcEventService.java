@@ -5,7 +5,7 @@ import ru.relex.itschool.services.modelDto.RcMemberDto;
 
 public interface IRcEventService{
         public RcEventDto getById(int id);
-        public RcEventDto createMember(RcEventDto rcEventDto);
-        public boolean updateMember(RcEventDto rcEventDto);
-        public boolean deleteMember(RcEventDto rcEventDto);
+        public RcEventDto createEvent(RcEventDto rcEventDto);
+        public boolean updateEvent(RcEventDto rcEventDto);
+        public boolean deleteEvent(RcEventDto rcEventDto);
 }

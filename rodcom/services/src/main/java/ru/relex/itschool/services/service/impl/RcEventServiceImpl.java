@@ -1,5 +1,6 @@
 package ru.relex.itschool.services.service.impl;
 
+import org.springframework.stereotype.Service;
 import ru.relex.itschool.db.entity.RcEvent;
 import ru.relex.itschool.db.repository.IRcEventRepository;
 import ru.relex.itschool.services.modelDto.RcEventDto;
@@ -7,6 +8,7 @@ import ru.relex.itschool.services.service.IRcEventService;
 
 import java.util.Optional;
 
+@Service
 public class RcEventServiceImpl implements IRcEventService {
     private final IRcEventRepository repository;
 
@@ -26,7 +28,7 @@ public class RcEventServiceImpl implements IRcEventService {
     }
 
     @Override
-    public RcEventDto createMember(RcEventDto rcEventDto) {
+    public RcEventDto createEvent(RcEventDto rcEventDto) {
         RcEvent rcEvent=new RcEvent(rcEventDto.getEvent_id(),rcEventDto.getGroup_id(),
                 rcEventDto.getSchool_id(),rcEventDto.getEvent_type(),rcEventDto.getEvent_name(),
                 rcEventDto.getEvent_desc(),rcEventDto.getEvent_time(),rcEventDto.getEvent_status());
@@ -36,7 +38,7 @@ public class RcEventServiceImpl implements IRcEventService {
     }
 
     @Override
-    public boolean updateMember(RcEventDto rcEventDto) {
+    public boolean updateEvent(RcEventDto rcEventDto) {
         Optional<RcEvent> rcEventOptional=repository.findById(rcEventDto.getEvent_id());
         if (!rcEventOptional.isPresent()){return false;}
         RcEvent rcEvent=rcEventOptional.get();
@@ -52,12 +54,12 @@ public class RcEventServiceImpl implements IRcEventService {
     }
 
     @Override
-    public boolean deleteMember(RcEventDto rcEventDto) {
-        Optional<RcEvent> rcEvent=repository.findById(rcEventDto.getEvent_id());
-        if(!rcEvent.isPresent()){
+    public boolean deleteEvent(RcEventDto rcEventDto) {
+        Optional<RcEvent> rcEventOptional=repository.findById(rcEventDto.getEvent_id());
+        if(!rcEventOptional.isPresent()){
             return false;
         }
-        repository.delete(rcEvent.get());
+        repository.delete(rcEventOptional.get());
         return true;
     }
 }
