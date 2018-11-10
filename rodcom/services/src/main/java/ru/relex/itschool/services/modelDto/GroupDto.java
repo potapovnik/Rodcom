@@ -1,10 +1,5 @@
 package ru.relex.itschool.services.modelDto;
 
-import ru.relex.itschool.db.entity.RcMessage;
-import ru.relex.itschool.db.entity.RcSchool;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author Anton
@@ -27,12 +22,12 @@ public class GroupDto {
     private Boolean isEnabled;
 
 
-    private RcSchool school;
+    private int schoolId;
     //если здесь оставлять Rc_School то запрос циклится выдавая по очереди, то группу
     //то школу
 
 
-    private Set<RcMessage> messages = new HashSet<RcMessage>();
+//    private Set<RcMessage> messages = new HashSet<RcMessage>();
 
 
 
@@ -77,18 +72,18 @@ public class GroupDto {
     }
 
     //schoolId
-    public RcSchool getSchool() {
-        return school;
+    public int getSchoolId() {
+        return schoolId;
     }
-    public void setSchool(RcSchool schoolId) {
-        this.school = schoolId;
+    public void setSchoolId(int schoolId) {
+        this.schoolId = schoolId;
     }
 
     //messages
-    public Set<RcMessage> getMessages() {
-        return messages;
-    }
-    public void setMessages(Set<RcMessage> messages) {
-        this.messages = messages;
-    }
+//    public Set<RcMessage> getMessages() {
+//        return messages;
+//    }
+//    public void setMessages(Set<RcMessage> messages) {
+//        this.messages = messages;
+//    }
 }

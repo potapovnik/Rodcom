@@ -23,39 +23,47 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public RoleDto getById(int id) {
-        return toDTO(roleRepository.getOne(id));
+        Optional<RcRole> roleOptional = roleRepository.findById(id);
+        if (roleOptional.isEmpty()) {
+            return null;
+        }
+        RcRole role = roleOptional.get();
+
+        return toDTO(role);
     }
 
     @Override
-    public RoleDto createGroup(RoleDto role) {
+    public RoleDto createRole(RoleDto role) {
         RcRole newRole = fromDTO(role);
-        roleRepository.save(newRole);
+        newRole = roleRepository.save(newRole);
 
-        return toDTO(newRole);
+
+        role.setRoleId(newRole.getRoleId());
+        return role;
     }
 
     @Override
-    public boolean updateGroup(RoleDto role) {
+    public RoleDto updateRole(RoleDto role) {
         RcRole rcRole = roleRepository.getOne(role.getRoleId());
         if(rcRole == null)
-            return false;
+            return null;
 
         rcRole = fromDTO(role);
         rcRole.setRoleId(role.getRoleId());
-        roleRepository.save(rcRole);
+        rcRole = roleRepository.save(rcRole);
 
-        return true;
+        return toDTO(rcRole);
     }
 
     @Override
-    public boolean deleteGroup(RoleDto role) {
+    public RoleDto deleteRole(RoleDto role) {
         RcRole rcRole = roleRepository.getOne(role.getRoleId());
         if(rcRole == null)
-            return false;
+            return null;
 
         roleRepository.delete(rcRole);
 
-        return true;
+        return toDTO(rcRole);
     }
 
     public RcRole fromDTO(RoleDto roleDto) {

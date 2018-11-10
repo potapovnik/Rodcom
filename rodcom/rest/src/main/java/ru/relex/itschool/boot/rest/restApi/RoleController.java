@@ -21,24 +21,28 @@ public class RoleController {
 
     @GetMapping(value = "/{id}")
     RoleDto getRoleById(@PathVariable("id") int id) {
+
         RoleDto roleDto = service.getById(id);
         if(roleDto == null)
-            return null;
+            throw new NullPointerException();
+
         return roleDto;
     }
 
-    @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     RoleDto createRole(@RequestBody RoleDto roleDto) {
-        return service.createGroup(roleDto);
+        return service.createRole(roleDto);
     }
 
-    @PutMapping(value = "/update")
-    boolean updateRole(@RequestBody RoleDto roleDto) {
-        return service.updateGroup(roleDto);
+    @PutMapping(path = "/{id}")
+    RoleDto updateRole(@PathVariable("id") int id, @RequestBody RoleDto roleDto) {
+        roleDto.setRoleId(id);
+        return service.updateRole(roleDto);
     }
 
-    @DeleteMapping(value = "/delete")
-    boolean deleteRole(@RequestBody RoleDto roleDto) {
-        return service.deleteGroup(roleDto);
+    @DeleteMapping(path = "/{id}")
+    RoleDto deleteRole(@PathVariable("id") int id, @RequestBody RoleDto roleDto) {
+        roleDto.setRoleId(id);
+        return service.deleteRole(roleDto);
     }
 }

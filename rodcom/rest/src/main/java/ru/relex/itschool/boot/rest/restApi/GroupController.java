@@ -22,17 +22,30 @@ public class GroupController {
         this.service = service;
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(path = "/{id}")
     GroupDto getById(@PathVariable("id") int id){
         GroupDto rcGroup = service.getById(id);
         if (rcGroup == null)
-            return null;
+            throw new NullPointerException();
+
         return rcGroup;
     }
 
-    @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    GroupDto create(GroupDto groupDto) {
+    @PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    GroupDto createGroup(@RequestBody GroupDto groupDto) {
         return service.createGroup(groupDto);
+    }
+
+    @PutMapping(path = "/{id}")
+    GroupDto updateGroup(@PathVariable("id") int id, @RequestBody GroupDto groupDto) {
+        groupDto.setGroupId(id);
+        return service.updateGroup(groupDto);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    GroupDto deleteGroup(@PathVariable("id") int id, @RequestBody GroupDto groupDto) {
+        groupDto.setGroupId(id);
+        return service.deleteGroup(groupDto);
     }
 
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.relex.itschool.db.entity.RcGroup;
 import ru.relex.itschool.db.repository.IGroupRepository;
+import ru.relex.itschool.db.repository.IRcSchoolRepository;
 import ru.relex.itschool.services.modelDto.GroupDto;
 import ru.relex.itschool.services.service.IGroupService;
 
@@ -17,8 +18,15 @@ import java.util.Optional;
 @Service
 public class GroupServiceImpl implements IGroupService {
 
+    private final IGroupRepository groupRepository;
+    private final IRcSchoolRepository schoolRepository;
+
     @Autowired
-    IGroupRepository groupRepository;
+    public GroupServiceImpl(IGroupRepository groupRepository,
+                            IRcSchoolRepository schoolRepository) {
+        this.groupRepository = groupRepository;
+        this.schoolRepository = schoolRepository;
+    }
 
 
     @Override
@@ -40,40 +48,40 @@ public class GroupServiceImpl implements IGroupService {
     }
 
     @Override
-    public boolean updateGroup(GroupDto group) {
+    public GroupDto updateGroup(GroupDto group) {
         RcGroup rcGroup = groupRepository.getOne(group.getGroupId());
         if(rcGroup == null)
-            return false;
+            return null;
 
         rcGroup = fromDTO(group);
         rcGroup.setGroupId(group.getGroupId());
-        groupRepository.save(rcGroup);
+        rcGroup = groupRepository.save(rcGroup);
 
-        return true;
+        return toDTO(rcGroup);
     }
 
     @Override
-    public boolean deleteGroup(GroupDto group) {
+    public GroupDto deleteGroup(GroupDto group) {
         RcGroup rcGroup = groupRepository.getOne(group.getGroupId());
         if(rcGroup == null)
-            return false;
+            return null;
 
         groupRepository.delete(rcGroup);
 
-        return true;
+        return toDTO(rcGroup);
     }
 
 
     public RcGroup fromDTO(GroupDto group) {
         RcGroup rcGroup = new RcGroup();
 
-        //rcGroup.setGroupId();
+//        rcGroup.setGroupId();
         rcGroup.setEnabled(group.getEnabled());
         rcGroup.setGroupDesc(group.getGroupDesc());
         rcGroup.setGroupName(group.getGroupName());
         rcGroup.setGroupType(group.getGroupType());
-        rcGroup.setMessages(group.getMessages());
-        rcGroup.setSchool(group.getSchool());
+//        rcGroup.setMessages(group.getMessages());
+        rcGroup.setSchool(schoolRepository.getOne(group.getSchoolId()));
 
         return rcGroup;
     }
@@ -85,8 +93,8 @@ public class GroupServiceImpl implements IGroupService {
         group.setGroupDesc(rcGroup.getGroupDesc());
         group.setGroupName(rcGroup.getGroupName());
         group.setGroupType(rcGroup.getGroupType());
-        group.setMessages(rcGroup.getMessages());
-        group.setSchool(rcGroup.getSchool());
+//        group.setMessages(rcGroup.getMessages());
+        group.setSchoolId(rcGroup.getSchool().getSchool_id());
 
         return group;
     }
