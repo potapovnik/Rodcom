@@ -5,9 +5,15 @@ import javax.persistence.*;
 import java.util.Set;
 import java.util.HashSet;
 
+/**
+ * @author Anton
+ *
+ */
+
 @Entity
 @Table(name = "rc_group", schema = "public", catalog = "postgres")
 public class RcGroup {
+
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_group_seq_gen")
     @SequenceGenerator(name="rc_group_seq_gen", sequenceName="RC_GROUP_SEQ", allocationSize = 1)
@@ -30,84 +36,84 @@ public class RcGroup {
     @Column(name = "is_enabled")
     private Boolean isEnabled;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id")
     private RcSchool school;
 
     @OneToMany(mappedBy = "to_group")
     private Set<RcMessage> messages = new HashSet<RcMessage>();
 
+
+    //groupId
     public int getGroupId() {
         return groupId;
     }
-
     public void setGroupId(int groupId) {
         this.groupId = groupId;
     }
 
+    //groupType
     public String getGroupType() {
         return groupType;
     }
-
     public void setGroupType(String groupType) {
         this.groupType = groupType;
     }
 
+    //groupName
     public String getGroupName() {
         return groupName;
     }
-
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
 
+    //groupDesc
     public String getGroupDesc() {
         return groupDesc;
     }
-
     public void setGroupDesc(String groupDesc) {
         this.groupDesc = groupDesc;
     }
 
+    //enabled
     public Boolean getEnabled() {
         return isEnabled;
     }
-
     public void setEnabled(Boolean enabled) {
         isEnabled = enabled;
     }
 
+    //school
     public RcSchool getSchool() {
         return this.school;
     }
- 
     public void setSchool(RcSchool school) {
         this.school = school;
     }
 
+    //messages
     public Set<RcMessage> getMessages() {
         return this.messages;
     }
-
     public void setMessages(Set<RcMessage> m) {
         this.messages = m;
     }
-
     public void addMessage(RcMessage m) {
        m.setTo_group(this);
        getMessages().add(m);
     }
-
     public void removeMessage(RcMessage m) {
        getMessages().remove(m);
     }
 
+    //IDE generated methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        RcGroup that = (RcGroup)o;
+        RcGroup that = (RcGroup) o;
 
         if (groupId != that.groupId) return false;
         if (groupType != null ? !groupType.equals(that.groupType) : that.groupType != null) return false;
@@ -117,7 +123,6 @@ public class RcGroup {
 
         return true;
     }
-
     @Override
     public int hashCode() {
         int result = groupId;

@@ -2,9 +2,15 @@ package ru.relex.itschool.db.entity;
 
 import javax.persistence.*;
 
+/**
+ * @author Anton
+ *
+ */
+
 @Entity
 @Table(name = "rc_role", schema = "public", catalog = "postgres")
 public class RcRole {
+
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_role_seq_gen")
     @SequenceGenerator(name="rc_role_seq_gen", sequenceName="RC_ROLE_SEQ", allocationSize = 1)
@@ -15,29 +21,24 @@ public class RcRole {
     @Column(name = "role_name")
     private String roleName;
 
-    public RcRole() {
-    }
 
-    public RcRole(String name) {
-        this.roleName = name;
-    }
-
+    //roleId
     public int getRoleId() {
         return roleId;
     }
-
     public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
 
+    //roleName
     public String getRoleName() {
         return roleName;
     }
-
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
 
+    //IDE generated methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,7 +51,6 @@ public class RcRole {
 
         return true;
     }
-
     @Override
     public int hashCode() {
         int result = roleId;

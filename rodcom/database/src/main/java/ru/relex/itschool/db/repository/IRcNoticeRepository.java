@@ -5,6 +5,7 @@ import ru.relex.itschool.db.entity.RcNotice;
 
 /**
  * @author : sasha
+ *
  */
 public interface IRcNoticeRepository extends JpaRepository<RcNotice, Integer> {
 }
