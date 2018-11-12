@@ -19,15 +19,15 @@ public class RcMessage {
 
     @ManyToOne
     @JoinColumn(name = "from_member_id")
-    private RcMember from_member;
+    private RcMember fromMember;
 
     @ManyToOne
     @JoinColumn(name = "to_member_id")
-    private RcMember to_member;
+    private RcMember toMember;
 
     @ManyToOne
     @JoinColumn(name = "to_group_id")
-    private RcGroup to_group;
+    private RcGroup toGroup;
     
 
     public RcMessage() {
@@ -82,27 +82,27 @@ public class RcMessage {
         this.message_status = s;
     }
 
-    public RcGroup getTo_group() {
-        return this.to_group;
+    public RcGroup getToGroup() {
+        return this.toGroup;
     }
  
-    public void setTo_group(RcGroup g) {
-        this.to_group = g;
+    public void setToGroup(RcGroup g) {
+        this.toGroup = g;
     }
 
-    public RcMember getTo_member() {
-        return this.to_member;
+    public RcMember getToMember() {
+        return this.toMember;
     }
  
-    public void setTo_member(RcMember m) {
-        this.to_member = m;
+    public void setToMember(RcMember m) {
+        this.toMember = m;
     }
 
-    public RcMember getFrom_member() {
-        return this.from_member;
+    public RcMember getFromMember() {
+        return this.fromMember;
     }
  
-    public void setFrom_member(RcMember m) {
-        this.from_member = m;
+    public void setFromMember(RcMember m) {
+        this.fromMember = m;
     }
 }

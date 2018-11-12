@@ -40,7 +40,7 @@ public class RcGroup {
     @JoinColumn(name = "school_id")
     private RcSchool school;
 
-    @OneToMany(mappedBy = "to_group")
+    @OneToMany(mappedBy = "toGroup")
     private Set<RcMessage> messages = new HashSet<RcMessage>();
 
 
@@ -100,7 +100,7 @@ public class RcGroup {
         this.messages = m;
     }
     public void addMessage(RcMessage m) {
-       m.setTo_group(this);
+       m.setToGroup(this);
        getMessages().add(m);
     }
     public void removeMessage(RcMessage m) {
