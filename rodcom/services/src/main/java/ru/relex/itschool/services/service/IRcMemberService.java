@@ -1,7 +1,7 @@
 package ru.relex.itschool.services.service;
 
 import ru.relex.itschool.services.modelDto.RcMemberDto;
-import java.util.*;
+import java.util.List;
 
 public interface IRcMemberService {
     public RcMemberDto getById(int id);

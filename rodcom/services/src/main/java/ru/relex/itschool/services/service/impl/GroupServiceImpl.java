@@ -94,7 +94,7 @@ public class GroupServiceImpl implements IGroupService {
         group.setGroupName(rcGroup.getGroupName());
         group.setGroupType(rcGroup.getGroupType());
 //        group.setMessages(rcGroup.getMessages());
-        group.setSchoolId(rcGroup.getSchool().getSchool_id());
+        group.setSchoolId(rcGroup.getSchool().getSchoolId());
 
         return group;
     }

@@ -10,8 +10,11 @@ public class RcSchool {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rc_school_seq_gen")
     @SequenceGenerator(name = "rc_school_seq_gen", sequenceName = "RC_SCHOOL_SEQ", allocationSize = 1)
-    private int school_id;
-    private String school_name;
+    @Column(name = "school_id")
+    private int schoolId;
+
+    @Column(name = "school_name")
+    private String schoolName;
 
     @OneToMany(mappedBy = "school", fetch =  FetchType.LAZY)
     private Set<RcGroup> groups = new HashSet<RcGroup>();
@@ -23,26 +26,26 @@ public class RcSchool {
     }
 
 
-    public RcSchool(String school_name) {
+    public RcSchool(String schoolName) {
         super();
-        this.school_name = school_name;
+        this.schoolName = schoolName;
     }
 
 
-    public int getSchool_id() {
-        return school_id;
+    public int getSchoolId() {
+        return schoolId;
     }
 
-    public void setSchool_id(int id) {
-        this.school_id = id;
+    public void setSchoolId(int id) {
+        this.schoolId = id;
     }
 
-    public String getSchool_name() {
-        return school_name;
+    public String getSchoolName() {
+        return schoolName;
     }
 
-    public void setSchool_name(String s) {
-        this.school_name = s;
+    public void setSchoolName(String s) {
+        this.schoolName = s;
     }
 
     public Set<RcGroup> getGroups() {
@@ -78,17 +81,17 @@ public class RcSchool {
 
         RcSchool school = (RcSchool) o;
 
-        if (school_id != school.school_id)
+        if (schoolId != school.schoolId)
             return false;
-        if (school_name != null ? !school_name.equals(school.school_name) : school.school_name != null)
+        if (schoolName != null ? !schoolName.equals(school.schoolName) : school.schoolName != null)
             return false;
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = school_id;
-        result = 31 * result + (school_name != null ? school_name.hashCode() : 0);
+        int result = schoolId;
+        result = 31 * result + (schoolName != null ? schoolName.hashCode() : 0);
         return result;
     }
 }

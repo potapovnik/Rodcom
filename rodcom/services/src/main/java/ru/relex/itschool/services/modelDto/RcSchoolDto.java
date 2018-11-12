@@ -3,34 +3,34 @@ package ru.relex.itschool.services.modelDto;
 import ru.relex.itschool.db.entity.RcSchool;
 
 public class RcSchoolDto {
-    private int school_id;
-    private String school_name;
+    private int schoolId;
+    private String schoolName;
 
     public RcSchoolDto() {
     }
 
     public RcSchoolDto(String name) {
-        this.school_name = name;
+        this.schoolName = name;
     }
 
     public RcSchoolDto(int id, String name) {
-        this.school_id = id;
-        this.school_name = name;
+        this.schoolId = id;
+        this.schoolName = name;
     }
 
-    public int getSchool_id() {
-        return school_id;
+    public int getSchoolId() {
+        return schoolId;
     }
 
-    public void setSchool_id(int id) {
-        this.school_id = id;
+    public void setSchoolId(int id) {
+        this.schoolId = id;
     }
 
-    public String getSchool_name() {
-        return school_name;
+    public String getSchoolName() {
+        return schoolName;
     }
 
-    public void setSchool_name(String name) {
-        this.school_name = name;
+    public void setSchoolName(String name) {
+        this.schoolName = name;
     }
 }
