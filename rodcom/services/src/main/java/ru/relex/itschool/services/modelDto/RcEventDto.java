@@ -2,6 +2,8 @@ package ru.relex.itschool.services.modelDto;
 
 //import ru.relex.itschool.services.validation.Event_name;
 
+import ru.relex.itschool.services.validation.Event_name;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -10,7 +12,7 @@ public class RcEventDto {
         private int group_id;
         private int school_id;
         private String event_type;
-//        @Event_name
+       @Event_name
         private String event_name;
         private String event_desc;
         private Date event_time;
