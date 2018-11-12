@@ -4,12 +4,12 @@ import ru.relex.itschool.db.entity.RcMember;
 import java.util.*;
 
 public class RcMemberDto {
-    private int    member_id;
+    private int    memberId;
     private String annotation;
-    private Date   actual_date;
-    private String first_name;
-    private String middle_name;
-    private String last_name;
+    private Date   actualDate;
+    private String firstName;
+    private String middleName;
+    private String lastName;
     private String phone;
     private String phone2;
     private String address;
@@ -22,14 +22,14 @@ public class RcMemberDto {
     public RcMemberDto() {
     }
 
-    public RcMemberDto(String annotation, Date actual_date, String first_name, String middle_name, 
-                       String last_name, String phone, String phone2, String address, String email, 
+    public RcMemberDto(String annotation, Date actualDate, String firstName, String middleName, 
+                       String lastName, String phone, String phone2, String address, String email, 
                        String skype, String vk, String ok, String twit) {
     	this.annotation = annotation;
-    	this.actual_date = actual_date;
-    	this.first_name = first_name;
-    	this.middle_name = middle_name;
-    	this.last_name = last_name; 
+    	this.actualDate = actualDate;
+    	this.firstName = firstName;
+    	this.middleName = middleName;
+    	this.lastName = lastName; 
     	this.phone = phone;     
     	this.phone2 = phone2;    
     	this.address = address;   
@@ -40,15 +40,15 @@ public class RcMemberDto {
     	this.twit = twit;    
     }
 
-    public RcMemberDto(int id, String annotation, Date actual_date, String first_name, String middle_name, 
-                       String last_name, String phone, String phone2, String address, String email, 
+    public RcMemberDto(int id, String annotation, Date actualDate, String firstName, String middleName, 
+                       String lastName, String phone, String phone2, String address, String email, 
                        String skype, String vk, String ok, String twit) {
-    	this.member_id = id;
+    	this.memberId = id;
     	this.annotation = annotation;
-    	this.actual_date = actual_date;
-    	this.first_name = first_name;
-    	this.middle_name = middle_name;
-    	this.last_name = last_name; 
+    	this.actualDate = actualDate;
+    	this.firstName = firstName;
+    	this.middleName = middleName;
+    	this.lastName = lastName; 
     	this.phone = phone;     
     	this.phone2 = phone2;    
     	this.address = address;   
@@ -59,12 +59,12 @@ public class RcMemberDto {
     	this.twit = twit;    
     }
 
-    public int getMember_id() {
-    	return member_id;
+    public int getMemberId() {
+    	return memberId;
     }
     
-    public void setMember_id(int id) {
-    	this.member_id = id;
+    public void setMemberId(int id) {
+    	this.memberId = id;
     }
     
     public String getAnnotation() {
@@ -75,36 +75,36 @@ public class RcMemberDto {
     	this.annotation = s;
     }
 
-    public Date getActual_date() {
-    	return actual_date;
+    public Date getActualDate() {
+    	return actualDate;
     }
 
-    public void setActual_date(Date d) {
-    	this.actual_date = d;
+    public void setActualDate(Date d) {
+    	this.actualDate = d;
     }
 
-    public String getFirst_name() {
-    	return first_name;
+    public String getFirstName() {
+    	return firstName;
     }
 
-    public void setFirst_name(String s) {
-    	this.first_name = s;
+    public void setFirstName(String s) {
+    	this.firstName = s;
     }
 
-    public String getMiddle_name() {
-    	return middle_name;
+    public String getMiddleName() {
+    	return middleName;
     }
 
-    public void setMiddle_name(String s) {
-    	this.middle_name = s;
+    public void setMiddleName(String s) {
+    	this.middleName = s;
     }
 
-    public String getLast_name() {
-    	return last_name;
+    public String getLastName() {
+    	return lastName;
     }
 
-    public void setLast_name(String s) {
-    	this.last_name = s;
+    public void setLastName(String s) {
+    	this.lastName = s;
     }
 
     public String getPhone() {
