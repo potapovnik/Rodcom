@@ -12,12 +12,12 @@ import ru.relex.itschool.services.modelDto.RcMemberDto;
 public interface IRcMessageMapper {
 
   @Mappings({
-            @Mapping(target = "toGroup", ignore = true),
             @Mapping(target = "toMember.toMessages", ignore = true),
             @Mapping(target = "toMember.fromMessages", ignore = true),
             @Mapping(target = "fromMember.toMessages", ignore = true),
             @Mapping(target = "fromMember.fromMessages", ignore = true),
-            @Mapping(target = "toGroup.messages", ignore = true)
+            @Mapping(target = "toGroup.messages", ignore = true),
+            @Mapping(target = "toGroup.school", ignore = true)
   })
   RcMessage fromDto(RcMessageDto messageDto);
 
