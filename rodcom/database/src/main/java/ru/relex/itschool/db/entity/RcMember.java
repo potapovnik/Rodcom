@@ -48,6 +48,9 @@ public class RcMember {
 	public RcMember() {
 	}
 	
+	public RcMember(int memberId) {
+	    this.memberId = memberId;
+	}
 	
 	public RcMember(String annotation, Date actualDate, String firstName, String middleName, 
 	                String lastName, String phone, String phone2, String address, String email, 

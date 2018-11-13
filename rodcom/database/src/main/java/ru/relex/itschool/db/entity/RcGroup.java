@@ -44,10 +44,18 @@ public class RcGroup {
     private Set<RcMessage> messages = new HashSet<RcMessage>();
 
 
+    public RcGroup() {
+    }
+
+    public RcGroup(int groupId) {
+        this.groupId = groupId;
+    }
+
     //groupId
     public int getGroupId() {
         return groupId;
     }
+
     public void setGroupId(int groupId) {
         this.groupId = groupId;
     }

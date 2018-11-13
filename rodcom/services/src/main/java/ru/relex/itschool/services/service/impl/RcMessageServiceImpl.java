@@ -2,7 +2,9 @@ package ru.relex.itschool.services.service.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
+import ru.relex.itschool.db.entity.RcMember;
 import ru.relex.itschool.db.entity.RcMessage;
+import ru.relex.itschool.db.entity.RcGroup;
 import ru.relex.itschool.db.repository.IRcMessageRepository;
 import ru.relex.itschool.services.modelDto.RcMessageDto;
 import ru.relex.itschool.services.service.IRcMessageService;
@@ -26,6 +28,27 @@ public class RcMessageServiceImpl implements IRcMessageService {
         if (!messageOptional.isPresent())
             return null;
         return messageOptional.get();
+    }
+
+    public List<RcMessageDto> getMessagesToGroup(int groupId) {
+        List<RcMessage> messages = repository.findByToGroup(new RcGroup(groupId));
+        if (messages == null)
+            return null;
+        return messageMapper.toDto(messages);
+    }
+
+    public List<RcMessageDto> getMessagesToMember(int memberId) {
+        List<RcMessage> messages = repository.findByToMember(new RcMember(memberId));
+        if (messages == null)
+            return null;
+        return messageMapper.toDto(messages);
+    }
+
+    public List<RcMessageDto> getMessagesFromMember(int memberId) {
+        List<RcMessage> messages = repository.findByFromMember(new RcMember(memberId));
+        if (messages == null)
+            return null;
+        return messageMapper.toDto(messages);
     }
 
     @Override
