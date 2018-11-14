@@ -3,6 +3,7 @@ package ru.relex.itschool.services.service.impl;
 import org.springframework.stereotype.Service;
 import ru.relex.itschool.db.entity.RcEvent;
 import ru.relex.itschool.db.repository.IRcEventRepository;
+import ru.relex.itschool.services.mapper.IEventMapper;
 import ru.relex.itschool.services.modelDto.RcEventDto;
 import ru.relex.itschool.services.service.IRcEventService;
 
@@ -11,9 +12,11 @@ import java.util.Optional;
 @Service
 public class RcEventServiceImpl implements IRcEventService {
     private final IRcEventRepository repository;
+    private final IEventMapper mapper;
 
-    public RcEventServiceImpl(IRcEventRepository repository) {
+    public RcEventServiceImpl(IRcEventRepository repository, IEventMapper mapper) {
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     @Override
@@ -23,15 +26,12 @@ public class RcEventServiceImpl implements IRcEventService {
             return null;
         }
         RcEvent ev=rcEvent.get();
-        return new RcEventDto(ev.getEvent_id(),ev.getGroup_id(),ev.getSchool_id(),ev.getEvent_type(),
-                ev.getEvent_name(),ev.getEvent_desc(),ev.getEvent_time(),ev.getEvent_status());
+        return mapper.toDto(ev);
     }
 
     @Override
     public RcEventDto createEvent(RcEventDto rcEventDto) {
-        RcEvent rcEvent=new RcEvent(rcEventDto.getEvent_id(),rcEventDto.getGroup_id(),
-                rcEventDto.getSchool_id(),rcEventDto.getEvent_type(),rcEventDto.getEvent_name(),
-                rcEventDto.getEvent_desc(),rcEventDto.getEvent_time(),rcEventDto.getEvent_status());
+        RcEvent rcEvent=mapper.fromDto(rcEventDto);
         rcEvent=repository.save(rcEvent);
         rcEventDto.setEvent_id(rcEvent.getEvent_id());
         return rcEventDto;
@@ -42,13 +42,7 @@ public class RcEventServiceImpl implements IRcEventService {
         Optional<RcEvent> rcEventOptional=repository.findById(rcEventDto.getEvent_id());
         if (!rcEventOptional.isPresent()){return false;}
         RcEvent rcEvent=rcEventOptional.get();
-        rcEvent.setGroup_id(rcEventDto.getGroup_id());
-        rcEvent.setSchool_id(rcEventDto.getSchool_id());
-        rcEvent.setEvent_type(rcEventDto.getEvent_type());
-        rcEvent.setEvent_name(rcEventDto.getEvent_name());
-        rcEvent.setEvent_desc(rcEventDto.getEvent_desc());
-        rcEvent.setEvent_time(rcEventDto.getEvent_time());
-        rcEvent.setEvent_status(rcEventDto.getEvent_status());
+        rcEvent=mapper.fromDto(rcEventDto);
         repository.save(rcEvent);
         return true;
     }
