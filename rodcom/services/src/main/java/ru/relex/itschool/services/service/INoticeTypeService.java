@@ -7,7 +7,7 @@ import ru.relex.itschool.services.modelDto.RcNoticeTypeDto;
  */
 public interface INoticeTypeService {
 
-    public RcNoticeTypeDto getById(int id);
-    public RcNoticeTypeDto createUpdateNoticeType(RcNoticeTypeDto noticeType);
-    public boolean deleteNoticeType(RcNoticeTypeDto noticeType);
+    RcNoticeTypeDto getById(int id);
+    RcNoticeTypeDto createUpdateNoticeType(RcNoticeTypeDto noticeType);
+    boolean deleteNoticeType(RcNoticeTypeDto noticeType);
 }

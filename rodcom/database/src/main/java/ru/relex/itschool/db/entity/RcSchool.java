@@ -16,7 +16,7 @@ public class RcSchool {
     @OneToMany(mappedBy = "school", fetch =  FetchType.LAZY)
     private Set<RcGroup> groups = new HashSet<RcGroup>();
 
-    @OneToMany(mappedBy = "school")
+    @OneToMany(mappedBy = "school", fetch = FetchType.LAZY)
     private Set<RcNotice> notices = new HashSet<RcNotice>();
 
     public RcSchool() {

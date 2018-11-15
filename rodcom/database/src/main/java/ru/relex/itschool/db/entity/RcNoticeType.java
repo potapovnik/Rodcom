@@ -1,14 +1,12 @@
 package ru.relex.itschool.db.entity;
 
-/**
-  @author : sasha
- */
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * @author : sasha
+ *
  * Тип объявления
  * id - идентификатор
  * name - название
@@ -25,8 +23,8 @@ public class RcNoticeType {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "type")
-    private Set<RcNotice> notices = new HashSet<RcNotice>();
+    @OneToMany(mappedBy = "type", fetch = FetchType.LAZY)
+    private Set<RcNotice> notices = new HashSet<>();
 
     public RcNoticeType() {
     }

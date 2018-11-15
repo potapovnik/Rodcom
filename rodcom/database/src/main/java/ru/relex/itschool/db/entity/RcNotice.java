@@ -18,7 +18,7 @@ import java.util.Calendar;
 @Table(name = "rc_notice")
 public class RcNotice {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "rc_notice_seq_gen")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rc_notice_seq_gen")
     @SequenceGenerator(name = "rc_notice_seq_gen", sequenceName = "RC_NOTICE_SEQ", allocationSize = 1)
     @Column(name = "id")
     private Integer id;
@@ -27,7 +27,7 @@ public class RcNotice {
     @JoinColumn(name = "school_id", referencedColumnName = "school_id")
     private RcSchool school;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id", referencedColumnName = "id")
     private RcNoticeType type;
 
@@ -48,7 +48,7 @@ public class RcNotice {
         this.agenda = agenda;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

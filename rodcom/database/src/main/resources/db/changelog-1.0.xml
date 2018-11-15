@@ -191,7 +191,7 @@
 
             ALTER TABLE RC_NOTICE
             ADD CONSTRAINT fk_notice_type
-            FOREIGN KEY(ID) REFERENCES RC_NOTICE_TYPE;
+            FOREIGN KEY(TYPE_ID) REFERENCES RC_NOTICE_TYPE;
         </sql>
     </changeSet>
 

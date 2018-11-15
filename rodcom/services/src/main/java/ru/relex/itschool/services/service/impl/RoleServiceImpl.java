@@ -24,7 +24,7 @@ public class RoleServiceImpl implements IRoleService {
     @Override
     public RoleDto getById(int id) {
         Optional<RcRole> roleOptional = roleRepository.findById(id);
-        if (roleOptional.isEmpty()) {
+        if (!roleOptional.isPresent()) {
             return null;
         }
         RcRole role = roleOptional.get();

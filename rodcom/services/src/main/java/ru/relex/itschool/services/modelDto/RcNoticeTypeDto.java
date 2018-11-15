@@ -9,13 +9,13 @@ import java.util.Set;
  */
 public class RcNoticeTypeDto {
 
-    private Integer id;
+    private int id;
     private String name;
 
     public RcNoticeTypeDto() {
     }
 
-    public RcNoticeTypeDto(Integer id, String name) {
+    public RcNoticeTypeDto(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -24,7 +24,7 @@ public class RcNoticeTypeDto {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

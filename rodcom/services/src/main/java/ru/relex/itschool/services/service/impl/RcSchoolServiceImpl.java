@@ -34,25 +34,25 @@ public class RcSchoolServiceImpl implements IRcSchoolService {
 
     @Override
     public RcSchoolDto createSchool(RcSchoolDto schoolDto) {
-        RcSchool school = new RcSchool(schoolDto.getSchool_name());
+        RcSchool school = new RcSchool(schoolDto.getSchoolName());
         school = repository.save(school);
-        schoolDto.setSchool_id(school.getSchool_id());
+        schoolDto.setSchoolId(school.getSchool_id());
         return schoolDto;
     }
 
     @Override
     public boolean updateSchool(RcSchoolDto schoolDto) {
-        RcSchool school = getSchoolById(schoolDto.getSchool_id());
+        RcSchool school = getSchoolById(schoolDto.getSchoolId());
         if (school == null)
             return false;
-        school.setSchool_name(schoolDto.getSchool_name());
+        school.setSchool_name(schoolDto.getSchoolName());
         school = repository.save(school);
         return true;
     }
 
     @Override
     public boolean deleteSchool(RcSchoolDto schoolDto) {
-        RcSchool school = getSchoolById(schoolDto.getSchool_id());
+        RcSchool school = getSchoolById(schoolDto.getSchoolId());
         if (school == null)
             return false;
         repository.delete(school);
