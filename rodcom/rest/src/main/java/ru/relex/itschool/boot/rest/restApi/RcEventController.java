@@ -8,6 +8,7 @@ import ru.relex.itschool.services.modelDto.RcEventDto;
 import ru.relex.itschool.services.service.IRcEventService;
 
 import javax.print.attribute.standard.Media;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/event")
@@ -25,7 +26,7 @@ public class RcEventController {
         return rcEventDto;
     }
     @PostMapping(value = "/",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    RcEventDto createEvent(@RequestBody RcEventDto rcEventDto){
+    RcEventDto createEvent(@RequestBody @Valid RcEventDto rcEventDto){
         return service.createEvent(rcEventDto);
     }
     @PutMapping(value = "/",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

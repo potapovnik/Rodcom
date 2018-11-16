@@ -10,13 +10,26 @@ public class RcMember {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_member_seq_gen")
 	@SequenceGenerator(name="rc_member_seq_gen", sequenceName="RC_MEMBER_SEQ", allocationSize = 1)
-	private int    member_id;
+	@Column(name = "member_id")
+	private int    memberId;
 
 	private String annotation;
-	private Date   actual_date;
-	private String first_name;
-	private String middle_name;
-	private String last_name;
+
+	@Basic
+	@Column(name = "actual_date")
+	private Date   actualDate;
+
+	@Basic
+	@Column(name = "first_name")
+	private String firstName;
+
+	@Basic
+	@Column(name = "middle_name")
+	private String middleName;
+
+	@Basic
+	@Column(name = "last_name")
+	private String lastName;
 	private String phone;
 	private String phone2;
 	private String address;
@@ -26,25 +39,28 @@ public class RcMember {
 	private String ok;
 	private String twit;
 
-        @OneToMany(mappedBy = "to_member")
-        private Set<RcMessage> to_messages = new HashSet<RcMessage>();
+        @OneToMany(mappedBy = "toMember")
+        private Set<RcMessage> toMessages = new HashSet<RcMessage>();
 
-        @OneToMany(mappedBy = "from_member")
-        private Set<RcMessage> from_messages = new HashSet<RcMessage>();
+        @OneToMany(mappedBy = "fromMember")
+        private Set<RcMessage> fromMessages = new HashSet<RcMessage>();
 
 	public RcMember() {
 	}
 	
+	public RcMember(int memberId) {
+	    this.memberId = memberId;
+	}
 	
-	public RcMember(String annotation, Date actual_date, String first_name, String middle_name, 
-	                String last_name, String phone, String phone2, String address, String email, 
+	public RcMember(String annotation, Date actualDate, String firstName, String middleName, 
+	                String lastName, String phone, String phone2, String address, String email, 
 	                String skype, String vk, String ok, String twit) {
 		super();
 		this.annotation = annotation;
-		this.actual_date = actual_date;
-		this.first_name = first_name;
-		this.middle_name = middle_name;
-		this.last_name = last_name; 
+		this.actualDate = actualDate;
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName; 
 		this.phone = phone;     
 		this.phone2 = phone2;    
 		this.address = address;   
@@ -56,12 +72,12 @@ public class RcMember {
 	}
 	
 	
-	public int getMember_id() {
-		return member_id;
+	public int getMemberId() {
+		return memberId;
 	}
 	
-	public void setMember_id(int id) {
-		this.member_id = id;
+	public void setMemberId(int id) {
+		this.memberId = id;
 	}
 	
 	public String getAnnotation() {
@@ -72,36 +88,36 @@ public class RcMember {
 		this.annotation = s;
 	}
 
-	public Date getActual_date() {
-		return actual_date;
+	public Date getActualDate() {
+		return actualDate;
 	}
 
-	public void setActual_date(Date d) {
-		this.actual_date = d;
+	public void setActualDate(Date d) {
+		this.actualDate = d;
 	}
 
-	public String getFirst_name() {
-		return first_name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirst_name(String s) {
-		this.first_name = s;
+	public void setFirstName(String s) {
+		this.firstName = s;
 	}
 
-	public String getMiddle_name() {
-		return middle_name;
+	public String getMiddleName() {
+		return middleName;
 	}
 
-	public void setMiddle_name(String s) {
-		this.middle_name = s;
+	public void setMiddleName(String s) {
+		this.middleName = s;
 	}
 
-	public String getLast_name() {
-		return last_name;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLast_name(String s) {
-		this.last_name = s;
+	public void setLastName(String s) {
+		this.lastName = s;
 	}
 
 	public String getPhone() {
@@ -168,38 +184,38 @@ public class RcMember {
 		return twit;
 	}
 
-        public Set<RcMessage> getTo_messages() {
-            return this.to_messages;
+        public Set<RcMessage> getToMessages() {
+            return this.toMessages;
         }
 
-        public void setTo_messages(Set<RcMessage> m) {
-            this.to_messages = m;
+        public void setToMessages(Set<RcMessage> m) {
+            this.toMessages = m;
         }
 
-        public void addTo_message(RcMessage m) {
-           m.setTo_member(this);
-           getTo_messages().add(m);
+        public void addToMessage(RcMessage m) {
+           m.setToMember(this);
+           getToMessages().add(m);
         }
 
-        public void removeTo_message(RcMessage m) {
-           getTo_messages().remove(m);
+        public void removeToMessage(RcMessage m) {
+           getToMessages().remove(m);
         }
 
-        public Set<RcMessage> getFrom_messages() {
-            return this.from_messages;
+        public Set<RcMessage> getFromMessages() {
+            return this.fromMessages;
         }
 
-        public void setFrom_messages(Set<RcMessage> m) {
-            this.from_messages = m;
+        public void setFromMessages(Set<RcMessage> m) {
+            this.fromMessages = m;
         }
 
-        public void addFrom_message(RcMessage m) {
-           m.setFrom_member(this);
-           getFrom_messages().add(m);
+        public void addFromMessage(RcMessage m) {
+           m.setFromMember(this);
+           getFromMessages().add(m);
         }
 
-        public void removeFrom_message(RcMessage m) {
-           getFrom_messages().remove(m);
+        public void removeFromMessage(RcMessage m) {
+           getFromMessages().remove(m);
         }
 
         @Override
@@ -209,17 +225,17 @@ public class RcMember {
 
             RcMember member = (RcMember)o;
 
-            if (member_id != member.member_id) 
+            if (memberId != member.memberId) 
                 return false;
             if (annotation != null ? !annotation.equals(member.annotation) : member.annotation != null) 
                 return false;
-            if (actual_date != null ? !actual_date.equals(member.actual_date) : member.actual_date != null) 
+            if (actualDate != null ? !actualDate.equals(member.actualDate) : member.actualDate != null) 
                 return false;
-            if (first_name != null ? !first_name.equals(member.first_name) : member.first_name != null) 
+            if (firstName != null ? !firstName.equals(member.firstName) : member.firstName != null) 
                 return false;
-            if (middle_name != null ? !middle_name.equals(member.middle_name) : member.middle_name != null) 
+            if (middleName != null ? !middleName.equals(member.middleName) : member.middleName != null) 
                 return false;
-            if (last_name != null ? !last_name.equals(member.last_name) : member.last_name != null) 
+            if (lastName != null ? !lastName.equals(member.lastName) : member.lastName != null) 
                 return false;
             if (phone != null ? !phone.equals(member.phone) : member.phone != null) 
                 return false;
@@ -243,12 +259,12 @@ public class RcMember {
 
         @Override
         public int hashCode() {
-            int result = member_id;
+            int result = memberId;
             result = 31 * result + (annotation != null ? annotation.hashCode() : 0);
-            result = 31 * result + (actual_date != null ? actual_date.hashCode() : 0);
-            result = 31 * result + (first_name != null ? first_name.hashCode() : 0);
-            result = 31 * result + (middle_name != null ? middle_name.hashCode() : 0);
-            result = 31 * result + (last_name != null ? last_name.hashCode() : 0);
+            result = 31 * result + (actualDate != null ? actualDate.hashCode() : 0);
+            result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+            result = 31 * result + (middleName != null ? middleName.hashCode() : 0);
+            result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
             result = 31 * result + (phone != null ? phone.hashCode() : 0);
             result = 31 * result + (phone2 != null ? phone2.hashCode() : 0);
             result = 31 * result + (address != null ? address.hashCode() : 0);

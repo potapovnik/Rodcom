@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.relex.itschool.services.modelDto.RcSchoolDto;
 import ru.relex.itschool.services.service.IRcSchoolService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/school")
 public class RcSchoolController {
@@ -22,6 +24,15 @@ public class RcSchoolController {
             throw  new IllegalArgumentException();
         return schoolDto;
     }
+
+    @GetMapping("/get_all")
+    List<RcSchoolDto> getAll(){
+        List<RcSchoolDto> schoolsDto = service.getAllSchools();
+        if (schoolsDto == null)
+            throw new IllegalArgumentException();
+        return schoolsDto;
+    }
+
 
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     RcSchoolDto createSchool(@RequestBody RcSchoolDto schoolDto) {

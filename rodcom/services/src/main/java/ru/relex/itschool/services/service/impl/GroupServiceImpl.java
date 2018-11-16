@@ -5,9 +5,12 @@ import org.springframework.stereotype.Service;
 import ru.relex.itschool.db.entity.RcGroup;
 import ru.relex.itschool.db.repository.IGroupRepository;
 import ru.relex.itschool.db.repository.IRcSchoolRepository;
+import ru.relex.itschool.services.mapper.IGroupMapper;
 import ru.relex.itschool.services.modelDto.GroupDto;
 import ru.relex.itschool.services.service.IGroupService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -20,12 +23,14 @@ public class GroupServiceImpl implements IGroupService {
 
     private final IGroupRepository groupRepository;
     private final IRcSchoolRepository schoolRepository;
+    private final IGroupMapper groupMapper;
 
     @Autowired
     public GroupServiceImpl(IGroupRepository groupRepository,
-                            IRcSchoolRepository schoolRepository) {
+                            IRcSchoolRepository schoolRepository, IGroupMapper groupMapper) {
         this.groupRepository = groupRepository;
         this.schoolRepository = schoolRepository;
+        this.groupMapper = groupMapper;
     }
 
 
@@ -34,17 +39,17 @@ public class GroupServiceImpl implements IGroupService {
         Optional<RcGroup> group = groupRepository.findById(id);
 
         if(group.isPresent())
-            return toDTO(groupRepository.getOne(id));
+            return groupToDTO(groupRepository.getOne(id));
 
         return null;
     }
 
     @Override
     public GroupDto createGroup(GroupDto group) {
-        RcGroup newGroup = fromDTO(group);
+        RcGroup newGroup = groupFromDTO(group);
         groupRepository.save(newGroup);
 
-        return toDTO(newGroup);
+        return groupToDTO(newGroup);
     }
 
     @Override
@@ -53,48 +58,49 @@ public class GroupServiceImpl implements IGroupService {
         if(rcGroup == null)
             return null;
 
-        rcGroup = fromDTO(group);
+        rcGroup = groupFromDTO(group);
         rcGroup.setGroupId(group.getGroupId());
         rcGroup = groupRepository.save(rcGroup);
 
-        return toDTO(rcGroup);
+        return groupToDTO(rcGroup);
     }
 
     @Override
     public GroupDto deleteGroup(GroupDto group) {
-        RcGroup rcGroup = groupRepository.getOne(group.getGroupId());
+       return deleteGroup(group.getGroupId());
+    }
+
+    @Override
+    public GroupDto deleteGroup(int id) {
+        RcGroup rcGroup = groupRepository.getOne(id);
         if(rcGroup == null)
             return null;
 
         groupRepository.delete(rcGroup);
 
-        return toDTO(rcGroup);
+        return groupToDTO(rcGroup);
+    }
+
+    @Override
+    public List<GroupDto> getAll() {
+        List<RcGroup> list = groupRepository.findAll();
+        List<GroupDto> result = new ArrayList<>();
+
+        for (RcGroup group : list) {
+            result.add(groupToDTO(group));
+        }
+        return result;
     }
 
 
-    public RcGroup fromDTO(GroupDto group) {
-        RcGroup rcGroup = new RcGroup();
-
-//        rcGroup.setGroupId();
-        rcGroup.setEnabled(group.getEnabled());
-        rcGroup.setGroupDesc(group.getGroupDesc());
-        rcGroup.setGroupName(group.getGroupName());
-        rcGroup.setGroupType(group.getGroupType());
-//        rcGroup.setMessages(group.getMessages());
+    public RcGroup groupFromDTO(GroupDto group) {
+        RcGroup rcGroup = groupMapper.fromDto(group);
         rcGroup.setSchool(schoolRepository.getOne(group.getSchoolId()));
 
         return rcGroup;
     }
-    public GroupDto toDTO(RcGroup rcGroup) {
-        GroupDto group = new GroupDto();
-
-        group.setGroupId(rcGroup.getGroupId());
-        group.setEnabled(rcGroup.getEnabled());
-        group.setGroupDesc(rcGroup.getGroupDesc());
-        group.setGroupName(rcGroup.getGroupName());
-        group.setGroupType(rcGroup.getGroupType());
-//        group.setMessages(rcGroup.getMessages());
-        group.setSchoolId(rcGroup.getSchool().getSchool_id());
+    public GroupDto groupToDTO(RcGroup rcGroup) {
+        GroupDto group = groupMapper.toDto(rcGroup);
 
         return group;
     }

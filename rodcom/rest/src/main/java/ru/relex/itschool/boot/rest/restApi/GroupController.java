@@ -7,13 +7,15 @@ import ru.relex.itschool.db.entity.RcSchool;
 import ru.relex.itschool.services.modelDto.GroupDto;
 import ru.relex.itschool.services.service.IGroupService;
 
+import java.util.List;
+
 /**
  * @author Anton
  *
  */
 
 @RestController
-@RequestMapping("/group")
+@RequestMapping("/groups")
 public class GroupController {
 
 
@@ -31,6 +33,11 @@ public class GroupController {
         return rcGroup;
     }
 
+    @GetMapping(path = "/all")
+    List<GroupDto> getAll(){
+        return service.getAll();
+    }
+
     @PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     GroupDto createGroup(@RequestBody GroupDto groupDto) {
         return service.createGroup(groupDto);
@@ -43,9 +50,8 @@ public class GroupController {
     }
 
     @DeleteMapping(path = "/{id}")
-    GroupDto deleteGroup(@PathVariable("id") int id, @RequestBody GroupDto groupDto) {
-        groupDto.setGroupId(id);
-        return service.deleteGroup(groupDto);
+    GroupDto deleteGroup(@PathVariable("id") int id) {
+        return service.deleteGroup(id);
     }
 
 }

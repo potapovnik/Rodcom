@@ -11,51 +11,59 @@ public class RcMessage {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_message_seq_gen")
     @SequenceGenerator(name="rc_message_seq_gen", sequenceName="RC_MESSAGE_SEQ", allocationSize = 1)
-    private int   message_id;
-    private String message_type;
+    @Column(name = "message_id")
+    private int    messageId;
+
+    @Column(name = "message_type")
+    private String messageType;
+
     private String message;
-    private Date   message_time;
-    private String message_status;
+
+    @Column(name = "message_time")
+    private Date   messageTime;
+
+    @Column(name = "message_status")
+    private String messageStatus;
 
     @ManyToOne
     @JoinColumn(name = "from_member_id")
-    private RcMember from_member;
+    private RcMember fromMember;
 
     @ManyToOne
     @JoinColumn(name = "to_member_id")
-    private RcMember to_member;
+    private RcMember toMember;
 
     @ManyToOne
     @JoinColumn(name = "to_group_id")
-    private RcGroup to_group;
+    private RcGroup toGroup;
     
 
     public RcMessage() {
     }
 
-    public RcMessage(String message_type,
-                     String message, Date message_time, String message_status) {
+    public RcMessage(String messageType,
+                     String message, Date messageTime, String messageStatus) {
         super();
-        this.message_type = message_type;
+        this.messageType = messageType;
         this.message = message;
-        this.message_time = message_time;
-        this.message_status = message_status;
+        this.messageTime = messageTime;
+        this.messageStatus = messageStatus;
     }
 
-    public int getMessage_id() {
-        return message_id;
+    public int getMessageId() {
+        return messageId;
     }
 
-    public void setMessage_id(int id) {
-        this.message_id = id;
+    public void setMessageId(int id) {
+        this.messageId = id;
     }
 
-    public void setMessage_type(String s) {
-        this.message_type = s;
+    public void setMessageType(String s) {
+        this.messageType = s;
     }
 
-    public String getMessage_type() {
-        return message_type;
+    public String getMessageType() {
+        return messageType;
     }
 
     public void setMessage(String s) {
@@ -66,43 +74,43 @@ public class RcMessage {
         return message;
     }
 
-    public Date getMessage_time() {
-        return message_time;
+    public Date getMessageTime() {
+        return messageTime;
     }
 
-    public void setMessage_time(Date d) {
-        this.message_time = d;
+    public void setMessageTime(Date d) {
+        this.messageTime = d;
     }
 
-    public String getMessage_status() {
-        return message_status;
+    public String getMessageStatus() {
+        return messageStatus;
     }
 
-    public void setMessage_status(String s) {
-        this.message_status = s;
+    public void setMessageStatus(String s) {
+        this.messageStatus = s;
     }
 
-    public RcGroup getTo_group() {
-        return this.to_group;
+    public RcGroup getToGroup() {
+        return this.toGroup;
     }
  
-    public void setTo_group(RcGroup g) {
-        this.to_group = g;
+    public void setToGroup(RcGroup g) {
+        this.toGroup = g;
     }
 
-    public RcMember getTo_member() {
-        return this.to_member;
+    public RcMember getToMember() {
+        return this.toMember;
     }
  
-    public void setTo_member(RcMember m) {
-        this.to_member = m;
+    public void setToMember(RcMember m) {
+        this.toMember = m;
     }
 
-    public RcMember getFrom_member() {
-        return this.from_member;
+    public RcMember getFromMember() {
+        return this.fromMember;
     }
  
-    public void setFrom_member(RcMember m) {
-        this.from_member = m;
+    public void setFromMember(RcMember m) {
+        this.fromMember = m;
     }
 }

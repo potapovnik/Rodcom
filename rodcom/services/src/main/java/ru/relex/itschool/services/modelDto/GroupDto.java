@@ -1,6 +1,9 @@
 package ru.relex.itschool.services.modelDto;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author Anton
  *
@@ -23,11 +26,9 @@ public class GroupDto {
 
 
     private int schoolId;
-    //если здесь оставлять Rc_School то запрос циклится выдавая по очереди, то группу
-    //то школу
 
 
-//    private Set<RcMessage> messages = new HashSet<RcMessage>();
+    private Set<Integer> messages = new HashSet<>();
 
 
 
@@ -80,10 +81,10 @@ public class GroupDto {
     }
 
     //messages
-//    public Set<RcMessage> getMessages() {
-//        return messages;
-//    }
-//    public void setMessages(Set<RcMessage> messages) {
-//        this.messages = messages;
-//    }
+    public Set<Integer> getMessages() {
+        return messages;
+    }
+    public void setMessages(Set<Integer> messages) {
+        this.messages = messages;
+    }
 }

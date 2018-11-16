@@ -40,14 +40,22 @@ public class RcGroup {
     @JoinColumn(name = "school_id")
     private RcSchool school;
 
-    @OneToMany(mappedBy = "to_group")
+    @OneToMany(mappedBy = "toGroup")
     private Set<RcMessage> messages = new HashSet<RcMessage>();
 
+
+    public RcGroup() {
+    }
+
+    public RcGroup(int groupId) {
+        this.groupId = groupId;
+    }
 
     //groupId
     public int getGroupId() {
         return groupId;
     }
+
     public void setGroupId(int groupId) {
         this.groupId = groupId;
     }
@@ -100,7 +108,7 @@ public class RcGroup {
         this.messages = m;
     }
     public void addMessage(RcMessage m) {
-       m.setTo_group(this);
+       m.setToGroup(this);
        getMessages().add(m);
     }
     public void removeMessage(RcMessage m) {

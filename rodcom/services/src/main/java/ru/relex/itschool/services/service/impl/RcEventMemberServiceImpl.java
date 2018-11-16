@@ -1,9 +1,9 @@
 package ru.relex.itschool.services.service.impl;
 
 import org.springframework.stereotype.Service;
-import ru.relex.itschool.db.entity.RcEvent;
 import ru.relex.itschool.db.entity.RcEventMember;
 import ru.relex.itschool.db.repository.IRcEventMemberRepository;
+import ru.relex.itschool.services.mapper.IEventMemberMapper;
 import ru.relex.itschool.services.modelDto.RcEventMemberDto;
 import ru.relex.itschool.services.service.IRcEventMemberService;
 
@@ -12,9 +12,11 @@ import java.util.Optional;
 @Service
 public class RcEventMemberServiceImpl implements IRcEventMemberService {
     final private IRcEventMemberRepository repository;
+    final private IEventMemberMapper mapper;
 
-    public RcEventMemberServiceImpl(IRcEventMemberRepository repository) {
+    public RcEventMemberServiceImpl(IRcEventMemberRepository repository, IEventMemberMapper mapper) {
         this.repository = repository;
+        this.mapper = mapper;
     }
 
 
@@ -25,16 +27,12 @@ public class RcEventMemberServiceImpl implements IRcEventMemberService {
             return null;
         }
         RcEventMember rEM=rcEventMemberOptional.get();
-        return new RcEventMemberDto(rEM.getEvent_id(),rEM.getMember_id(),rEM.getRole_id(),
-                rEM.isIs_enabled(),rEM.getIs_notify(),rEM.getChoice());
+        return mapper.toDto(rEM);
     }
 
     @Override
     public RcEventMemberDto createEventMember(RcEventMemberDto rcEventMemberDto) {
-        RcEventMember rcEventMember= new RcEventMember(rcEventMemberDto.getEvent_id(),
-                rcEventMemberDto.getMember_id(),rcEventMemberDto.getRole_id(),
-                rcEventMemberDto.isIs_enabled(),rcEventMemberDto.getIs_notify(),
-                rcEventMemberDto.getChoice());
+        RcEventMember rcEventMember= mapper.fromDto(rcEventMemberDto);
         rcEventMember= repository.save(rcEventMember);
         rcEventMemberDto.setEvent_member_id(rcEventMember.getEvent_member_id());
         return rcEventMemberDto;
@@ -47,11 +45,7 @@ public class RcEventMemberServiceImpl implements IRcEventMemberService {
             return false;
         }
         RcEventMember rcEventMember=rcEventMemberOptional.get();
-        rcEventMember.setEvent_id(rcEventMemberDto.getEvent_id());
-        rcEventMember.setMember_id(rcEventMember.getMember_id());
-        rcEventMember.setChoice(rcEventMemberDto.getChoice());
-        rcEventMember.setIs_enabled(rcEventMemberDto.isIs_enabled());
-        rcEventMember.setIs_notify(rcEventMemberDto.getIs_notify());
+        rcEventMember=mapper.fromDto(rcEventMemberDto);
         repository.save(rcEventMember);
         return true;
     }

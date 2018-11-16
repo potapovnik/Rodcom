@@ -1,20 +1,25 @@
 package ru.relex.itschool.services.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 import ru.relex.itschool.db.entity.RcSchool;
 import ru.relex.itschool.db.repository.IRcSchoolRepository;
 import ru.relex.itschool.services.modelDto.RcSchoolDto;
 import ru.relex.itschool.services.service.IRcSchoolService;
+import ru.relex.itschool.services.mapper.IRcSchoolMapper;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class RcSchoolServiceImpl implements IRcSchoolService {
 
     private final IRcSchoolRepository repository;
+    private final IRcSchoolMapper schoolMapper;
 
-    public RcSchoolServiceImpl(IRcSchoolRepository repository) {
+    public RcSchoolServiceImpl(IRcSchoolRepository repository, IRcSchoolMapper schoolMapper) {
         this.repository = repository;
+        this.schoolMapper = schoolMapper;
     }
 
     public RcSchool getSchoolById(int id) {
@@ -24,19 +29,25 @@ public class RcSchoolServiceImpl implements IRcSchoolService {
         return schoolOptional.get();
     }
 
+    public List<RcSchoolDto> getAllSchools() {
+        List<RcSchool> members = repository.findAll(new Sort(Sort.Direction.ASC, "schoolName"));
+        return schoolMapper.toDto(members);
+    }
+
+
     @Override
     public RcSchoolDto getById(int id) {
         RcSchool s = getSchoolById(id);
         if (s == null)
             return null;
-        return new RcSchoolDto(s.getSchool_id(), s.getSchool_name());
+        return schoolMapper.toDto(s);
     }
 
     @Override
     public RcSchoolDto createSchool(RcSchoolDto schoolDto) {
-        RcSchool school = new RcSchool(schoolDto.getSchoolName());
+        RcSchool school = schoolMapper.fromDto(schoolDto);
         school = repository.save(school);
-        schoolDto.setSchoolId(school.getSchool_id());
+        schoolDto.setSchoolId(school.getSchoolId());
         return schoolDto;
     }
 
@@ -45,7 +56,7 @@ public class RcSchoolServiceImpl implements IRcSchoolService {
         RcSchool school = getSchoolById(schoolDto.getSchoolId());
         if (school == null)
             return false;
-        school.setSchool_name(schoolDto.getSchoolName());
+        school.setSchoolName(schoolDto.getSchoolName());
         school = repository.save(school);
         return true;
     }
