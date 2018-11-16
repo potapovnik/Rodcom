@@ -1,0 +1,28 @@
+<configuration>
+    <logger level="WARN" name="org.apache"/>
+    <logger level="INFO" name="org.springframework"/>
+    <logger level="WARN" name="org.hibernate"/>
+    <logger level="INFO" name="com.zaxxer.hikari"/>
+
+    <appender class="ch.qos.logback.core.ConsoleAppender" name="STDOUT">
+        <encoder>
+            <pattern>%d{dd.MM.yyyy HH:mm:ss.SSS} %level [%thread] %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender class="ch.qos.logback.core.rolling.RollingFileAppender" name="FILE">
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/log.%d{yyyyMMdd}.%i.log</fileNamePattern>
+            <maxFileSize>64MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level [%X{principal}] %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>
