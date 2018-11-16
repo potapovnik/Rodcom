@@ -7,6 +7,7 @@ import ru.relex.itschool.db.entity.RcSchool;
 import ru.relex.itschool.db.repository.IRcNoticeRepository;
 import ru.relex.itschool.db.repository.IRcNoticeTypeRepository;
 import ru.relex.itschool.db.repository.IRcSchoolRepository;
+import ru.relex.itschool.services.mapper.INoticeMapper;
 import ru.relex.itschool.services.modelDto.RcNoticeDto;
 import ru.relex.itschool.services.service.INoticeService;
 import ru.relex.itschool.services.util.ObjectBase;
@@ -23,11 +24,13 @@ public class INoticeServiceImpl implements INoticeService {
     private final ObjectBase<RcNotice, IRcNoticeRepository> noticeObjectBase;
     private final ObjectBase<RcSchool, IRcSchoolRepository> schoolObjectBase;
     private final ObjectBase<RcNoticeType, IRcNoticeTypeRepository> noticeTypeObjectBase;
+    private final INoticeMapper noticeMapper;
 
-    public INoticeServiceImpl(ObjectBase<RcNotice, IRcNoticeRepository> noticeObjectBase, ObjectBase<RcSchool, IRcSchoolRepository> schoolObjectBase, ObjectBase<RcNoticeType, IRcNoticeTypeRepository> noticeTypeRepository, ObjectBase<RcNoticeType, IRcNoticeTypeRepository> noticeTypeObjectBase) {
+    public INoticeServiceImpl(ObjectBase<RcNotice, IRcNoticeRepository> noticeObjectBase, ObjectBase<RcSchool, IRcSchoolRepository> schoolObjectBase, ObjectBase<RcNoticeType, IRcNoticeTypeRepository> noticeTypeRepository, ObjectBase<RcNoticeType, IRcNoticeTypeRepository> noticeTypeObjectBase, INoticeMapper noticeMapper) {
         this.noticeObjectBase = noticeObjectBase;
         this.schoolObjectBase = schoolObjectBase;
         this.noticeTypeObjectBase = noticeTypeObjectBase;
+        this.noticeMapper = noticeMapper;
     }
 
     @Override
@@ -38,20 +41,15 @@ public class INoticeServiceImpl implements INoticeService {
 
             //TODO Сделать нормальный обработчик возвращаемых значений из базы
             return null;
-        return new RcNoticeDto(rcNotice.getId(), rcNotice.getSchool().getSchoolId(), rcNotice.getType().getId(), rcNotice.getDate(), rcNotice.getText(), rcNotice.getAgenda());
+        return noticeMapper.toDto(rcNotice);
     }
 
     @Override
     public RcNoticeDto createNotice(RcNoticeDto noticeDto) {
 
-        RcNotice rcNotice = new RcNotice();
-        rcNotice.setSchool(schoolObjectBase.getByIdFromBase(noticeDto.getSchool()));
-        rcNotice.setType(noticeTypeObjectBase.getByIdFromBase(noticeDto.getType()));
-        rcNotice.setDate(noticeDto.getDate());
-        rcNotice.setText(noticeDto.getText());
-        rcNotice.setAgenda(noticeDto.getAgenda());
-        rcNotice = noticeObjectBase.saveToRep(rcNotice);
-        noticeDto.setId(rcNotice.getId());
+        RcNotice newNotice = noticeFromDto(noticeDto);
+        newNotice = noticeObjectBase.saveToRep(newNotice);
+        noticeDto.setId(newNotice.getId());
         return noticeDto;
     }
 
@@ -62,18 +60,9 @@ public class INoticeServiceImpl implements INoticeService {
         RcNotice rcNotice = noticeObjectBase.getByIdFromBase(noticeDto.getId());
         if (noticeObjectBase.isEmpty(rcNotice))
             return null;
-            /*rcNotice = new RcNotice(schoolObjectBase.getByIdFromBase(noticeDto.getSchool()),
-                    noticeTypeObjectBase.getByIdFromBase(noticeDto.getType()),
-                    noticeDto.getDate(),
-                    noticeDto.getText(),
-                    noticeDto.getAgenda());*/
-        else{
-            rcNotice.setSchool(schoolObjectBase.getByIdFromBase(noticeDto.getSchool()));
-            rcNotice.setType(noticeTypeObjectBase.getByIdFromBase(noticeDto.getType()));
-            rcNotice.setDate(noticeDto.getDate());
-            rcNotice.setText(noticeDto.getText());
-            rcNotice.setAgenda(noticeDto.getAgenda());
-        }
+        else
+            rcNotice = noticeFromDto(noticeDto);
+
         rcNotice = noticeObjectBase.saveToRep(rcNotice);
         noticeDto.setId(rcNotice.getId());
 
@@ -98,5 +87,13 @@ public class INoticeServiceImpl implements INoticeService {
         List<RcNotice> notices = noticeObjectBase.getListObject();
         //TODO тут пока ничего не делается. Надо сделать!!!!
         return noticesDto;
+    }
+
+    private RcNotice noticeFromDto (RcNoticeDto noticeDto){
+
+        RcNotice notice = noticeMapper.fromDto(noticeDto);
+        notice.setSchool(schoolObjectBase.getByIdFromBase(noticeDto.getSchool()));
+        notice.setType(noticeTypeObjectBase.getByIdFromBase(noticeDto.getType()));
+        return notice;
     }
 }

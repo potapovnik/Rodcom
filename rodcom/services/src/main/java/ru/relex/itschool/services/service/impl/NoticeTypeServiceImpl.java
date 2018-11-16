@@ -4,6 +4,7 @@ package ru.relex.itschool.services.service.impl;
 import org.springframework.stereotype.Service;
 import ru.relex.itschool.db.entity.RcNoticeType;
 import ru.relex.itschool.db.repository.IRcNoticeTypeRepository;
+import ru.relex.itschool.services.mapper.INoticeTypeMapper;
 import ru.relex.itschool.services.modelDto.RcNoticeTypeDto;
 import ru.relex.itschool.services.service.INoticeTypeService;
 import ru.relex.itschool.services.util.ObjectBase;
@@ -16,9 +17,11 @@ import ru.relex.itschool.services.util.ObjectBase;
 public class NoticeTypeServiceImpl implements INoticeTypeService {
 
     private final ObjectBase<RcNoticeType, IRcNoticeTypeRepository> noticeTypeObjectBase;
+    private final INoticeTypeMapper noticeTypeMapper;
 
-    public NoticeTypeServiceImpl(ObjectBase<RcNoticeType, IRcNoticeTypeRepository> noticeTypeObjectBase) {
+    public NoticeTypeServiceImpl(ObjectBase<RcNoticeType, IRcNoticeTypeRepository> noticeTypeObjectBase, INoticeTypeMapper noticeTypeMapper) {
         this.noticeTypeObjectBase = noticeTypeObjectBase;
+        this.noticeTypeMapper = noticeTypeMapper;
     }
 
     @Override
@@ -28,7 +31,7 @@ public class NoticeTypeServiceImpl implements INoticeTypeService {
 
             //TODO Сделать нормальный обработчик возвращаемых значений из базы
             return null;
-        return new RcNoticeTypeDto(rcNoticeType.getId(), rcNoticeType.getName());
+        return noticeTypeMapper.toDto(rcNoticeType);
     }
 
     @Override
@@ -37,7 +40,7 @@ public class NoticeTypeServiceImpl implements INoticeTypeService {
         RcNoticeType rcNoticeType = noticeTypeObjectBase.getByIdFromBase(noticeTypeDto.getId());
 
         if (noticeTypeObjectBase.isEmpty(rcNoticeType)){
-            rcNoticeType = new RcNoticeType(noticeTypeDto.getId(), noticeTypeDto.getName());
+            rcNoticeType = noticeTypeMapper.fromDto(noticeTypeDto);
         }
         else {
             rcNoticeType.setName(noticeTypeDto.getName());

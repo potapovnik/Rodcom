@@ -22,6 +22,10 @@ public class ObjectBase<T, R extends JpaRepository<T, Integer>> {
     public ObjectBase() {
     }
 
+    public R getRepository(){
+        return this.repository;
+    }
+
     /**
      * Проверить существование объекта в базе и вернуть его, если он есть
      * @param id - идентификатор нужного объекта
