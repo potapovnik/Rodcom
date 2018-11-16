@@ -38,7 +38,7 @@ public class INoticeServiceImpl implements INoticeService {
 
             //TODO Сделать нормальный обработчик возвращаемых значений из базы
             return null;
-        return new RcNoticeDto(rcNotice.getId(), rcNotice.getSchool().getSchool_id(), rcNotice.getType().getId(), rcNotice.getDate(), rcNotice.getText(), rcNotice.getAgenda());
+        return new RcNoticeDto(rcNotice.getId(), rcNotice.getSchool().getSchoolId(), rcNotice.getType().getId(), rcNotice.getDate(), rcNotice.getText(), rcNotice.getAgenda());
     }
 
     @Override
