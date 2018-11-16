@@ -30,8 +30,8 @@ public class RcSchoolServiceImpl implements IRcSchoolService {
     }
 
     public List<RcSchoolDto> getAllSchools() {
-        List<RcSchool> members = repository.findAll(new Sort(Sort.Direction.ASC, "schoolName"));
-        return schoolMapper.toDto(members);
+        List<RcSchool> schools = repository.findAll(new Sort(Sort.Direction.ASC, "schoolName"));
+        return schoolMapper.toDto(schools);
     }
 
 
