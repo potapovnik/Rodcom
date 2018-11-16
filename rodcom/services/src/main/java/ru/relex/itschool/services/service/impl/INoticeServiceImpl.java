@@ -85,8 +85,8 @@ public class INoticeServiceImpl implements INoticeService {
     {
         List<RcNoticeDto> noticesDto = new ArrayList<>();
         List<RcNotice> notices = noticeObjectBase.getListObject();
-        //TODO тут пока ничего не делается. Надо сделать!!!!
-        return noticesDto;
+
+        return noticeMapper.toDto(notices);
     }
 
     private RcNotice noticeFromDto (RcNoticeDto noticeDto){

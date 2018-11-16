@@ -6,6 +6,8 @@ import org.mapstruct.ReportingPolicy;
 import ru.relex.itschool.db.entity.RcNoticeType;
 import ru.relex.itschool.services.modelDto.RcNoticeTypeDto;
 
+import java.util.List;
+
 /**
  * @author : sasha
  */
@@ -13,7 +15,10 @@ import ru.relex.itschool.services.modelDto.RcNoticeTypeDto;
 public interface INoticeTypeMapper {
 
     @Mapping(target = "notices", ignore = true)
-    RcNoticeType fromDto (RcNoticeTypeDto noticeTypeDto);
+    RcNoticeType fromDto(RcNoticeTypeDto noticeTypeDto);
 
-    RcNoticeTypeDto toDto (RcNoticeType noticeType);
+    RcNoticeTypeDto toDto(RcNoticeType noticeType);
+
+    List<RcNoticeType> fromDto(List<RcNoticeTypeDto> noticeTypesDto);
+    List<RcNoticeTypeDto> toDto (List<RcNoticeType> noticeTypes);
 }

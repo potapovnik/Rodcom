@@ -7,6 +7,8 @@ import org.mapstruct.ReportingPolicy;
 import ru.relex.itschool.db.entity.RcNotice;
 import ru.relex.itschool.services.modelDto.RcNoticeDto;
 
+import java.util.List;
+
 /**
  * @author : sasha
  */
@@ -25,4 +27,7 @@ public interface INoticeMapper {
             @Mapping(source = "type.id", target = "type")
     })
     RcNoticeDto toDto(RcNotice notice);
+
+    List<RcNotice> fromDto(List<RcNoticeDto> noticesDto);
+    List<RcNoticeDto> toDto(List<RcNotice> notices);
 }
