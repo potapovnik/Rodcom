@@ -38,6 +38,8 @@ public class RcMember {
 	private String vk;
 	private String ok;
 	private String twit;
+        @Column(name = "password", nullable = false, columnDefinition = "bpchar")
+	private char[] password;
 
         @OneToMany(mappedBy = "toMember")
         private Set<RcMessage> toMessages = new HashSet<RcMessage>();
@@ -54,7 +56,7 @@ public class RcMember {
 	
 	public RcMember(String annotation, Date actualDate, String firstName, String middleName, 
 	                String lastName, String phone, String phone2, String address, String email, 
-	                String skype, String vk, String ok, String twit) {
+	                String skype, String vk, String ok, String twit, char[] password) {
 		super();
 		this.annotation = annotation;
 		this.actualDate = actualDate;
@@ -69,6 +71,7 @@ public class RcMember {
 		this.vk = vk;        
 		this.ok = ok;        
 		this.twit = twit;    
+		this.password = password;
 	}
 	
 	
@@ -184,6 +187,14 @@ public class RcMember {
 		return twit;
 	}
 
+	public void setPassword(char[] s) {
+		this.password = s;
+	}
+
+	public char[] getPassword() {
+		return password;
+	}
+
         public Set<RcMessage> getToMessages() {
             return this.toMessages;
         }
@@ -253,6 +264,8 @@ public class RcMember {
                 return false;
             if (twit != null ? !twit.equals(member.twit) : member.twit != null) 
                 return false;
+            if (password != null ? !password.equals(member.password) : member.password != null) 
+                return false;
 
             return true;
         }
@@ -273,6 +286,7 @@ public class RcMember {
             result = 31 * result + (vk != null ? vk.hashCode() : 0);
             result = 31 * result + (ok != null ? ok.hashCode() : 0);
             result = 31 * result + (twit != null ? twit.hashCode() : 0);
+            result = 31 * result + (password != null ? password.hashCode() : 0);
             return result;
         }
 }

@@ -1,7 +1,11 @@
 package ru.relex.itschool.services.modelDto;
 
-import ru.relex.itschool.db.entity.RcMember;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.*;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 public class RcMemberDto {
     private int    memberId;
@@ -13,18 +17,21 @@ public class RcMemberDto {
     private String phone;
     private String phone2;
     private String address;
+    @NotBlank
     private String email;
     private String skype;
     private String vk;
     private String ok;
     private String twit;
+    @NotEmpty
+    private char[] password;
 
     public RcMemberDto() {
     }
 
     public RcMemberDto(String annotation, Date actualDate, String firstName, String middleName, 
                        String lastName, String phone, String phone2, String address, String email, 
-                       String skype, String vk, String ok, String twit) {
+                       String skype, String vk, String ok, String twit, char[] password) {
     	this.annotation = annotation;
     	this.actualDate = actualDate;
     	this.firstName = firstName;
@@ -38,11 +45,12 @@ public class RcMemberDto {
     	this.vk = vk;        
     	this.ok = ok;        
     	this.twit = twit;    
+    	this.password = password;
     }
 
     public RcMemberDto(int id, String annotation, Date actualDate, String firstName, String middleName, 
                        String lastName, String phone, String phone2, String address, String email, 
-                       String skype, String vk, String ok, String twit) {
+                       String skype, String vk, String ok, String twit, char[] password) {
     	this.memberId = id;
     	this.annotation = annotation;
     	this.actualDate = actualDate;
@@ -57,6 +65,7 @@ public class RcMemberDto {
     	this.vk = vk;        
     	this.ok = ok;        
     	this.twit = twit;    
+    	this.password = password;
     }
 
     public int getMemberId() {
@@ -169,5 +178,15 @@ public class RcMemberDto {
 
     public String getTwit() {
     	return twit;
+    }
+
+    @JsonIgnore
+    public char[] getPassword() {
+      return password;
+    }
+
+    @JsonDeserialize(as = char[].class)
+    public void setPassword(final char[] password) {
+      this.password = password;
     }
 }

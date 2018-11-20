@@ -59,11 +59,12 @@
             PHONE varchar(50),
             PHONE2 varchar(50),
             ADDRESS varchar(255),
-            EMAIL varchar(100),
+            EMAIL varchar(100) NOT NULL UNIQUE,
             SKYPE varchar(50),
             VK varchar(50),
             OK varchar(50),
-            TWIT varchar(100)
+            TWIT varchar(100),
+            PASSWORD CHAR(144) NOT NULL
             );
             create sequence RC_MEMBER_SEQ;
 
@@ -151,48 +152,56 @@
         <sql>
             ALTER TABLE RC_GROUP
             ADD CONSTRAINT fk_group_school
-            FOREIGN KEY(SCHOOL_ID) REFERENCES RC_SCHOOL;
+            FOREIGN KEY(SCHOOL_ID) REFERENCES RC_SCHOOL ON DELETE CASCADE;
 
             ALTER TABLE RC_GROUP_MEMBER
             ADD CONSTRAINT fk_group_member_group
-            FOREIGN KEY(GROUP_ID) REFERENCES RC_GROUP;
+            FOREIGN KEY(GROUP_ID) REFERENCES RC_GROUP ON DELETE CASCADE;
 
             ALTER TABLE RC_GROUP_MEMBER
             ADD CONSTRAINT fk_group_member_member
-            FOREIGN KEY(MEMBER_ID) REFERENCES RC_MEMBER;
+            FOREIGN KEY(MEMBER_ID) REFERENCES RC_MEMBER ON DELETE CASCADE;
 
             ALTER TABLE RC_GROUP_MEMBER
             ADD CONSTRAINT fk_group_member_role
-            FOREIGN KEY(ROLE_ID) REFERENCES RC_ROLE;
+            FOREIGN KEY(ROLE_ID) REFERENCES RC_ROLE ON DELETE CASCADE;
 
             ALTER TABLE RC_EVENT
             ADD CONSTRAINT fk_event_group
-            FOREIGN KEY(GROUP_ID) REFERENCES RC_GROUP;
+            FOREIGN KEY(GROUP_ID) REFERENCES RC_GROUP ON DELETE CASCADE;
 
             ALTER TABLE RC_EVENT
             ADD CONSTRAINT fk_event_school
-            FOREIGN KEY(SCHOOL_ID) REFERENCES RC_SCHOOL;
+            FOREIGN KEY(SCHOOL_ID) REFERENCES RC_SCHOOL ON DELETE CASCADE;
 
             ALTER TABLE RC_EVENT_MEMBER
             ADD CONSTRAINT fk_event_member_event
-            FOREIGN KEY(EVENT_ID) REFERENCES RC_EVENT;
+            FOREIGN KEY(EVENT_ID) REFERENCES RC_EVENT ON DELETE CASCADE;
 
             ALTER TABLE RC_EVENT_MEMBER
             ADD CONSTRAINT fk_event_member_member
-            FOREIGN KEY(MEMBER_ID) REFERENCES RC_MEMBER;
+            FOREIGN KEY(MEMBER_ID) REFERENCES RC_MEMBER ON DELETE CASCADE;
 
             ALTER TABLE RC_EVENT_MEMBER
             ADD CONSTRAINT fk_event_member_role
-            FOREIGN KEY(ROLE_ID) REFERENCES RC_ROLE;
+            FOREIGN KEY(ROLE_ID) REFERENCES RC_ROLE ON DELETE CASCADE;
 
             ALTER TABLE RC_NOTICE
             ADD CONSTRAINT fk_notice_school
-            FOREIGN KEY(SCHOOL_ID) REFERENCES RC_SCHOOL;
+            FOREIGN KEY(SCHOOL_ID) REFERENCES RC_SCHOOL ON DELETE CASCADE;
 
             ALTER TABLE RC_NOTICE
             ADD CONSTRAINT fk_notice_type
-            FOREIGN KEY(TYPE_ID) REFERENCES RC_NOTICE_TYPE;
+            FOREIGN KEY(TYPE_ID) REFERENCES RC_NOTICE_TYPE ON DELETE CASCADE;
         </sql>
     </changeSet>
-
+    <changeSet id="test data" author="ace">
+        <sql>
+            insert into RC_MEMBER(MEMBER_ID, ANNOTATION, ACTUAL_DATE, FIRST_NAME, 
+                                  MIDDLE_NAME, LAST_NAME, PHONE, PHONE2, ADDRESS, 
+                                  EMAIL, SKYPE, VK, OK, TWIT, PASSWORD) values
+            (0, 'System administrator', now(), NULL, NULL, NULL, NULL, NULL, NULL, 
+             'admin@relex.ru', NULL, NULL, NULL, NULL,'123456');
+        </sql>
+    </changeSet>
 </databaseChangeLog>

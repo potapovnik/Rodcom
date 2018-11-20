@@ -5,19 +5,31 @@ import org.mapstruct.*;
 import org.mapstruct.ReportingPolicy;
 import ru.relex.itschool.db.entity.RcMember;
 import ru.relex.itschool.services.modelDto.RcMemberDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework. security.crypto.password.PasswordEncoder;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR, componentModel = "spring")
-public interface IRcMemberMapper {
+@Mapper(componentModel = "spring")
+public abstract class IRcMemberMapper {
 
-    @Mappings({
-            @Mapping(target = "toMessages", ignore = true),
-            @Mapping(target = "fromMessages", ignore = true)
-    })
-  RcMember fromDto(RcMemberDto memberDto);
+/*  @Autowired
+  private PasswordEncoder passwordEncoder; */
 
-  RcMemberDto toDto(RcMember member);
+  @Named("encode")
+  protected char[] encode(char[] password) {
+    return password; /*passwordEncoder.encode(new String(password)).toCharArray()*/
+  }
 
-  List<RcMember> fromDto(List<RcMemberDto> dto);
+  @Mappings({
+          @Mapping(target = "toMessages", ignore = true),
+          @Mapping(target = "fromMessages", ignore = true),
+          @Mapping(target = "password", qualifiedByName = "encode", source = "password")
+  })
+  public abstract RcMember fromDto(RcMemberDto memberDto);
 
-  List<RcMemberDto> toDto(List<RcMember> members);
+  @Mapping(target = "password", ignore = true)
+  public abstract RcMemberDto toDto(RcMember member);
+
+  public abstract List<RcMember> fromDto(List<RcMemberDto> dto);
+
+  public abstract List<RcMemberDto> toDto(List<RcMember> members);
 }
