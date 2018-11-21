@@ -62,8 +62,8 @@ public class RcSchoolServiceImpl implements IRcSchoolService {
     }
 
     @Override
-    public boolean deleteSchool(RcSchoolDto schoolDto) {
-        RcSchool school = getSchoolById(schoolDto.getSchoolId());
+    public boolean deleteSchool(int id) {
+        RcSchool school = getSchoolById(id);
         if (school == null)
             return false;
         repository.delete(school);

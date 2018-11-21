@@ -45,7 +45,7 @@ public class RcSchoolController {
     }
 
     @DeleteMapping("/delete")
-    boolean deleteSchool(@RequestBody RcSchoolDto schoolDto){
-        return service.deleteSchool(schoolDto);
+    boolean deleteSchool(int id){
+        return service.deleteSchool(id);
     }
 }
