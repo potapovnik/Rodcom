@@ -50,7 +50,7 @@ public class RcEventServiceImpl implements IRcEventService {
         return mapper.toDto(rcEvent);
     }
 
-    @Override
+/*    @Override
     public List<RcEventDto> getAllMyEvent(int id) {
         List<RcEventMemberDto> rcEventMembers=serviceEventMember.getAllByIdUser(id);
         List<RcEvent> rcEvents=new ArrayList<>();
@@ -61,7 +61,7 @@ public class RcEventServiceImpl implements IRcEventService {
             return null;
         }
         return mapper.toDto(rcEvents);
-    }
+    }*/
 
     @Override
     public boolean updateEvent(RcEventDto rcEventDto) {

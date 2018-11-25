@@ -50,10 +50,10 @@ public class RcEventController {
         return rcEventDto;
     }
 
-    @GetMapping("/allMyEvent")
+/*    @GetMapping("/allMyEvent")
     List<RcEventDto> getAllMyEvent(int id) {
         return service.getAllMyEvent(id);
-    }
+    }*/
 
 
 }

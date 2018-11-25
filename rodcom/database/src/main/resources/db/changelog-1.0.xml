@@ -200,7 +200,7 @@
             insert into RC_MEMBER(MEMBER_ID, ANNOTATION, ACTUAL_DATE, FIRST_NAME, 
                                   MIDDLE_NAME, LAST_NAME, PHONE, PHONE2, ADDRESS, 
                                   EMAIL, SKYPE, VK, OK, TWIT, PASSWORD) values
-            (0, 'System administrator', now(), NULL, NULL, NULL, NULL, NULL, NULL, 
+            (NEXTVAL('RC_MEMBER_SEQ'), 'System administrator', now(), NULL, NULL, NULL, NULL, NULL, NULL, 
              'admin@relex.ru', NULL, NULL, NULL, NULL,'123456');
         </sql>
     </changeSet>

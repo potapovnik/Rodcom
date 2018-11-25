@@ -7,5 +7,5 @@ import ru.relex.itschool.db.entity.RcMember;
 import java.util.List;
 
 public interface IRcEventMemberRepository extends JpaRepository <RcEventMember,Integer> {
-    List<RcEventMember> findByToMember(RcMember member);
+/*    List<RcEventMember> findByToMember(RcMember member);*/
 }

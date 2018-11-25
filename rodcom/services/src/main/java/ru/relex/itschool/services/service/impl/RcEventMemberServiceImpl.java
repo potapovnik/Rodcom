@@ -34,7 +34,7 @@ public class RcEventMemberServiceImpl implements IRcEventMemberService {
         return mapper.toDto(rEM);
     }
 
-    @Override
+/*    @Override
     public List<RcEventMemberDto> getAllByIdUser(int id) {
         RcMember rcMember=iRcMemberRepository.findById(id).get();
         List<RcEventMember> rcEventMembers=repository.findByToMember(rcMember);
@@ -42,7 +42,7 @@ public class RcEventMemberServiceImpl implements IRcEventMemberService {
             return null;
         }
         return mapper.toDto(rcEventMembers);
-    }
+    }*/
 
     @Override
     public RcEventMemberDto createEventMember(RcEventMemberDto rcEventMemberDto) {

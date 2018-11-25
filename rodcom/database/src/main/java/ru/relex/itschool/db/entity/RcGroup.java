@@ -40,7 +40,7 @@ public class RcGroup {
     @JoinColumn(name = "school_id")
     private RcSchool school;
 
-    @OneToMany(mappedBy = "toGroup")
+    @OneToMany(mappedBy = "toGroup", fetch =  FetchType.LAZY)
     private Set<RcMessage> messages = new HashSet<RcMessage>();
 
 
