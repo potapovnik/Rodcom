@@ -2,21 +2,28 @@ package ru.relex.itschool.services.service.impl;
 
 import org.springframework.stereotype.Service;
 import ru.relex.itschool.db.entity.RcEvent;
+import ru.relex.itschool.db.entity.RcEventMember;
+import ru.relex.itschool.db.repository.IRcEventMemberRepository;
 import ru.relex.itschool.db.repository.IRcEventRepository;
 import ru.relex.itschool.services.mapper.IEventMapper;
 import ru.relex.itschool.services.modelDto.RcEventDto;
+import ru.relex.itschool.services.modelDto.RcEventMemberDto;
 import ru.relex.itschool.services.service.IRcEventService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class RcEventServiceImpl implements IRcEventService {
     private final IRcEventRepository repository;
     private final IEventMapper mapper;
+    private final RcEventMemberServiceImpl serviceEventMember;
 
-    public RcEventServiceImpl(IRcEventRepository repository, IEventMapper mapper) {
+    public RcEventServiceImpl(IRcEventRepository repository, IEventMapper mapper, IRcEventMemberRepository iRcEventMemberRepository, RcEventMemberServiceImpl service) {
         this.repository = repository;
         this.mapper = mapper;
+        this.serviceEventMember = service;
     }
 
     @Override
@@ -35,6 +42,25 @@ public class RcEventServiceImpl implements IRcEventService {
         rcEvent=repository.save(rcEvent);
         rcEventDto.setEvent_id(rcEvent.getEvent_id());
         return rcEventDto;
+    }
+
+    @Override
+    public List<RcEventDto> getAllEvent() {
+        List<RcEvent> rcEvent=repository.findAll();
+        return mapper.toDto(rcEvent);
+    }
+
+    @Override
+    public List<RcEventDto> getAllMyEvent(int id) {
+        List<RcEventMemberDto> rcEventMembers=serviceEventMember.getAllByIdUser(id);
+        List<RcEvent> rcEvents=new ArrayList<>();
+        for (int i=0;i<rcEventMembers.size();i++){
+            rcEvents.add(repository.findById(rcEventMembers.get(i).getEvent_id()).get());
+        }
+        if(rcEvents.isEmpty()){
+            return null;
+        }
+        return mapper.toDto(rcEvents);
     }
 
     @Override

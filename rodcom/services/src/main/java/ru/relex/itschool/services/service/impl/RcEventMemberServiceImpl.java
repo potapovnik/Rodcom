@@ -2,23 +2,27 @@ package ru.relex.itschool.services.service.impl;
 
 import org.springframework.stereotype.Service;
 import ru.relex.itschool.db.entity.RcEventMember;
+import ru.relex.itschool.db.entity.RcMember;
 import ru.relex.itschool.db.repository.IRcEventMemberRepository;
+import ru.relex.itschool.db.repository.IRcMemberRepository;
 import ru.relex.itschool.services.mapper.IEventMemberMapper;
 import ru.relex.itschool.services.modelDto.RcEventMemberDto;
 import ru.relex.itschool.services.service.IRcEventMemberService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class RcEventMemberServiceImpl implements IRcEventMemberService {
     final private IRcEventMemberRepository repository;
+    final private IRcMemberRepository iRcMemberRepository;
     final private IEventMemberMapper mapper;
 
-    public RcEventMemberServiceImpl(IRcEventMemberRepository repository, IEventMemberMapper mapper) {
+    public RcEventMemberServiceImpl(IRcEventMemberRepository repository, IRcMemberRepository iRcMemberRepository, IEventMemberMapper mapper) {
         this.repository = repository;
+        this.iRcMemberRepository = iRcMemberRepository;
         this.mapper = mapper;
     }
-
 
     @Override
     public RcEventMemberDto getById(int id) {
@@ -28,6 +32,16 @@ public class RcEventMemberServiceImpl implements IRcEventMemberService {
         }
         RcEventMember rEM=rcEventMemberOptional.get();
         return mapper.toDto(rEM);
+    }
+
+    @Override
+    public List<RcEventMemberDto> getAllByIdUser(int id) {
+        RcMember rcMember=iRcMemberRepository.findById(id).get();
+        List<RcEventMember> rcEventMembers=repository.findByToMember(rcMember);
+        if (rcEventMembers.isEmpty()){
+            return null;
+        }
+        return mapper.toDto(rcEventMembers);
     }
 
     @Override
