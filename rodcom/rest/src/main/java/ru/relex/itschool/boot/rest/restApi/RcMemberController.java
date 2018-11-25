@@ -43,7 +43,7 @@ public class RcMemberController {
     }
 
     @DeleteMapping("/delete")
-    boolean deleteMember(@RequestBody RcMemberDto memberDto){
-        return service.deleteMember(memberDto);
+    boolean deleteMember(int id){
+        return service.deleteMember(id);
     }
 }

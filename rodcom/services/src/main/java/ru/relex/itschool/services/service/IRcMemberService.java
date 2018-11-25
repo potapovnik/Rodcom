@@ -7,6 +7,6 @@ public interface IRcMemberService {
     public RcMemberDto getById(int id);
     public RcMemberDto createMember(RcMemberDto member);
     public boolean updateMember(RcMemberDto member);
-    public boolean deleteMember(RcMemberDto member);
+    public boolean deleteMember(int id);
     public List<RcMemberDto> getAllMembers();
 }

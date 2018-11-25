@@ -73,8 +73,8 @@ public class RcMemberServiceImpl implements IRcMemberService {
     }
 
     @Override
-    public boolean deleteMember(RcMemberDto memberDto) {
-        RcMember member = getMemberById(memberDto.getMemberId());
+    public boolean deleteMember(int id) {
+        RcMember member = getMemberById(id);
         if (member == null)
             return false;
         repository.delete(member);

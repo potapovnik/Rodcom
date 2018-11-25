@@ -59,7 +59,7 @@ public class RcMessageController {
     }
 
     @DeleteMapping("/delete")
-    boolean deleteMessage(@RequestBody RcMessageDto messageDto){
-        return service.deleteMessage(messageDto);
+    boolean deleteMessage(int id){
+        return service.deleteMessage(id);
     }
 }
