@@ -5,10 +5,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.ReportingPolicy;
 import ru.relex.itschool.db.entity.RcGroup;
-import ru.relex.itschool.db.entity.RcMessage;
 import ru.relex.itschool.services.modelDto.GroupDto;
 
-import java.util.Set;
 
 /**
  * @author Anton

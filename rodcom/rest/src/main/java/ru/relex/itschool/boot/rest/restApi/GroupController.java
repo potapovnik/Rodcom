@@ -40,6 +40,14 @@ public class GroupController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     GroupDto createGroup(@RequestBody GroupDto groupDto) {
+
+        //System.out.println(groupDto.getGroupId());
+        //System.out.println(groupDto.getEnabled());
+        //System.out.println(groupDto.getGroupDesc());
+        //System.out.println(groupDto.getGroupName());
+        //System.out.println(groupDto.getGroupType());
+        //System.out.println(groupDto.getSchoolId());
+
         return service.createGroup(groupDto);
     }
 

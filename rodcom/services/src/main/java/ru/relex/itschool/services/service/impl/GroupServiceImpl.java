@@ -1,5 +1,6 @@
 package ru.relex.itschool.services.service.impl;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.relex.itschool.db.entity.RcGroup;
@@ -78,7 +79,8 @@ public class GroupServiceImpl implements IGroupService {
 
         groupRepository.delete(rcGroup);
 
-        return groupToDTO(rcGroup);
+        //не уверен, что здесь понадобится возвращать что-то кроме null, но тут небольшая ошибка была
+        return null;
     }
 
     @Override
