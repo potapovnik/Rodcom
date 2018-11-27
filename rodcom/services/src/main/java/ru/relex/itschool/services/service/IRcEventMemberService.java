@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface IRcEventMemberService {
     public RcEventMemberDto getById(int id);
-/*    public List<RcEventMemberDto> getAllByIdUser(int id);*/
     public RcEventMemberDto createEventMember(RcEventMemberDto rcEventMemberDto);
     public boolean updateEventMember(RcEventMemberDto rcEventMemberDto);
     public boolean deleteEventMember(RcEventMemberDto rcEventMemberDto);
