@@ -10,5 +10,5 @@ import ru.relex.itschool.db.entity.RcRole;
  */
 
 @Repository
-public interface IRoleRepository extends JpaRepository<RcRole, Integer> {
+public interface IRcRoleRepository extends JpaRepository<RcRole, Integer> {
 }

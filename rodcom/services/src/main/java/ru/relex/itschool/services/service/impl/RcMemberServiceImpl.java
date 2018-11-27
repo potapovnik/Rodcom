@@ -35,6 +35,14 @@ public class RcMemberServiceImpl implements IRcMemberService {
 
 
     @Override
+    public RcMemberDto getByEmail(String email) {
+        Optional<RcMember> memberOptional = repository.findByEmail(email);
+        if (!memberOptional.isPresent())
+            return null;
+        return memberMapper.toDto(memberOptional.get());
+    }
+
+    @Override
     public RcMemberDto getById(int id) {
         RcMember m = getMemberById(id);
         if (m == null)
@@ -73,8 +81,8 @@ public class RcMemberServiceImpl implements IRcMemberService {
     }
 
     @Override
-    public boolean deleteMember(RcMemberDto memberDto) {
-        RcMember member = getMemberById(memberDto.getMemberId());
+    public boolean deleteMember(int id) {
+        RcMember member = getMemberById(id);
         if (member == null)
             return false;
         repository.delete(member);

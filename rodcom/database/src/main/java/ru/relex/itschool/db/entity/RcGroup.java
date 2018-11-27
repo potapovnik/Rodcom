@@ -36,11 +36,12 @@ public class RcGroup {
     @Column(name = "is_enabled")
     private Boolean isEnabled;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    //@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "school_id")
     private RcSchool school;
 
-    @OneToMany(mappedBy = "toGroup")
+    @OneToMany(mappedBy = "toGroup", fetch =  FetchType.LAZY)
     private Set<RcMessage> messages = new HashSet<RcMessage>();
 
 

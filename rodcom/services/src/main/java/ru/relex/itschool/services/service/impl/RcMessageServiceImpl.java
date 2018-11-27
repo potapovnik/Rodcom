@@ -84,8 +84,8 @@ public class RcMessageServiceImpl implements IRcMessageService {
     }
 
     @Override
-    public boolean deleteMessage(RcMessageDto messageDto) {
-        RcMessage message = getMessageById(messageDto.getMessageId());
+    public boolean deleteMessage(int id) {
+        RcMessage message = getMessageById(id);
         if (message == null)
             return false;
         repository.delete(message);

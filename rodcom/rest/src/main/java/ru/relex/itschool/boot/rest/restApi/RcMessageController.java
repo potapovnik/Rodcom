@@ -25,24 +25,24 @@ public class RcMessageController {
     }
 
     @GetMapping("/get_to_group")
-    List<RcMessageDto> getMessagesToGroup(int groupId){
-        List<RcMessageDto> messagesDto = service.getMessagesToGroup(groupId);
+    List<RcMessageDto> getMessagesToGroup(int id){
+        List<RcMessageDto> messagesDto = service.getMessagesToGroup(id);
         if (messagesDto == null)
             throw new IllegalArgumentException();
         return messagesDto;
     }
 
     @GetMapping("/get_to_member")
-    List<RcMessageDto> getMessagesToMember(int memberId){
-        List<RcMessageDto> messagesDto = service.getMessagesToMember(memberId);
+    List<RcMessageDto> getMessagesToMember(int id){
+        List<RcMessageDto> messagesDto = service.getMessagesToMember(id);
         if (messagesDto == null)
             throw new IllegalArgumentException();
         return messagesDto;
     }
 
     @GetMapping("/get_from_member")
-    List<RcMessageDto> getMessagesFromMember(int memberId){
-        List<RcMessageDto> messagesDto = service.getMessagesFromMember(memberId);
+    List<RcMessageDto> getMessagesFromMember(int id){
+        List<RcMessageDto> messagesDto = service.getMessagesFromMember(id);
         if (messagesDto == null)
             throw new IllegalArgumentException();
         return messagesDto;
@@ -59,7 +59,7 @@ public class RcMessageController {
     }
 
     @DeleteMapping("/delete")
-    boolean deleteMessage(@RequestBody RcMessageDto messageDto){
-        return service.deleteMessage(messageDto);
+    boolean deleteMessage(int id){
+        return service.deleteMessage(id);
     }
 }
