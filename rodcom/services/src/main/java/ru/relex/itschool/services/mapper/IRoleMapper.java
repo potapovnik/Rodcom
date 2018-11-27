@@ -4,9 +4,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.ReportingPolicy;
-import org.mapstruct.factory.Mappers;
 import ru.relex.itschool.db.entity.RcRole;
-import ru.relex.itschool.services.modelDto.RoleDto;
+import ru.relex.itschool.services.modelDto.RcRoleDto;
 
 /**
  * @author Anton
@@ -21,7 +20,7 @@ public interface IRoleMapper {
     @Mappings({
             @Mapping(target = "roleId", ignore = true)
     })
-    RcRole fromDto(RoleDto roleDto);
+    RcRole fromDto(RcRoleDto roleDto);
 
-    RoleDto toDto(RcRole role);
+    RcRoleDto toDto(RcRole role);
 }
