@@ -43,6 +43,15 @@ public class RcMemberServiceImpl implements IRcMemberService {
     }
 
     @Override
+    public RcMemberDto getByEmail(final String email) {
+        return repository
+                .findByEmail(email)
+                .map(memberMapper::toDto)
+                .orElse(null);
+
+    }
+
+    @Override
     public RcMemberDto createMember(RcMemberDto memberDto) {
         RcMember member = memberMapper.fromDto(memberDto);
         member = repository.save(member);

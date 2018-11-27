@@ -11,12 +11,12 @@ import org.springframework. security.crypto.password.PasswordEncoder;
 @Mapper(componentModel = "spring")
 public abstract class IRcMemberMapper {
 
-/*  @Autowired
-  private PasswordEncoder passwordEncoder; */
+  @Autowired
+  private PasswordEncoder passwordEncoder;
 
   @Named("encode")
   protected char[] encode(char[] password) {
-    return password; /*passwordEncoder.encode(new String(password)).toCharArray()*/
+    return passwordEncoder.encode(new String(password)).toCharArray();
   }
 
   @Mappings({
@@ -24,6 +24,8 @@ public abstract class IRcMemberMapper {
           @Mapping(target = "fromMessages", ignore = true),
           @Mapping(target = "password", qualifiedByName = "encode", source = "password")
   })
+
+  @Mapping(target = "password", qualifiedByName = "encode", source = "password")
   public abstract RcMember fromDto(RcMemberDto memberDto);
 
   @Mapping(target = "password", ignore = true)
