@@ -35,6 +35,14 @@ public class RcMemberServiceImpl implements IRcMemberService {
 
 
     @Override
+    public RcMemberDto getByEmail(String email) {
+        Optional<RcMember> memberOptional = repository.findByEmail(email);
+        if (!memberOptional.isPresent())
+            return null;
+        return memberMapper.toDto(memberOptional.get());
+    }
+
+    @Override
     public RcMemberDto getById(int id) {
         RcMember m = getMemberById(id);
         if (m == null)

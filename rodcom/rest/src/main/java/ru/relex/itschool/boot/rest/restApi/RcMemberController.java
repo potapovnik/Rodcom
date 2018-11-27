@@ -24,6 +24,14 @@ public class RcMemberController {
         return memberDto;
     }
 
+    @GetMapping("/get_by_email")
+    RcMemberDto getById(String email){
+        RcMemberDto memberDto = service.getByEmail(email);
+        if (memberDto == null)
+            throw  new IllegalArgumentException();
+        return memberDto;
+    }
+
     @GetMapping("/get_all")
     List<RcMemberDto> getAll(){
         List<RcMemberDto> membersDto = service.getAllMembers();
