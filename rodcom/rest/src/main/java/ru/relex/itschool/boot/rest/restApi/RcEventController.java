@@ -39,9 +39,9 @@ public class RcEventController {
         return service.updateEvent(rcEventDto);
     }
 
-    @DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    boolean deleteEvent(@RequestBody RcEventDto rcEventDto) {
-        return service.deleteEvent(rcEventDto);
+    @DeleteMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    boolean deleteEvent(@RequestParam int id) {
+        return service.deleteEvent(id);
     }
 
     @GetMapping("/allEvent")
@@ -52,7 +52,8 @@ public class RcEventController {
 
     @GetMapping("/allMyEvent")
     List<RcEventDto> getAllMyEvent(int id) {
-        return service.getAllMyEvent(id);
+        return null;
+
     }
 
 
