@@ -39,10 +39,8 @@ public class GroupServiceImpl implements IGroupService {
     public GroupDto getById(int id) {
         Optional<RcGroup> group = groupRepository.findById(id);
 
-        if(group.isPresent())
-            return groupToDTO(groupRepository.getOne(id));
+        return group.map(this::groupToDTO).orElse(null);
 
-        return null;
     }
 
     @Override
