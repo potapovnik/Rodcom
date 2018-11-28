@@ -71,8 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         /*if (repository.count() == 0) {
             configuration = configuration.antMatchers(Url.INITIALIZE).permitAll();
         }*/
-
-        configuration.anyRequest().not().authenticated()//access(Roles.ADMIN)
+        configuration.anyRequest().authenticated()//access(Roles.ADMIN)
                 .and()
                 .addFilter(RelexAuthenticationFilter.builder()
                         .withURI(Url.LOGIN)

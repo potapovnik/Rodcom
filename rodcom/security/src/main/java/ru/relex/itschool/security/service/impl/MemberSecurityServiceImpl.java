@@ -29,7 +29,7 @@ public class MemberSecurityServiceImpl implements IMemberSecurityService {
     }
 
     private static UsernamePasswordAuthenticationToken toToken(RcMember member) {
-        return new UsernamePasswordAuthenticationToken(member.getEmail(), null//,
+        return new UsernamePasswordAuthenticationToken(member.getEmail(), null, null//,
                 /*user.getRole().getPermissions()
                         .stream()
                         .map(Permission::of)

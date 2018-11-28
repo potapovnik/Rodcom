@@ -77,7 +77,7 @@ public class TokenServiceImpl implements ITokenService {
                 .claim("refresh", "true")
                 .compact();
 
-        return new LoginResponse(member.getMemberId(), accessToken, refreshToken);
+        return new LoginResponse(accessToken, refreshToken);
     }
 
     @Override

@@ -5,20 +5,13 @@ package ru.relex.itschool.security.model;
  */
 public class LoginResponse {
 
-    private final int id;
-
     private final String accessToken;
 
     private final String refreshToken;
 
-    public LoginResponse(int id, String accessToken, String refreshToken) {
-        this.id = id;
+    public LoginResponse(String accessToken, String refreshToken) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getAccessToken() {
