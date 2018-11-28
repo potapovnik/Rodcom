@@ -31,21 +31,21 @@ public class RcMessageServiceImpl implements IRcMessageService {
     }
 
     public List<RcMessageDto> getMessagesToGroup(int groupId) {
-        List<RcMessage> messages = repository.findByToGroup(new RcGroup(groupId));
+        List<RcMessage> messages = repository.findByToGroup(new RcGroup(groupId), new Sort(Sort.Direction.DESC, "messageTime"));
         if (messages == null)
             return null;
         return messageMapper.toDto(messages);
     }
 
     public List<RcMessageDto> getMessagesToMember(int memberId) {
-        List<RcMessage> messages = repository.findByToMember(new RcMember(memberId));
+        List<RcMessage> messages = repository.findByToMember(new RcMember(memberId), new Sort(Sort.Direction.DESC, "messageTime"));
         if (messages == null)
             return null;
         return messageMapper.toDto(messages);
     }
 
     public List<RcMessageDto> getMessagesFromMember(int memberId) {
-        List<RcMessage> messages = repository.findByFromMember(new RcMember(memberId));
+        List<RcMessage> messages = repository.findByFromMember(new RcMember(memberId), new Sort(Sort.Direction.DESC, "messageTime"));
         if (messages == null)
             return null;
         return messageMapper.toDto(messages);
@@ -84,8 +84,8 @@ public class RcMessageServiceImpl implements IRcMessageService {
     }
 
     @Override
-    public boolean deleteMessage(RcMessageDto messageDto) {
-        RcMessage message = getMessageById(messageDto.getMessageId());
+    public boolean deleteMessage(int id) {
+        RcMessage message = getMessageById(id);
         if (message == null)
             return false;
         repository.delete(message);

@@ -2,8 +2,8 @@ package ru.relex.itschool.boot.rest.restApi;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import ru.relex.itschool.services.modelDto.RoleDto;
-import ru.relex.itschool.services.service.IRoleService;
+import ru.relex.itschool.services.modelDto.RcRoleDto;
+import ru.relex.itschool.services.service.IRcRoleService;
 import java.util.List;
 
 /**
@@ -15,38 +15,40 @@ import java.util.List;
 @RequestMapping("/roles")
 public class RoleController {
 
-    private final IRoleService service;
-    public RoleController(IRoleService roleService) {
+    private final IRcRoleService service;
+    public RoleController(IRcRoleService roleService) {
         this.service = roleService;
     }
 
-    @GetMapping(path = "/{id}")
-    RoleDto getRoleById(@PathVariable("id") int id) {
-
-        RoleDto roleDto = service.getById(id);
+    @GetMapping("/get")
+    RcRoleDto getById(int id) {
+        RcRoleDto roleDto = service.getById(id);
         if(roleDto == null)
             throw new IllegalArgumentException();
 
         return roleDto;
     }
-    @GetMapping(path = "/all")
-    List<RoleDto> getAllRoles() {
-        return service.getAll();
+
+    @GetMapping("/get_all")
+    List<RcRoleDto> getAll() {
+        List<RcRoleDto> rolesDto = service.getAll();
+        if (rolesDto == null)
+            throw new IllegalArgumentException();
+        return rolesDto;
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    RoleDto createRole(@RequestBody RoleDto roleDto) {
+    @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    RcRoleDto createRole(@RequestBody RcRoleDto roleDto) {
         return service.createRole(roleDto);
     }
 
-    @PutMapping(path = "/{id}")
-    RoleDto updateRole(@PathVariable("id") int id, @RequestBody RoleDto roleDto) {
-        roleDto.setRoleId(id);
+    @PutMapping("/update")
+    boolean updateRole(@RequestBody RcRoleDto roleDto){
         return service.updateRole(roleDto);
     }
 
-    @DeleteMapping(path = "/{id}")
-    RoleDto deleteRole(@PathVariable("id") int id) {
+    @DeleteMapping("/delete")
+    boolean deleteRole(int id) {
         return service.deleteRole(id);
     }
 }

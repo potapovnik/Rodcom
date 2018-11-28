@@ -210,6 +210,8 @@
             insert into RC_GROUP(GROUP_ID, GROUP_DESC, GROUP_NAME, GROUP_TYPE,
                                  IS_ENABLED, SCHOOL_ID) values
             (1, 'Group administrator', 'ADMIN', NULL, TRUE, 1);
+            (NEXTVAL('RC_MEMBER_SEQ'), 'System administrator', now(), NULL, NULL, NULL, NULL, NULL, NULL,
+             'admin@relex.ru', NULL, NULL, NULL, NULL,'123456');
         </sql>
     </changeSet>
 </databaseChangeLog>

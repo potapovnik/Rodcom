@@ -41,11 +41,11 @@ public class RcMember {
     @Column(name = "password", nullable = false, columnDefinition = "bpchar")
     private char[] password;
 
-    @OneToMany(mappedBy = "toMember")
-    private Set<RcMessage> toMessages = new HashSet<RcMessage>();
+        @OneToMany(mappedBy = "toMember", fetch =  FetchType.LAZY)
+        private Set<RcMessage> toMessages = new HashSet<RcMessage>();
 
-    @OneToMany(mappedBy = "fromMember")
-    private Set<RcMessage> fromMessages = new HashSet<RcMessage>();
+        @OneToMany(mappedBy = "fromMember", fetch =  FetchType.LAZY)
+        private Set<RcMessage> fromMessages = new HashSet<RcMessage>();
 
     public RcMember() {
     }

@@ -24,6 +24,14 @@ public class RcMemberController {
         return memberDto;
     }
 
+    @GetMapping("/get_by_email")
+    RcMemberDto getById(String email){
+        RcMemberDto memberDto = service.getByEmail(email);
+        if (memberDto == null)
+            throw  new IllegalArgumentException();
+        return memberDto;
+    }
+
     @GetMapping("/get_all")
     List<RcMemberDto> getAll(){
         List<RcMemberDto> membersDto = service.getAllMembers();
@@ -43,7 +51,7 @@ public class RcMemberController {
     }
 
     @DeleteMapping("/delete")
-    boolean deleteMember(@RequestBody RcMemberDto memberDto){
-        return service.deleteMember(memberDto);
+    boolean deleteMember(int id){
+        return service.deleteMember(id);
     }
 }
