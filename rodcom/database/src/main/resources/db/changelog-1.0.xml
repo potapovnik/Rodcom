@@ -64,7 +64,7 @@
             VK varchar(50),
             OK varchar(50),
             TWIT varchar(100),
-            PASSWORD CHAR(144) NOT NULL
+            PASSWORD char(144) NOT NULL
             );
             create sequence RC_MEMBER_SEQ;
 
@@ -196,8 +196,16 @@
             insert into RC_MEMBER(MEMBER_ID, ANNOTATION, ACTUAL_DATE, FIRST_NAME, 
                                   MIDDLE_NAME, LAST_NAME, PHONE, PHONE2, ADDRESS, 
                                   EMAIL, SKYPE, VK, OK, TWIT, PASSWORD) values
-            (NEXTVAL('RC_MEMBER_SEQ'), 'System administrator', now(), NULL, NULL, NULL, NULL, NULL, NULL, 
-             'admin@relex.ru', NULL, NULL, NULL, NULL,'123456');
+            (NEXTVAL('RC_MEMBER_SEQ'), 'System administrator', now(), NULL, NULL, NULL, NULL, NULL, NULL,
+             'admin@relex.ru', NULL, NULL, NULL, NULL,
+            '2ae3b0e976b2f8727df5fff3e3d9c2e63ae450289b4108e6db9a8069e5dc9f10791794270b16f1f72960ce4d9964dcd4cbd7a0fea0973408856268502da402055966681c4b3b76aa');
+
+            insert into RC_SCHOOL(SCHOOL_ID, SCHOOL_NAME) values
+            (1, 'School 1');
+
+            insert into RC_GROUP(GROUP_ID, GROUP_DESC, GROUP_NAME, GROUP_TYPE,
+                                 IS_ENABLED, SCHOOL_ID) values
+            (1, 'Group administrator', 'ADMIN', NULL, TRUE, 1);
         </sql>
     </changeSet>
 </databaseChangeLog>

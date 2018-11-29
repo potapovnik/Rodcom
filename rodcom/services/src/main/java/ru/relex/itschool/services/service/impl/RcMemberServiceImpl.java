@@ -23,23 +23,12 @@ public class RcMemberServiceImpl implements IRcMemberService {
 
     public RcMember getMemberById(int id) {
         Optional<RcMember> memberOptional = repository.findById(id);
-        if (!memberOptional.isPresent())
-            return null;
-        return memberOptional.get();
+        return memberOptional.orElse(null);
     }
 
     public List<RcMemberDto> getAllMembers() {
         List<RcMember> members = repository.findAll(new Sort(Sort.Direction.ASC, "lastName"));
         return memberMapper.toDto(members);
-    }
-
-
-    @Override
-    public RcMemberDto getByEmail(String email) {
-        Optional<RcMember> memberOptional = repository.findByEmail(email);
-        if (!memberOptional.isPresent())
-            return null;
-        return memberMapper.toDto(memberOptional.get());
     }
 
     @Override
@@ -48,6 +37,15 @@ public class RcMemberServiceImpl implements IRcMemberService {
         if (m == null)
             return null;
         return memberMapper.toDto(m);
+    }
+
+    @Override
+    public RcMemberDto getByEmail(final String email) {
+        return repository
+                .findByEmail(email)
+                .map(memberMapper::toDto)
+                .orElse(null);
+
     }
 
     @Override
@@ -76,6 +74,9 @@ public class RcMemberServiceImpl implements IRcMemberService {
         member.setVk(memberDto.getVk());
         member.setOk(memberDto.getOk());
         member.setTwit(memberDto.getTwit());
+        /* change password in case it was defined (only): */
+        if (memberDto.getPassword() != null && memberDto.getPassword().length > 0)
+            member.setPassword(memberMapper.encode(memberDto.getPassword()));
         member = repository.save(member);
         return true;
     }
