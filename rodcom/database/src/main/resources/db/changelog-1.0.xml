@@ -105,7 +105,6 @@
             CREATE TABLE RC_EVENT
             (
             event_id int PRIMARY KEY,
-            group_id int,
             school_id int,
             event_type varchar(100),
             event_name varchar(100),
@@ -166,9 +165,6 @@
             ADD CONSTRAINT fk_group_member_role
             FOREIGN KEY(ROLE_ID) REFERENCES RC_ROLE ON DELETE CASCADE;
 
-            ALTER TABLE RC_EVENT
-            ADD CONSTRAINT fk_event_group
-            FOREIGN KEY(GROUP_ID) REFERENCES RC_GROUP ON DELETE CASCADE;
 
             ALTER TABLE RC_EVENT
             ADD CONSTRAINT fk_event_school

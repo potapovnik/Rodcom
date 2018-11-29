@@ -30,7 +30,7 @@ public class RcEventController {
     }
 
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    RcEventDto createEvent(@RequestBody @Valid RcEventDto rcEventDto) {
+    RcEventDto createEvent(@RequestBody RcEventDto rcEventDto) {
         return service.createEvent(rcEventDto);
     }
 

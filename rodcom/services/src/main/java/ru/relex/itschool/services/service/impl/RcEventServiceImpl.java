@@ -2,12 +2,12 @@ package ru.relex.itschool.services.service.impl;
 
 import org.springframework.stereotype.Service;
 import ru.relex.itschool.db.entity.RcEvent;
-import ru.relex.itschool.db.entity.RcEventMember;
 import ru.relex.itschool.db.repository.IRcEventMemberRepository;
 import ru.relex.itschool.db.repository.IRcEventRepository;
 import ru.relex.itschool.services.mapper.IEventMapper;
+import ru.relex.itschool.services.mapper.IRcMemberMapper;
 import ru.relex.itschool.services.modelDto.RcEventDto;
-import ru.relex.itschool.services.modelDto.RcEventMemberDto;
+import ru.relex.itschool.services.modelDto.RcMemberDto;
 import ru.relex.itschool.services.service.IRcEventService;
 
 import java.util.ArrayList;
@@ -18,11 +18,13 @@ import java.util.Optional;
 public class RcEventServiceImpl implements IRcEventService {
     private final IRcEventRepository repository;
     private final IEventMapper mapper;
+    private final IRcMemberMapper memberMapper;
     private final RcEventMemberServiceImpl serviceEventMember;
 
-    public RcEventServiceImpl(IRcEventRepository repository, IEventMapper mapper, IRcEventMemberRepository iRcEventMemberRepository, RcEventMemberServiceImpl service) {
+    public RcEventServiceImpl(IRcEventRepository repository, IEventMapper mapper, IRcEventMemberRepository iRcEventMemberRepository, IRcMemberMapper memberMapper, RcEventMemberServiceImpl service) {
         this.repository = repository;
         this.mapper = mapper;
+        this.memberMapper = memberMapper;
         this.serviceEventMember = service;
     }
 
@@ -46,8 +48,16 @@ public class RcEventServiceImpl implements IRcEventService {
 
     @Override
     public List<RcEventDto> getAllEvent() {
+
         List<RcEvent> rcEvent=repository.findAll();
-        return mapper.toDto(rcEvent);
+        List<RcEventDto> rcEventDto=mapper.toDto(rcEvent);
+       /* for (int i=0;i<rcEvent.size();i++){
+            RcEventDto rcEventDtos=mapper.toDto(rcEvent.get(i));
+            List<RcMemberDto> rcMemberDtos=memberMapper.toDto(rcEvent.get(i).getMembers());
+            rcEventDtos.setMembers(rcMemberDtos);
+            rcEventDto.add(rcEventDtos);
+        }*/
+        return rcEventDto;
     }
 
 
