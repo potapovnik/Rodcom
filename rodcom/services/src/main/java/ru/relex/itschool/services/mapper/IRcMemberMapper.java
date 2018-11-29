@@ -14,7 +14,7 @@ public abstract class IRcMemberMapper {
   private PasswordEncoder passwordEncoder;
 
   @Named("encode")
-  protected char[] encode(char[] password) {
+  public char[] encode(char[] password) {
     return passwordEncoder.encode(new String(password)).toCharArray();
   }
 

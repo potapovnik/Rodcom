@@ -74,6 +74,9 @@ public class RcMemberServiceImpl implements IRcMemberService {
         member.setVk(memberDto.getVk());
         member.setOk(memberDto.getOk());
         member.setTwit(memberDto.getTwit());
+        /* change password in case it was defined (only): */
+        if (memberDto.getPassword() != null && memberDto.getPassword().length > 0)
+            member.setPassword(memberMapper.encode(memberDto.getPassword()));
         member = repository.save(member);
         return true;
     }
