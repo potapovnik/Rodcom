@@ -34,6 +34,13 @@ public class GroupServiceImpl implements IGroupService {
         this.groupMapper = groupMapper;
     }
 
+    // Ace not tested
+    public RcGroup getGroupById(int id) {
+        Optional<RcGroup> groupOptional = groupRepository.findById(id);
+        if (!groupOptional.isPresent())
+            return null;
+        return groupOptional.get();
+    }
 
     @Override
     public GroupDto getById(int id) {

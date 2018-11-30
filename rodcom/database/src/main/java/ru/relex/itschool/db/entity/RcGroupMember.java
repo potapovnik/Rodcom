@@ -39,27 +39,27 @@ public class RcGroupMember {
     	this.group_member_id = id;
     }
 
-    public int getGroup_Id() {
+    public int getGroup_id() {
     	return group_id;
     }
 
-    public void setGroup_Id(int id) {
+    public void setGroup_id(int id) {
         this.group_id = id;
     }
 
-    public int getMember_Id() {
+    public int getMember_id() {
         return member_id;
     }
 
-    public void setMember_Id(int id) {
+    public void setMember_id(int id) {
         this.member_id = id;
     }
 
-    public int getRole_Id() {
+    public int getRole_id() {
         return role_id;
     }
 
-    public void setRole_Id(int id) {
+    public void setRole_id(int id) {
         this.role_id = id;
     }
 

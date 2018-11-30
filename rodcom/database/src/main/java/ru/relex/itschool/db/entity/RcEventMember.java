@@ -38,7 +38,7 @@ public class RcEventMember {
     public int getRole_id(){return role_id;}
     public void setRole_id(int role_id){this.role_id=role_id;}
 
-    public boolean isIs_enabled(){return is_enabled;}
+    public boolean getIs_enabled(){return is_enabled;}
     public void setIs_enabled(boolean is_enabled){this.is_enabled=is_enabled;}
 
     public boolean getIs_notify(){return is_notify;}
