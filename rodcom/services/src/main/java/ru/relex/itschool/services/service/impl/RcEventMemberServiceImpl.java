@@ -83,7 +83,7 @@ public class RcEventMemberServiceImpl implements IRcEventMemberService {
             if (rcEventMembers.get(i).getEvent_id()==idEvent&&rcEventMembers.get(i).getMember_id()==idUser){
                 rcEventMembersDop.setEvent_member_id(rcEventMembers.get(i).getEvent_member_id());
                 rcEventMembersDop.setIs_notify(rcEventMembers.get(i).getIs_notify());
-                rcEventMembersDop.setIs_enabled(rcEventMembers.get(i).isIs_enabled());
+                rcEventMembersDop.setIs_enabled(rcEventMembers.get(i).getIs_enabled());
             }
         }
         repository.delete(rcEventMembersDop);
