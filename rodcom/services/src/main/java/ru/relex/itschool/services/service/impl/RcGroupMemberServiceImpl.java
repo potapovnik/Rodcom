@@ -36,7 +36,7 @@ public class RcGroupMemberServiceImpl implements IRcGroupMemberService {
 
     @Override
     public List<RcGroupMemberDto> getByGroup(int groupId) {
-        List<RcGroupMember> members = repository.findByGroup(groupId);
+        List<RcGroupMember> members = repository.findByGroupId(groupId);
         return mapper.toDto(members);
     }
 

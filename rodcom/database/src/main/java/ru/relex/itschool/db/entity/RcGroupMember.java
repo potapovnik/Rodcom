@@ -12,21 +12,23 @@ public class RcGroupMember {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rc_group_member_seq_gen")
     @SequenceGenerator(name="rc_group_member_seq_gen", sequenceName="RC_GROUP_MEMBER_SEQ", allocationSize = 1)
     private int group_member_id;
-    private int group_id;
+    @Column(name = "group_id")
+    private int groupId;
     private int member_id;
-    private int role_id;
+    @Column(name = "role_id")
+    private int roleId;
     private boolean is_enabled;
     private boolean is_notify;
 
     public RcGroupMember() {
     }
 
-    public RcGroupMember(int group_id, int member_id, int role_id,
+    public RcGroupMember(int groupId, int member_id, int roleId,
                          boolean is_enabled, boolean is_notify) {
         super();
-        this.group_id = group_id;
+        this.groupId = groupId;
         this.member_id = member_id;
-        this.role_id = role_id;
+        this.roleId = roleId;
         this.is_enabled = is_enabled;
         this.is_notify = is_notify;
     }
@@ -39,12 +41,12 @@ public class RcGroupMember {
     	this.group_member_id = id;
     }
 
-    public int getGroup_id() {
-    	return group_id;
+    public int getGroupId() {
+    	return groupId;
     }
 
-    public void setGroup_id(int id) {
-        this.group_id = id;
+    public void setGroupId(int id) {
+        this.groupId = id;
     }
 
     public int getMember_id() {
@@ -55,12 +57,12 @@ public class RcGroupMember {
         this.member_id = id;
     }
 
-    public int getRole_id() {
-        return role_id;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public void setRole_id(int id) {
-        this.role_id = id;
+    public void setRoleId(int id) {
+        this.roleId = id;
     }
 
     public boolean getIs_enabled() {
