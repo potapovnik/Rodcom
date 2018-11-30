@@ -8,8 +8,8 @@ public interface IRcEventService{
         public RcEventDto getById(int id);
         public RcEventDto createEvent(RcEventDto rcEventDto);
         public List<RcEventDto> getAllEvent();
-/*        public List<RcEventDto> getAllMyEvent(int id);*/
+        //public List<RcEventDto> getAllMyEvent(int id);
         public boolean updateEvent(RcEventDto rcEventDto);
-        public boolean deleteEvent(RcEventDto rcEventDto);
+        public boolean deleteEvent(int id);
 
 }
