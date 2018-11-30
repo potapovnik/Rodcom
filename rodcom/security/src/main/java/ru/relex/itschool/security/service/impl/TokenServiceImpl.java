@@ -65,7 +65,7 @@ public class TokenServiceImpl implements ITokenService {
                 Jwts.builder().signWith(SIGNING_KEY)
                         .setSubject(username)
                         .setIssuedAt(Date.from(now))
-                        .setExpiration(Date.from(now.plus(/*5 temporary !!! */ 30 * 60, ChronoUnit.SECONDS)))
+                        .setExpiration(Date.from(now.plus(/* 5 temporary !!! */ 60 * 60, ChronoUnit.SECONDS)))
                         .claim("uid", member.getMemberId())
                         //.claim("role", member.getRole())
                         .compact();
